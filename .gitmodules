@@ -1,0 +1,3 @@
+[submodule "parser-lua"]
+	path = parser-lua
+	url = https://github.com/qwreey/parser-lua
