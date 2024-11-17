@@ -20,6 +20,10 @@ Function to perform each stage, or use parseString for get final result.
 
 Please check type defines in init.luau for get result formats.
 
+# Example
+
+To run example file, run `lune run example`.
+
 ## TODO
 
 - interface tag
