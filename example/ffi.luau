@@ -1,6 +1,6 @@
 --[=[
-	@unreleased
 	@class FFI
+	@unreleased
 
 	> Note: **This library is technical preview**, not completed yet. Behaviors can be changed in future.
 
@@ -913,7 +913,6 @@ c.void = {} :: CVoidInfo
 --[=[
 	@prop u8 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A 8-bit sized unsigned integer, Equivalent to `uint8_t` in `stdint`.
 ]=]
@@ -922,7 +921,6 @@ export type u8 = NumCType<"u8">
 --[=[
 	@prop u16 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A 16-bit sized unsigned integer, Equivalent to `uint16_t` in `stdint`.
 ]=]
@@ -931,7 +929,6 @@ export type u16 = NumCType<"u16">
 --[=[
 	@prop u32 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A 32-bit sized unsigned integer, Equivalent to `uint32_t` in `stdint`.
 ]=]
@@ -940,7 +937,6 @@ export type u32 = NumCType<"u32">
 --[=[
 	@prop u64 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A 64-bit sized unsigned integer, Equivalent to `uint64_t` in `stdint`.
 ]=]
@@ -949,7 +945,6 @@ export type u64 = NumCType<"u64">
 --[=[
 	@prop u128 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A 128-bit sized unsigned integer, Equivalent to `uint128_t` in `stdint`.
 ]=]
@@ -958,7 +953,6 @@ export type u128 = NumCType<"u128">
 --[=[
 	@prop i8 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A 8-bit sized signed integer, Equivalent to `int8_t` in `stdint`.
 ]=]
@@ -967,7 +961,6 @@ export type i8 = NumCType<"i8">
 --[=[
 	@prop i16 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A 16-bit sized signed integer, Equivalent to `int16_t` in `stdint`.
 ]=]
@@ -976,7 +969,6 @@ export type i16 = NumCType<"i16">
 --[=[
 	@prop i32 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A 32-bit sized signed integer, Equivalent to `int32_t` in `stdint`.
 ]=]
@@ -985,7 +977,6 @@ export type i32 = NumCType<"i32">
 --[=[
 	@prop i64 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A 64-bit sized signed integer, Equivalent to `int64_t` in `stdint`.
 ]=]
@@ -994,7 +985,6 @@ export type i64 = NumCType<"i64">
 --[=[
 	@prop i128 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A 128-bit sized signed integer, Equivalent to `int128_t` in `stdint`.
 ]=]
@@ -1003,7 +993,6 @@ export type i128 = NumCType<"i128">
 --[=[
 	@prop f32 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A single-precision 32-bit sized floating-point, Almost always equivalent to `float` in C.
 ]=]
@@ -1012,7 +1001,6 @@ export type f32 = NumCType<"f32">
 --[=[
 	@prop f64 CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A double-precision 64-bit sized floating-point, Almost always equivalent to `double` in C.
 ]=]
@@ -1021,7 +1009,6 @@ export type f64 = NumCType<"f64">
 --[=[
 	@prop usize CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A machine specific pointer sized unsigned integer.
 ]=]
@@ -1030,7 +1017,6 @@ export type usize = NumCType<"usize">
 --[=[
 	@prop isize CTypeInfo
 	@within FFI
-	@tag NumCType
 
 	A machine specific pointer sized signed integer.
 ]=]
@@ -1182,7 +1168,6 @@ export type CTypes =
 
 --[=[
 	@within C
-	@function fn
 
 	Create a function signature type information.
 
@@ -1196,7 +1181,6 @@ end
 
 --[=[
 	@within C
-	@function struct
 
 	Create a struct type information.
 
@@ -1209,7 +1193,6 @@ end
 
 --[=[
 	@within FFI
-	@function nullRef
 
 	Create a `Ref` with address 0.
 
@@ -1223,7 +1206,6 @@ end
 
 --[=[
 	@within FFI
-	@function box
 
 	Create a `Box` with specific size.
 	The created box is not filed with zero.
@@ -1237,7 +1219,6 @@ end
 
 --[=[
 	@within FFI
-	@function open
 
 	Open a dynamic library.
 
@@ -1250,7 +1231,6 @@ end
 
 --[=[
 	@within FFI
-	@function isInteger
 
 	Return `true` if the second argument is an integer (i32).
 
@@ -1263,7 +1243,6 @@ end
 
 --[=[
 	@within FFI
-	@function free
 
 	Free referenced memory.
 

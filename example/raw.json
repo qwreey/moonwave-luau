@@ -1,6 +1,6 @@
 [
   {
-    "comments": "@unreleased\n@class FFI\n\n> Note: **This library is technical preview**, not completed yet. Behaviors can be changed in future.\n\nBuilt-in library for foreign function interface.\n\n### Example usage\nlib.c:\n```c\nint add(int a, int b) {\n\treturn a + b;\n}\n```\ninit.luau:\n```lua\nlocal ffi = require(\"@lune/ffi\")\n\n-- Create function signature\nlocal addSignature = ffi.c.fn({ ffi.c.int, ffi.c.int }, ffi.c.int)\n\n-- Load library\nlocal lib = ffi.open(\"./lib.so\")\n\n-- Get symbol from library\nlocal addSymbol = lib:find(\"add\")\n\n-- Create CallableData\nlocal add = addSignature:callable(addSymbol)\n\n-- Create result box and arguments\nlocal result = ffi.box(ffi.c.int.size)\nlocal a = ffi.c.int:box(1)\nlocal b = ffi.c.int:box(2)\n\n-- Call external function\nadd(result, a:ref(), b:ref())\n\n-- Get number from result\nprint(ffi.c.int:readData(result))\n```\n",
+    "comments": "@class FFI\n@unreleased\n\n> Note: **This library is technical preview**, not completed yet. Behaviors can be changed in future.\n\nBuilt-in library for foreign function interface.\n\n### Example usage\nlib.c:\n```c\nint add(int a, int b) {\n\treturn a + b;\n}\n```\ninit.luau:\n```lua\nlocal ffi = require(\"@lune/ffi\")\n\n-- Create function signature\nlocal addSignature = ffi.c.fn({ ffi.c.int, ffi.c.int }, ffi.c.int)\n\n-- Load library\nlocal lib = ffi.open(\"./lib.so\")\n\n-- Get symbol from library\nlocal addSymbol = lib:find(\"add\")\n\n-- Create CallableData\nlocal add = addSignature:callable(addSymbol)\n\n-- Create result box and arguments\nlocal result = ffi.box(ffi.c.int.size)\nlocal a = ffi.c.int:box(1)\nlocal b = ffi.c.int:box(2)\n\n-- Call external function\nadd(result, a:ref(), b:ref())\n\n-- Get number from result\nprint(ffi.c.int:readData(result))\n```\n",
     "linenums": [
       2,
       3,
@@ -915,79 +915,80 @@
     ]
   },
   {
-    "comments": "@prop u8 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 8-bit sized unsigned integer, Equivalent to `uint8_t` in `stdint`.\n",
+    "comments": "@prop u8 CTypeInfo\n@within FFI\n\nA 8-bit sized unsigned integer, Equivalent to `uint8_t` in `stdint`.\n",
     "linenums": [
       914,
       915,
       916,
-      917,
-      918
+      917
     ]
   },
   {
-    "comments": "@prop u16 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 16-bit sized unsigned integer, Equivalent to `uint16_t` in `stdint`.\n",
+    "comments": "@prop u16 CTypeInfo\n@within FFI\n\nA 16-bit sized unsigned integer, Equivalent to `uint16_t` in `stdint`.\n",
     "linenums": [
+      922,
       923,
       924,
-      925,
-      926,
-      927
+      925
     ]
   },
   {
-    "comments": "@prop u32 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 32-bit sized unsigned integer, Equivalent to `uint32_t` in `stdint`.\n",
+    "comments": "@prop u32 CTypeInfo\n@within FFI\n\nA 32-bit sized unsigned integer, Equivalent to `uint32_t` in `stdint`.\n",
     "linenums": [
+      930,
+      931,
       932,
-      933,
-      934,
-      935,
-      936
+      933
     ]
   },
   {
-    "comments": "@prop u64 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 64-bit sized unsigned integer, Equivalent to `uint64_t` in `stdint`.\n",
+    "comments": "@prop u64 CTypeInfo\n@within FFI\n\nA 64-bit sized unsigned integer, Equivalent to `uint64_t` in `stdint`.\n",
     "linenums": [
-      941,
-      942,
-      943,
-      944,
-      945
+      938,
+      939,
+      940,
+      941
     ]
   },
   {
-    "comments": "@prop u128 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 128-bit sized unsigned integer, Equivalent to `uint128_t` in `stdint`.\n",
+    "comments": "@prop u128 CTypeInfo\n@within FFI\n\nA 128-bit sized unsigned integer, Equivalent to `uint128_t` in `stdint`.\n",
     "linenums": [
-      950,
-      951,
-      952,
-      953,
-      954
+      946,
+      947,
+      948,
+      949
     ]
   },
   {
-    "comments": "@prop i8 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 8-bit sized signed integer, Equivalent to `int8_t` in `stdint`.\n",
+    "comments": "@prop i8 CTypeInfo\n@within FFI\n\nA 8-bit sized signed integer, Equivalent to `int8_t` in `stdint`.\n",
     "linenums": [
-      959,
-      960,
-      961,
+      954,
+      955,
+      956,
+      957
+    ]
+  },
+  {
+    "comments": "@prop i16 CTypeInfo\n@within FFI\n\nA 16-bit sized signed integer, Equivalent to `int16_t` in `stdint`.\n",
+    "linenums": [
       962,
-      963
+      963,
+      964,
+      965
     ]
   },
   {
-    "comments": "@prop i16 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 16-bit sized signed integer, Equivalent to `int16_t` in `stdint`.\n",
+    "comments": "@prop i32 CTypeInfo\n@within FFI\n\nA 32-bit sized signed integer, Equivalent to `int32_t` in `stdint`.\n",
     "linenums": [
-      968,
-      969,
       970,
       971,
-      972
+      972,
+      973
     ]
   },
   {
-    "comments": "@prop i32 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 32-bit sized signed integer, Equivalent to `int32_t` in `stdint`.\n",
+    "comments": "@prop i64 CTypeInfo\n@within FFI\n\nA 64-bit sized signed integer, Equivalent to `int64_t` in `stdint`.\n",
     "linenums": [
-      977,
       978,
       979,
       980,
@@ -995,270 +996,276 @@
     ]
   },
   {
-    "comments": "@prop i64 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 64-bit sized signed integer, Equivalent to `int64_t` in `stdint`.\n",
+    "comments": "@prop i128 CTypeInfo\n@within FFI\n\nA 128-bit sized signed integer, Equivalent to `int128_t` in `stdint`.\n",
     "linenums": [
       986,
       987,
       988,
-      989,
-      990
+      989
     ]
   },
   {
-    "comments": "@prop i128 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 128-bit sized signed integer, Equivalent to `int128_t` in `stdint`.\n",
+    "comments": "@prop f32 CTypeInfo\n@within FFI\n\nA single-precision 32-bit sized floating-point, Almost always equivalent to `float` in C.\n",
     "linenums": [
+      994,
       995,
       996,
-      997,
-      998,
-      999
+      997
     ]
   },
   {
-    "comments": "@prop f32 CTypeInfo\n@within FFI\n@tag NumCType\n\nA single-precision 32-bit sized floating-point, Almost always equivalent to `float` in C.\n",
+    "comments": "@prop f64 CTypeInfo\n@within FFI\n\nA double-precision 64-bit sized floating-point, Almost always equivalent to `double` in C.\n",
     "linenums": [
+      1002,
+      1003,
       1004,
-      1005,
-      1006,
-      1007,
-      1008
+      1005
     ]
   },
   {
-    "comments": "@prop f64 CTypeInfo\n@within FFI\n@tag NumCType\n\nA double-precision 64-bit sized floating-point, Almost always equivalent to `double` in C.\n",
+    "comments": "@prop usize CTypeInfo\n@within FFI\n\nA machine specific pointer sized unsigned integer.\n",
     "linenums": [
-      1013,
-      1014,
-      1015,
-      1016,
-      1017
+      1010,
+      1011,
+      1012,
+      1013
     ]
   },
   {
-    "comments": "@prop usize CTypeInfo\n@within FFI\n@tag NumCType\n\nA machine specific pointer sized unsigned integer.\n",
+    "comments": "@prop isize CTypeInfo\n@within FFI\n\nA machine specific pointer sized signed integer.\n",
     "linenums": [
-      1022,
-      1023,
-      1024,
-      1025,
-      1026
-    ]
-  },
-  {
-    "comments": "@prop isize CTypeInfo\n@within FFI\n@tag NumCType\n\nA machine specific pointer sized signed integer.\n",
-    "linenums": [
-      1031,
-      1032,
-      1033,
-      1034,
-      1035
+      1018,
+      1019,
+      1020,
+      1021
     ]
   },
   {
     "comments": "@prop char CTypeInfo\n@within C\n\nCompiler defined C `char` type.\n\nThe signedness may differ depending on the compiler and platform.\n\nYou can get signedness by `signedness` field.\n",
     "linenums": [
-      1043,
-      1044,
-      1045,
-      1046,
-      1047,
-      1048,
-      1049,
-      1050
+      1029,
+      1030,
+      1031,
+      1032,
+      1033,
+      1034,
+      1035,
+      1036
     ]
   },
   {
     "comments": "@prop uchar CTypeInfo\n@within C\n\nCompiler defined C `unsigned char` type.\n\nMostly equivalent to `u8`.\n",
     "linenums": [
-      1055,
-      1056,
-      1057,
-      1058,
-      1059,
-      1060
+      1041,
+      1042,
+      1043,
+      1044,
+      1045,
+      1046
     ]
   },
   {
     "comments": "@prop schar CTypeInfo\n@within C\n\nCompiler defined C `signed char` type.\n",
     "linenums": [
-      1065,
-      1066,
-      1067,
-      1068
+      1051,
+      1052,
+      1053,
+      1054
     ]
   },
   {
     "comments": "@prop short CTypeInfo\n@within C\n\nCompiler defined C `short` type.\n",
     "linenums": [
-      1073,
-      1074,
-      1075,
-      1076
+      1059,
+      1060,
+      1061,
+      1062
     ]
   },
   {
     "comments": "@prop ushort CTypeInfo\n@within C\n\nCompiler defined C `unsigned short` type.\n",
     "linenums": [
-      1081,
-      1082,
-      1083,
-      1084
+      1067,
+      1068,
+      1069,
+      1070
     ]
   },
   {
     "comments": "@prop int CTypeInfo\n@within C\n\nCompiler defined C `int` type.\n\nThe side may differ depending on the compiler and platform.\n",
     "linenums": [
-      1089,
-      1090,
-      1091,
-      1092,
-      1093,
-      1094
+      1075,
+      1076,
+      1077,
+      1078,
+      1079,
+      1080
     ]
   },
   {
     "comments": "@prop uint CTypeInfo\n@within C\n\nCompiler defined C `unsigned int` type.\n\nThe side may differ depending on the compiler and platform.\n",
     "linenums": [
-      1099,
-      1100,
-      1101,
-      1102,
-      1103,
-      1104
+      1085,
+      1086,
+      1087,
+      1088,
+      1089,
+      1090
     ]
   },
   {
     "comments": "@prop long CTypeInfo\n@within C\n\nCompiler defined C `long` type.\n\nThe side may differ depending on the compiler and platform.\n",
     "linenums": [
-      1109,
-      1110,
-      1111,
-      1112,
-      1113,
-      1114
+      1095,
+      1096,
+      1097,
+      1098,
+      1099,
+      1100
     ]
   },
   {
     "comments": "@prop ulong CTypeInfo\n@within C\n\nCompiler defined C `unsigned long` type.\n\nThe side may differ depending on the compiler and platform.\n",
     "linenums": [
-      1119,
-      1120,
-      1121,
-      1122,
+      1105,
+      1106,
+      1107,
+      1108,
+      1109,
+      1110
+    ]
+  },
+  {
+    "comments": "@prop longlong CTypeInfo\n@within C\n\nCompiler defined C `unsigned longlong` type.\n",
+    "linenums": [
+      1115,
+      1116,
+      1117,
+      1118
+    ]
+  },
+  {
+    "comments": "@prop longlong CTypeInfo\n@within C\n\nCompiler defined C `unsigned longlong` type.\n",
+    "linenums": [
       1123,
-      1124
-    ]
-  },
-  {
-    "comments": "@prop longlong CTypeInfo\n@within C\n\nCompiler defined C `unsigned longlong` type.\n",
-    "linenums": [
-      1129,
-      1130,
-      1131,
-      1132
-    ]
-  },
-  {
-    "comments": "@prop longlong CTypeInfo\n@within C\n\nCompiler defined C `unsigned longlong` type.\n",
-    "linenums": [
-      1137,
-      1138,
-      1139,
-      1140
+      1124,
+      1125,
+      1126
     ]
   },
   {
     "comments": "@class CTypes\n\nAll possible C types.\n",
     "linenums": [
-      1147,
-      1148,
-      1149
+      1133,
+      1134,
+      1135
     ]
   },
   {
-    "comments": "@within C\n@function fn\n\nCreate a function signature type information.\n\n@param args An array of CTypes represents the arguments of the function\n@param ret The return type of the function\n@return A function signature type information\n",
+    "comments": "@within C\n\nCreate a function signature type information.\n\n@param args An array of CTypes represents the arguments of the function\n@param ret The return type of the function\n@return A function signature type information\n",
+    "func": {
+      "method": false,
+      "name": "fn"
+    },
     "linenums": [
+      1170,
+      1171,
+      1172,
+      1173,
+      1174,
+      1175,
+      1176
+    ]
+  },
+  {
+    "comments": "@within C\n\nCreate a struct type information.\n\n@param fields An array of CTypes represents the fields of the struct\n@return A struct type information\n",
+    "func": {
+      "method": false,
+      "name": "struct"
+    },
+    "linenums": [
+      1183,
       1184,
       1185,
       1186,
       1187,
-      1188,
-      1189,
-      1190,
-      1191
+      1188
     ]
   },
   {
-    "comments": "@within C\n@function struct\n\nCreate a struct type information.\n\n@param fields An array of CTypes represents the fields of the struct\n@return A struct type information\n",
+    "comments": "@within FFI\n\nCreate a `Ref` with address 0.\n\nCan be used for receive a pointer from external function or pass it as an argument.\n\n@return A zero initialized Ref\n",
+    "func": {
+      "method": false,
+      "name": "nullRef"
+    },
     "linenums": [
+      1195,
+      1196,
+      1197,
       1198,
       1199,
       1200,
-      1201,
-      1202,
-      1203,
-      1204
+      1201
     ]
   },
   {
-    "comments": "@within FFI\n@function nullRef\n\nCreate a `Ref` with address 0.\n\nCan be used for receive a pointer from external function or pass it as an argument.\n\n@return A zero initialized Ref\n",
+    "comments": "@within FFI\n\nCreate a `Box` with specific size.\nThe created box is not filed with zero.\n\n@param size The size of the new box\n@return A allocated box\n",
+    "func": {
+      "method": false,
+      "name": "box"
+    },
     "linenums": [
+      1208,
+      1209,
+      1210,
       1211,
       1212,
       1213,
-      1214,
-      1215,
-      1216,
-      1217,
-      1218
+      1214
     ]
   },
   {
-    "comments": "@within FFI\n@function box\n\nCreate a `Box` with specific size.\nThe created box is not filed with zero.\n\n@param size The size of the new box\n@return A allocated box\n",
+    "comments": "@within FFI\n\nOpen a dynamic library.\n\n@param name The name of the target library\n@return A dynamic library handle\n",
+    "func": {
+      "method": false,
+      "name": "open"
+    },
     "linenums": [
+      1221,
+      1222,
+      1223,
+      1224,
       1225,
-      1226,
-      1227,
-      1228,
-      1229,
-      1230,
-      1231,
-      1232
+      1226
     ]
   },
   {
-    "comments": "@within FFI\n@function open\n\nOpen a dynamic library.\n\n@param name The name of the target library\n@return A dynamic library handle\n",
+    "comments": "@within FFI\n\nReturn `true` if the second argument is an integer (i32).\n\n@param val A lua value to check\n@return Whether val is an integer or not\n",
+    "func": {
+      "method": false,
+      "name": "isInteger"
+    },
     "linenums": [
-      1239,
-      1240,
-      1241,
-      1242,
-      1243,
-      1244,
-      1245
+      1233,
+      1234,
+      1235,
+      1236,
+      1237,
+      1238
     ]
   },
   {
-    "comments": "@within FFI\n@function isInteger\n\nReturn `true` if the second argument is an integer (i32).\n\n@param val A lua value to check\n@return Whether val is an integer or not\n",
+    "comments": "@within FFI\n\nFree referenced memory.\n\n@param data Target memory to free\n",
+    "func": {
+      "method": false,
+      "name": "free"
+    },
     "linenums": [
-      1252,
-      1253,
-      1254,
-      1255,
-      1256,
-      1257,
-      1258
-    ]
-  },
-  {
-    "comments": "@within FFI\n@function free\n\nFree referenced memory.\n\n@param data Target memory to free\n",
-    "linenums": [
-      1265,
-      1266,
-      1267,
-      1268,
-      1269,
-      1270
+      1245,
+      1246,
+      1247,
+      1248,
+      1249
     ]
   }
 ]

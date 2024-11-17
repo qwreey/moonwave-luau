@@ -3,10 +3,12 @@
 
 -- TODO: external
 -- TODO: moonwave_high_interface
--- TODO: function and method without kind tag (by read under contents)
 
 local parser = require("./parser-lua")
 
+local function errline(line: number): string
+	return `[line: {line}]`
+end
 local function stripWhitespaces(str: string): string
 	return string.gsub(string.gsub(str, "^%s+", ""), "%s+$", "")
 end
@@ -45,6 +47,7 @@ local moonwave_raw = parser.createParser({
 		end,
 	}),
 	function(self, str, pos, startAt, endAt, newlines, indent)
+		self.checkunder = true
 		self:process_comment_buffer()
 		local parsed, declareEndAt = self:declare(str, endAt + 1)
 
@@ -77,6 +80,7 @@ local moonwave_raw = parser.createParser({
 
 	{ "%-%-%-[\t ]*([^\n]+\n)", "%-%-%-[\t ]*([^\n]+)$" },
 	function(self, str, pos, startAt, endAt, comment)
+		self.checkunder = true
 		table.insert(get_or_create_table(self, "buffer_comments"), comment)
 		table.insert(get_or_create_table(self, "buffer_lines"), self.line)
 		self.line += 1
@@ -99,11 +103,80 @@ local moonwave_raw = parser.createParser({
 		self.buffer_lines = nil
 		self.buffer_comments = nil
 	end,
-	orphans = function(self)
+	under_parser = parser.createParser({
+		"^[ \t]*local[ \t]+([_%a][_%w]*)[ \t]+=[ \t]+function",
+		function(self, str, pos, startAt, endAt, name)
+			self.method = false
+			self.name = name
+			return endAt + 1, true
+		end,
+		{
+			"^[ \t]*local[ \t]+function[ \t]+",
+			"^[ \t]*function[ \t]+",
+		},
+		function(self, str, pos, startAt, endAt)
+			local result, resultEndAt = self:function_parser(str, endAt + 1)
+			self.result = result
+			return resultEndAt + 1, true
+		end,
+		function_parser = parser.createParser({
+			"([_%a][_%w]*)",
+			function(self, str, pos, startAt, endAt, name)
+				if not self.indexed then
+					error(`{errline(self.parent.parent.line)} malformed function define`)
+				end
+				self.indexed = false
+				self.parent.name = name
+			end,
+			"\t ",
+			parser.ignore,
+			"%.",
+			function(self)
+				if self.parent.method then
+					error(`{errline(self.parent.parent.line)} malformed function define`)
+				end
+				self.indexed = true
+			end,
+			":",
+			function(self)
+				if self.parent.method then
+					error("malformed function define")
+				end
+				self.parent.method = true
+				self.indexed = true
+			end,
+			"[%(<]",
+			parser.eof,
+			init = function(self)
+				self.indexed = true
+				self.parent.method = false
+			end,
+			stop = function(self)
+				if self.indexed then
+					error(`{errline(self.parent.parent.line)} malformed function define`)
+				end
+			end,
+			tailing = function() end,
+			orphans = function() end,
+		}),
+		noEOF = true,
+	}),
+	orphans = function(self, under)
 		self:process_comment_buffer()
+		if self.checkunder then
+			local result = self:under_parser(under)
+			if result.name then
+				self.comments[#self.comments].func = {
+					name = result.name,
+					method = result.method,
+				}
+			end
+		end
+		self.checkunder = false
 	end,
 	init = function(self)
 		self.line = 1
+		self.checkunder = false
 		self.comments = {}
 	end,
 	stop = function(self)
@@ -112,7 +185,8 @@ local moonwave_raw = parser.createParser({
 	end,
 	noEOF = true,
 })
-export type moonwave_raw = { [number]: { comments: string, linenums: { number } } }
+export type moonwave_raw_func = { name: string, method: boolean }
+export type moonwave_raw = { [number]: { comments: string, linenums: { number }, func: moonwave_raw_func? } }
 --#endregion raw, read from file string
 
 --#region low, block to element
@@ -217,17 +291,19 @@ local moonwave_parser = parser.createParser({
 })
 export type moonwave_low_tag = { line: number, tag: string, content: string }
 export type moonwave_low_tag_list = { [number]: moonwave_low_tag }
-export type moonwave_low = {
-	[number]: {
-		first_line: number,
-		comments: string,
-		tags: moonwave_low_tag_list,
-	},
+export type moonwave_low_element = {
+	first_line: number,
+	comments: string,
+	tags: moonwave_low_tag_list,
+	func: moonwave_raw_func,
 }
+export type moonwave_low = { [number]: moonwave_low_element }
 local function moonwave_low(segments: moonwave_raw): moonwave_low
 	local low = table.create(#segments) :: moonwave_low
 	for index, raw in ipairs(segments) do
-		low[index] = moonwave_parser(raw.comments, 1, raw.linenums)
+		local element = moonwave_parser(raw.comments, 1, raw.linenums)
+		element.func = raw.func
+		low[index] = element
 	end
 	return low
 end
@@ -271,12 +347,17 @@ export type moonwave_middle = {
 	},
 	[":ungrouped"]: { [number]: moonwave_middle_element },
 }
-local function moonwave_middle_get_kind(tags: moonwave_low_tag_list): (moonwave_middle_kind, string)
+local function moonwave_middle_get_kind(element: moonwave_low_element): (moonwave_middle_kind, string)
+	local tags = element.tags
 	for _, kind in ipairs(moonwave_middle_kind_lookup) do
 		local tag = moonwave_low_tag_find(tags, kind)
 		if tag then
 			return kind, stripWhitespaces(tag.content)
 		end
+	end
+	local func = element.func
+	if func then
+		return if func.method then "method" else "function", func.name
 	end
 	return "unknown", nil
 end
@@ -299,7 +380,7 @@ local function moonwave_middle(low: moonwave_low): moonwave_middle
 	local middle = {} :: moonwave_middle
 	for _, element in ipairs(low) do
 		local tags = element.tags
-		local kind, name = moonwave_middle_get_kind(tags)
+		local kind, name = moonwave_middle_get_kind(element)
 		local within = moonwave_low_tag_find(tags, "within")
 		moonwave_middle_push(middle, {
 			name = name,
@@ -403,9 +484,6 @@ export type moonwave_high_item =
 	| moonwave_high_field
 	| moonwave_high_unknown
 
-local function errline(line: number): string
-	return `[line: {line}]`
-end
 local function moonwave_high_list_push(moonwave_class_list: moonwave_high, item: moonwave_high_item)
 	local kind = (item :: moonwave_high_base).kind
 	local within = (item :: moonwave_high_base).within

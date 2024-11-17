@@ -28,8 +28,6 @@ To run example file, run `lune run example`.
 
 # Limits
 
-Currently, skip `@function` or `@method` tag is not allowed.
-
 It does not always produce the same results as the official moonwave extractor.
 
 # TODO

@@ -5,13 +5,13 @@
     "first_line": 2,
     "tags": [
       {
+        "content": "FFI\n",
         "line": 2,
-        "tag": "unreleased"
+        "tag": "class"
       },
       {
-        "content": "FFI\n",
         "line": 3,
-        "tag": "class"
+        "tag": "unreleased"
       }
     ]
   },
@@ -1999,7 +1999,7 @@
   },
   {
     "comments": "A 8-bit sized unsigned integer, Equivalent to `uint8_t` in `stdint`.",
-    "end_line": 918,
+    "end_line": 917,
     "first_line": 914,
     "tags": [
       {
@@ -2011,175 +2011,152 @@
         "content": "FFI\n",
         "line": 915,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 916,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A 16-bit sized unsigned integer, Equivalent to `uint16_t` in `stdint`.",
-    "end_line": 927,
-    "first_line": 923,
+    "end_line": 925,
+    "first_line": 922,
     "tags": [
       {
         "content": "u16 CTypeInfo\n",
-        "line": 923,
+        "line": 922,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 924,
+        "line": 923,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 925,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A 32-bit sized unsigned integer, Equivalent to `uint32_t` in `stdint`.",
-    "end_line": 936,
-    "first_line": 932,
+    "end_line": 933,
+    "first_line": 930,
     "tags": [
       {
         "content": "u32 CTypeInfo\n",
-        "line": 932,
+        "line": 930,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 933,
+        "line": 931,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 934,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A 64-bit sized unsigned integer, Equivalent to `uint64_t` in `stdint`.",
-    "end_line": 945,
-    "first_line": 941,
+    "end_line": 941,
+    "first_line": 938,
     "tags": [
       {
         "content": "u64 CTypeInfo\n",
-        "line": 941,
+        "line": 938,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 942,
+        "line": 939,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 943,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A 128-bit sized unsigned integer, Equivalent to `uint128_t` in `stdint`.",
-    "end_line": 954,
-    "first_line": 950,
+    "end_line": 949,
+    "first_line": 946,
     "tags": [
       {
         "content": "u128 CTypeInfo\n",
-        "line": 950,
+        "line": 946,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 951,
+        "line": 947,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 952,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A 8-bit sized signed integer, Equivalent to `int8_t` in `stdint`.",
-    "end_line": 963,
-    "first_line": 959,
+    "end_line": 957,
+    "first_line": 954,
     "tags": [
       {
         "content": "i8 CTypeInfo\n",
-        "line": 959,
+        "line": 954,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 960,
+        "line": 955,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 961,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A 16-bit sized signed integer, Equivalent to `int16_t` in `stdint`.",
-    "end_line": 972,
-    "first_line": 968,
+    "end_line": 965,
+    "first_line": 962,
     "tags": [
       {
         "content": "i16 CTypeInfo\n",
-        "line": 968,
+        "line": 962,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 969,
+        "line": 963,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 970,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A 32-bit sized signed integer, Equivalent to `int32_t` in `stdint`.",
-    "end_line": 981,
-    "first_line": 977,
+    "end_line": 973,
+    "first_line": 970,
     "tags": [
       {
         "content": "i32 CTypeInfo\n",
-        "line": 977,
+        "line": 970,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 978,
+        "line": 971,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 979,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A 64-bit sized signed integer, Equivalent to `int64_t` in `stdint`.",
-    "end_line": 990,
-    "first_line": 986,
+    "end_line": 981,
+    "first_line": 978,
     "tags": [
       {
         "content": "i64 CTypeInfo\n",
+        "line": 978,
+        "tag": "prop"
+      },
+      {
+        "content": "FFI\n",
+        "line": 979,
+        "tag": "within"
+      }
+    ]
+  },
+  {
+    "comments": "A 128-bit sized signed integer, Equivalent to `int128_t` in `stdint`.",
+    "end_line": 989,
+    "first_line": 986,
+    "tags": [
+      {
+        "content": "i128 CTypeInfo\n",
         "line": 986,
         "tag": "prop"
       },
@@ -2187,503 +2164,449 @@
         "content": "FFI\n",
         "line": 987,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 988,
-        "tag": "tag"
-      }
-    ]
-  },
-  {
-    "comments": "A 128-bit sized signed integer, Equivalent to `int128_t` in `stdint`.",
-    "end_line": 999,
-    "first_line": 995,
-    "tags": [
-      {
-        "content": "i128 CTypeInfo\n",
-        "line": 995,
-        "tag": "prop"
-      },
-      {
-        "content": "FFI\n",
-        "line": 996,
-        "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 997,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A single-precision 32-bit sized floating-point, Almost always equivalent to `float` in C.",
-    "end_line": 1008,
-    "first_line": 1004,
+    "end_line": 997,
+    "first_line": 994,
     "tags": [
       {
         "content": "f32 CTypeInfo\n",
-        "line": 1004,
+        "line": 994,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 1005,
+        "line": 995,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 1006,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A double-precision 64-bit sized floating-point, Almost always equivalent to `double` in C.",
-    "end_line": 1017,
-    "first_line": 1013,
+    "end_line": 1005,
+    "first_line": 1002,
     "tags": [
       {
         "content": "f64 CTypeInfo\n",
-        "line": 1013,
+        "line": 1002,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 1014,
+        "line": 1003,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 1015,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A machine specific pointer sized unsigned integer.",
-    "end_line": 1026,
-    "first_line": 1022,
+    "end_line": 1013,
+    "first_line": 1010,
     "tags": [
       {
         "content": "usize CTypeInfo\n",
-        "line": 1022,
+        "line": 1010,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 1023,
+        "line": 1011,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 1024,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "A machine specific pointer sized signed integer.",
-    "end_line": 1035,
-    "first_line": 1031,
+    "end_line": 1021,
+    "first_line": 1018,
     "tags": [
       {
         "content": "isize CTypeInfo\n",
-        "line": 1031,
+        "line": 1018,
         "tag": "prop"
       },
       {
         "content": "FFI\n",
-        "line": 1032,
+        "line": 1019,
         "tag": "within"
-      },
-      {
-        "content": "NumCType\n",
-        "line": 1033,
-        "tag": "tag"
       }
     ]
   },
   {
     "comments": "Compiler defined C `char` type.\n\nThe signedness may differ depending on the compiler and platform.\n\nYou can get signedness by `signedness` field.",
-    "end_line": 1050,
-    "first_line": 1043,
+    "end_line": 1036,
+    "first_line": 1029,
     "tags": [
       {
         "content": "char CTypeInfo\n",
-        "line": 1043,
+        "line": 1029,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1044,
+        "line": 1030,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "Compiler defined C `unsigned char` type.\n\nMostly equivalent to `u8`.",
-    "end_line": 1060,
-    "first_line": 1055,
+    "end_line": 1046,
+    "first_line": 1041,
     "tags": [
       {
         "content": "uchar CTypeInfo\n",
-        "line": 1055,
+        "line": 1041,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1056,
+        "line": 1042,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "Compiler defined C `signed char` type.",
-    "end_line": 1068,
-    "first_line": 1065,
+    "end_line": 1054,
+    "first_line": 1051,
     "tags": [
       {
         "content": "schar CTypeInfo\n",
-        "line": 1065,
+        "line": 1051,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1066,
+        "line": 1052,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "Compiler defined C `short` type.",
-    "end_line": 1076,
-    "first_line": 1073,
+    "end_line": 1062,
+    "first_line": 1059,
     "tags": [
       {
         "content": "short CTypeInfo\n",
-        "line": 1073,
+        "line": 1059,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1074,
+        "line": 1060,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "Compiler defined C `unsigned short` type.",
-    "end_line": 1084,
-    "first_line": 1081,
+    "end_line": 1070,
+    "first_line": 1067,
     "tags": [
       {
         "content": "ushort CTypeInfo\n",
-        "line": 1081,
+        "line": 1067,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1082,
+        "line": 1068,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "Compiler defined C `int` type.\n\nThe side may differ depending on the compiler and platform.",
-    "end_line": 1094,
-    "first_line": 1089,
+    "end_line": 1080,
+    "first_line": 1075,
     "tags": [
       {
         "content": "int CTypeInfo\n",
-        "line": 1089,
+        "line": 1075,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1090,
+        "line": 1076,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "Compiler defined C `unsigned int` type.\n\nThe side may differ depending on the compiler and platform.",
-    "end_line": 1104,
-    "first_line": 1099,
+    "end_line": 1090,
+    "first_line": 1085,
     "tags": [
       {
         "content": "uint CTypeInfo\n",
-        "line": 1099,
+        "line": 1085,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1100,
+        "line": 1086,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "Compiler defined C `long` type.\n\nThe side may differ depending on the compiler and platform.",
-    "end_line": 1114,
-    "first_line": 1109,
+    "end_line": 1100,
+    "first_line": 1095,
     "tags": [
       {
         "content": "long CTypeInfo\n",
-        "line": 1109,
+        "line": 1095,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1110,
+        "line": 1096,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "Compiler defined C `unsigned long` type.\n\nThe side may differ depending on the compiler and platform.",
-    "end_line": 1124,
-    "first_line": 1119,
+    "end_line": 1110,
+    "first_line": 1105,
     "tags": [
       {
         "content": "ulong CTypeInfo\n",
-        "line": 1119,
+        "line": 1105,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1120,
+        "line": 1106,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "Compiler defined C `unsigned longlong` type.",
-    "end_line": 1132,
-    "first_line": 1129,
+    "end_line": 1118,
+    "first_line": 1115,
     "tags": [
       {
         "content": "longlong CTypeInfo\n",
-        "line": 1129,
+        "line": 1115,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1130,
+        "line": 1116,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "Compiler defined C `unsigned longlong` type.",
-    "end_line": 1140,
-    "first_line": 1137,
+    "end_line": 1126,
+    "first_line": 1123,
     "tags": [
       {
         "content": "longlong CTypeInfo\n",
-        "line": 1137,
+        "line": 1123,
         "tag": "prop"
       },
       {
         "content": "C\n",
-        "line": 1138,
+        "line": 1124,
         "tag": "within"
       }
     ]
   },
   {
     "comments": "All possible C types.",
-    "end_line": 1149,
-    "first_line": 1147,
+    "end_line": 1135,
+    "first_line": 1133,
     "tags": [
       {
         "content": "CTypes\n",
-        "line": 1147,
+        "line": 1133,
         "tag": "class"
       }
     ]
   },
   {
     "comments": "Create a function signature type information.",
-    "end_line": 1191,
-    "first_line": 1184,
+    "end_line": 1176,
+    "first_line": 1170,
+    "func": {
+      "method": false,
+      "name": "fn"
+    },
     "tags": [
       {
         "content": "C\n",
-        "line": 1184,
+        "line": 1170,
         "tag": "within"
       },
       {
-        "content": "fn\n",
-        "line": 1185,
-        "tag": "function"
-      },
-      {
         "content": "args An array of CTypes represents the arguments of the function\n",
-        "line": 1189,
+        "line": 1174,
         "tag": "param"
       },
       {
         "content": "ret The return type of the function\n",
-        "line": 1190,
+        "line": 1175,
         "tag": "param"
       },
       {
         "content": "A function signature type information\n",
-        "line": 1191,
+        "line": 1176,
         "tag": "return"
       }
     ]
   },
   {
     "comments": "Create a struct type information.",
-    "end_line": 1204,
-    "first_line": 1198,
+    "end_line": 1188,
+    "first_line": 1183,
+    "func": {
+      "method": false,
+      "name": "struct"
+    },
     "tags": [
       {
         "content": "C\n",
-        "line": 1198,
+        "line": 1183,
         "tag": "within"
       },
       {
-        "content": "struct\n",
-        "line": 1199,
-        "tag": "function"
-      },
-      {
         "content": "fields An array of CTypes represents the fields of the struct\n",
-        "line": 1203,
+        "line": 1187,
         "tag": "param"
       },
       {
         "content": "A struct type information\n",
-        "line": 1204,
+        "line": 1188,
         "tag": "return"
       }
     ]
   },
   {
     "comments": "Create a `Ref` with address 0.\n\nCan be used for receive a pointer from external function or pass it as an argument.",
-    "end_line": 1218,
-    "first_line": 1211,
+    "end_line": 1201,
+    "first_line": 1195,
+    "func": {
+      "method": false,
+      "name": "nullRef"
+    },
     "tags": [
       {
         "content": "FFI\n",
-        "line": 1211,
+        "line": 1195,
         "tag": "within"
       },
       {
-        "content": "nullRef\n",
-        "line": 1212,
-        "tag": "function"
-      },
-      {
         "content": "A zero initialized Ref\n",
-        "line": 1218,
+        "line": 1201,
         "tag": "return"
       }
     ]
   },
   {
     "comments": "Create a `Box` with specific size.\nThe created box is not filed with zero.",
-    "end_line": 1232,
-    "first_line": 1225,
+    "end_line": 1214,
+    "first_line": 1208,
+    "func": {
+      "method": false,
+      "name": "box"
+    },
     "tags": [
       {
         "content": "FFI\n",
-        "line": 1225,
+        "line": 1208,
         "tag": "within"
       },
       {
-        "content": "box\n",
-        "line": 1226,
-        "tag": "function"
-      },
-      {
         "content": "size The size of the new box\n",
-        "line": 1231,
+        "line": 1213,
         "tag": "param"
       },
       {
         "content": "A allocated box\n",
-        "line": 1232,
+        "line": 1214,
         "tag": "return"
       }
     ]
   },
   {
     "comments": "Open a dynamic library.",
-    "end_line": 1245,
-    "first_line": 1239,
+    "end_line": 1226,
+    "first_line": 1221,
+    "func": {
+      "method": false,
+      "name": "open"
+    },
     "tags": [
       {
         "content": "FFI\n",
-        "line": 1239,
+        "line": 1221,
         "tag": "within"
       },
       {
-        "content": "open\n",
-        "line": 1240,
-        "tag": "function"
-      },
-      {
         "content": "name The name of the target library\n",
-        "line": 1244,
+        "line": 1225,
         "tag": "param"
       },
       {
         "content": "A dynamic library handle\n",
-        "line": 1245,
+        "line": 1226,
         "tag": "return"
       }
     ]
   },
   {
     "comments": "Return `true` if the second argument is an integer (i32).",
-    "end_line": 1258,
-    "first_line": 1252,
+    "end_line": 1238,
+    "first_line": 1233,
+    "func": {
+      "method": false,
+      "name": "isInteger"
+    },
     "tags": [
       {
         "content": "FFI\n",
-        "line": 1252,
+        "line": 1233,
         "tag": "within"
       },
       {
-        "content": "isInteger\n",
-        "line": 1253,
-        "tag": "function"
-      },
-      {
         "content": "val A lua value to check\n",
-        "line": 1257,
+        "line": 1237,
         "tag": "param"
       },
       {
         "content": "Whether val is an integer or not\n",
-        "line": 1258,
+        "line": 1238,
         "tag": "return"
       }
     ]
   },
   {
     "comments": "Free referenced memory.",
-    "end_line": 1270,
-    "first_line": 1265,
+    "end_line": 1249,
+    "first_line": 1245,
+    "func": {
+      "method": false,
+      "name": "free"
+    },
     "tags": [
       {
         "content": "FFI\n",
-        "line": 1265,
+        "line": 1245,
         "tag": "within"
       },
       {
-        "content": "free\n",
-        "line": 1266,
-        "tag": "function"
-      },
-      {
         "content": "data Target memory to free\n",
-        "line": 1270,
+        "line": 1249,
         "tag": "param"
       }
     ]
