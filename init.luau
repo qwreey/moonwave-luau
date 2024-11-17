@@ -939,6 +939,16 @@ function docgen:pushAttrs(item: moonwave_high_field | moonwave_high_function | m
 			if tag == "must_use\n" then
 				self:push("**@must_use**\n")
 				pushed = true
+				break
+			end
+		end
+	end
+	if item.unused_tags then
+		for _, tag in item.unused_tags do
+			if tag.tag == "muse_use" then
+				self:push("**@must_use**\n")
+				pushed = true
+				break
 			end
 		end
 	end
