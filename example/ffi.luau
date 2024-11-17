@@ -49,6 +49,13 @@ local ffi = {}
 	Namespace for compile time sized c types.
 ]=]
 local c = {}
+
+--[=[
+	@prop C C
+	@within FFI
+
+	Namespace for compile time sized c types.
+]=]
 ffi.c = c
 
 --#region Data
@@ -339,6 +346,11 @@ export type ClosureData = {
 
 --#region C ABI Type Infos
 -- NOTE: T is a unique identifier for the `CType` and R is the closest Lua type.
+--[=[
+	@class CTypeInfo
+
+	A c numbric type information.
+]=]
 export type CTypeInfo<T, R> = {
 	--[=[
 		@within CTypeInfo
@@ -477,6 +489,11 @@ export type CTypeInfo<T, R> = {
 } & { ["__phantom"]: T }
 type NumCType<T> = CTypeInfo<T, (number | any)>
 
+--[=[
+	@class CPtrInfo
+
+	A c pointer type information.
+]=]
 export type CPtrInfo<T> = {
 	--[=[
 		@within CPtrInfo
@@ -894,7 +911,7 @@ c.void = {} :: CVoidInfo
 
 --#region Fixed size Rust-style types
 --[=[
-	@prop u8 NumCType
+	@prop u8 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -903,7 +920,7 @@ c.void = {} :: CVoidInfo
 ffi.u8 = {} :: u8
 export type u8 = NumCType<"u8">
 --[=[
-	@prop u16 NumCType
+	@prop u16 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -912,7 +929,7 @@ export type u8 = NumCType<"u8">
 ffi.u16 = {} :: u16
 export type u16 = NumCType<"u16">
 --[=[
-	@prop u32 NumCType
+	@prop u32 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -921,7 +938,7 @@ export type u16 = NumCType<"u16">
 ffi.u32 = {} :: u32
 export type u32 = NumCType<"u32">
 --[=[
-	@prop u64 NumCType
+	@prop u64 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -930,7 +947,7 @@ export type u32 = NumCType<"u32">
 ffi.u64 = {} :: u64
 export type u64 = NumCType<"u64">
 --[=[
-	@prop u128 NumCType
+	@prop u128 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -939,7 +956,7 @@ export type u64 = NumCType<"u64">
 ffi.u128 = {} :: u128
 export type u128 = NumCType<"u128">
 --[=[
-	@prop i8 NumCType
+	@prop i8 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -948,7 +965,7 @@ export type u128 = NumCType<"u128">
 ffi.i8 = {} :: i8
 export type i8 = NumCType<"i8">
 --[=[
-	@prop i16 NumCType
+	@prop i16 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -957,7 +974,7 @@ export type i8 = NumCType<"i8">
 ffi.i16 = {} :: i16
 export type i16 = NumCType<"i16">
 --[=[
-	@prop i32 NumCType
+	@prop i32 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -966,7 +983,7 @@ export type i16 = NumCType<"i16">
 ffi.i32 = {} :: i32
 export type i32 = NumCType<"i32">
 --[=[
-	@prop i64 NumCType
+	@prop i64 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -975,7 +992,7 @@ export type i32 = NumCType<"i32">
 ffi.i64 = {} :: i64
 export type i64 = NumCType<"i64">
 --[=[
-	@prop i128 NumCType
+	@prop i128 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -984,7 +1001,7 @@ export type i64 = NumCType<"i64">
 ffi.i128 = {} :: i128
 export type i128 = NumCType<"i128">
 --[=[
-	@prop f32 NumCType
+	@prop f32 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -993,7 +1010,7 @@ export type i128 = NumCType<"i128">
 ffi.f32 = {} :: f32
 export type f32 = NumCType<"f32">
 --[=[
-	@prop f64 NumCType
+	@prop f64 CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -1002,7 +1019,7 @@ export type f32 = NumCType<"f32">
 ffi.f64 = {} :: f64
 export type f64 = NumCType<"f64">
 --[=[
-	@prop usize NumCType
+	@prop usize CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -1011,7 +1028,7 @@ export type f64 = NumCType<"f64">
 ffi.usize = {} :: usize
 export type usize = NumCType<"usize">
 --[=[
-	@prop isize NumCType
+	@prop isize CTypeInfo
 	@within FFI
 	@tag NumCType
 
@@ -1023,7 +1040,7 @@ export type isize = NumCType<"isize">
 
 --#region Variable size C-style types
 --[=[
-	@prop char NumCType
+	@prop char CTypeInfo
 	@within C
 
 	Compiler defined C `char` type.
@@ -1035,7 +1052,7 @@ export type isize = NumCType<"isize">
 c.char = {} :: char
 export type char = NumCType<"char">
 --[=[
-	@prop uchar NumCType
+	@prop uchar CTypeInfo
 	@within C
 
 	Compiler defined C `unsigned char` type.
@@ -1045,7 +1062,7 @@ export type char = NumCType<"char">
 c.uchar = {} :: uchar
 export type uchar = NumCType<"uchar">
 --[=[
-	@prop schar NumCType
+	@prop schar CTypeInfo
 	@within C
 
 	Compiler defined C `signed char` type.
@@ -1053,7 +1070,7 @@ export type uchar = NumCType<"uchar">
 c.schar = {} :: schar
 export type schar = NumCType<"schar">
 --[=[
-	@prop short NumCType
+	@prop short CTypeInfo
 	@within C
 
 	Compiler defined C `short` type.
@@ -1061,7 +1078,7 @@ export type schar = NumCType<"schar">
 c.short = {} :: short
 export type short = NumCType<"short">
 --[=[
-	@prop ushort NumCType
+	@prop ushort CTypeInfo
 	@within C
 
 	Compiler defined C `unsigned short` type.
@@ -1069,7 +1086,7 @@ export type short = NumCType<"short">
 c.ushort = {} :: ushort
 export type ushort = NumCType<"ushort">
 --[=[
-	@prop int NumCType
+	@prop int CTypeInfo
 	@within C
 
 	Compiler defined C `int` type.
@@ -1079,7 +1096,7 @@ export type ushort = NumCType<"ushort">
 c.int = {} :: int
 export type int = NumCType<"int">
 --[=[
-	@prop uint NumCType
+	@prop uint CTypeInfo
 	@within C
 
 	Compiler defined C `unsigned int` type.
@@ -1089,7 +1106,7 @@ export type int = NumCType<"int">
 c.uint = {} :: uint
 export type uint = NumCType<"uint">
 --[=[
-	@prop long NumCType
+	@prop long CTypeInfo
 	@within C
 
 	Compiler defined C `long` type.
@@ -1099,7 +1116,7 @@ export type uint = NumCType<"uint">
 c.long = {} :: long
 export type long = NumCType<"long">
 --[=[
-	@prop ulong NumCType
+	@prop ulong CTypeInfo
 	@within C
 
 	Compiler defined C `unsigned long` type.
@@ -1109,7 +1126,7 @@ export type long = NumCType<"long">
 c.ulong = {} :: ulong
 export type ulong = NumCType<"ulong">
 --[=[
-	@prop longlong NumCType
+	@prop longlong CTypeInfo
 	@within C
 
 	Compiler defined C `unsigned longlong` type.
@@ -1117,7 +1134,7 @@ export type ulong = NumCType<"ulong">
 c.longlong = {} :: longlong
 export type longlong = NumCType<"longlong">
 --[=[
-	@prop longlong NumCType
+	@prop longlong CTypeInfo
 	@within C
 
 	Compiler defined C `unsigned longlong` type.
@@ -1165,6 +1182,7 @@ export type CTypes =
 
 --[=[
 	@within C
+	@function fn
 
 	Create a function signature type information.
 
@@ -1178,6 +1196,7 @@ end
 
 --[=[
 	@within C
+	@function struct
 
 	Create a struct type information.
 
@@ -1190,6 +1209,7 @@ end
 
 --[=[
 	@within FFI
+	@function nullRef
 
 	Create a `Ref` with address 0.
 
@@ -1203,6 +1223,7 @@ end
 
 --[=[
 	@within FFI
+	@function box
 
 	Create a `Box` with specific size.
 	The created box is not filed with zero.
@@ -1216,6 +1237,7 @@ end
 
 --[=[
 	@within FFI
+	@function open
 
 	Open a dynamic library.
 
@@ -1228,6 +1250,7 @@ end
 
 --[=[
 	@within FFI
+	@function isInteger
 
 	Return `true` if the second argument is an integer (i32).
 
@@ -1240,6 +1263,7 @@ end
 
 --[=[
 	@within FFI
+	@function free
 
 	Free referenced memory.
 
@@ -1248,12 +1272,5 @@ end
 function ffi.free(data: RefData | BoxData)
 	return nil :: any
 end
-
---- @class TEST
-
---- COMMENT
-
---- COMMENT
---- COMMENT
 
 return ffi

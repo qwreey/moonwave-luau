@@ -3,26 +3,26 @@
     {
       "comments": "The size of the box.",
       "kind": "field",
-      "line": 184,
+      "line": 191,
       "name": "size",
       "tags": [
         {
           "content": "BoxData\n",
-          "line": 184,
+          "line": 191,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 185,
+          "line": 192,
           "tag": "tag"
         },
         {
-          "line": 186,
+          "line": 193,
           "tag": "readonly"
         },
         {
           "content": "size\n",
-          "line": 187,
+          "line": 194,
           "tag": "field"
         }
       ],
@@ -31,27 +31,27 @@
     {
       "comments": "Fill the box with zero.",
       "kind": "method",
-      "line": 194,
+      "line": 201,
       "name": "zero",
       "tags": [
         {
           "content": "BoxData\n",
-          "line": 194,
+          "line": 201,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 195,
+          "line": 202,
           "tag": "tag"
         },
         {
           "content": "zero\n",
-          "line": 196,
+          "line": 203,
           "tag": "method"
         },
         {
           "content": "`BoxData` itself for convenience\n",
-          "line": 200,
+          "line": 207,
           "tag": "return"
         }
       ],
@@ -60,32 +60,32 @@
     {
       "comments": "Create a reference of the box after leaking it.\n\nGC doesn't manage destruction after this action. You must free it later.",
       "kind": "method",
-      "line": 204,
+      "line": 211,
       "name": "leak",
       "tags": [
         {
           "content": "BoxData\n",
-          "line": 204,
+          "line": 211,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 205,
+          "line": 212,
           "tag": "tag"
         },
         {
           "content": "leak\n",
-          "line": 206,
+          "line": 213,
           "tag": "method"
         },
         {
           "content": "offset Create a reference at the given offset\n",
-          "line": 212,
+          "line": 219,
           "tag": "param"
         },
         {
           "content": "A reference of the box\n",
-          "line": 213,
+          "line": 220,
           "tag": "return"
         }
       ],
@@ -94,32 +94,32 @@
     {
       "comments": "Create a reference of the box.\n\nThe created reference keeps the box from being garbage collected until the reference itself is collected.",
       "kind": "method",
-      "line": 217,
+      "line": 224,
       "name": "ref",
       "tags": [
         {
           "content": "BoxData\n",
-          "line": 217,
+          "line": 224,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 218,
+          "line": 225,
           "tag": "tag"
         },
         {
           "content": "ref\n",
-          "line": 219,
+          "line": 226,
           "tag": "method"
         },
         {
           "content": "offset Create a reference at the given offset\n",
-          "line": 225,
+          "line": 232,
           "tag": "param"
         },
         {
           "content": "A reference of the box\n",
-          "line": 226,
+          "line": 233,
           "tag": "return"
         }
       ],
@@ -128,47 +128,47 @@
     {
       "comments": "Copy content from another data with specific length.",
       "kind": "method",
-      "line": 230,
+      "line": 237,
       "name": "copyFrom",
       "tags": [
         {
           "content": "BoxData\n",
-          "line": 230,
+          "line": 237,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 231,
+          "line": 238,
           "tag": "tag"
         },
         {
           "content": "copyFrom\n",
-          "line": 232,
+          "line": 239,
           "tag": "method"
         },
         {
           "content": "src The source data\n",
-          "line": 236,
+          "line": 243,
           "tag": "param"
         },
         {
           "content": "length The amount of data to copy, in bytes\n",
-          "line": 237,
+          "line": 244,
           "tag": "param"
         },
         {
           "content": "dstOffset The offset in the destination where the content will be pasted\n",
-          "line": 238,
+          "line": 245,
           "tag": "param"
         },
         {
           "content": "srcOffset The offset in the source data from where the content will be copied\n",
-          "line": 239,
+          "line": 246,
           "tag": "param"
         },
         {
           "content": "`BoxData` itself for convenience\n",
-          "line": 240,
+          "line": 247,
           "tag": "return"
         }
       ],
@@ -177,37 +177,37 @@
     {
       "comments": "Read string from data with specific length without null termination.",
       "kind": "method",
-      "line": 250,
+      "line": 257,
       "name": "readString",
       "tags": [
         {
           "content": "BoxData\n",
-          "line": 250,
+          "line": 257,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 251,
+          "line": 258,
           "tag": "tag"
         },
         {
           "content": "readString\n",
-          "line": 252,
+          "line": 259,
           "tag": "method"
         },
         {
           "content": "length The amount of data to read, in bytes\n",
-          "line": 256,
+          "line": 263,
           "tag": "param"
         },
         {
           "content": "offset Offset to read string from\n",
-          "line": 257,
+          "line": 264,
           "tag": "param"
         },
         {
           "content": "A string\n",
-          "line": 258,
+          "line": 265,
           "tag": "return"
         }
       ],
@@ -216,47 +216,47 @@
     {
       "comments": "Write string into data without null termination.",
       "kind": "method",
-      "line": 262,
+      "line": 269,
       "name": "writeString",
       "tags": [
         {
           "content": "BoxData\n",
-          "line": 262,
+          "line": 269,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 263,
+          "line": 270,
           "tag": "tag"
         },
         {
           "content": "writeString\n",
-          "line": 264,
+          "line": 271,
           "tag": "method"
         },
         {
           "content": "src The source string\n",
-          "line": 268,
+          "line": 275,
           "tag": "param"
         },
         {
           "content": "length The amount of data to write, in bytes\n",
-          "line": 269,
+          "line": 276,
           "tag": "param"
         },
         {
           "content": "dstOffset The offset in the destination where the content will be pasted\n",
-          "line": 270,
+          "line": 277,
           "tag": "param"
         },
         {
           "content": "srcOffset The offset in the source string from where the content will be copied\n",
-          "line": 271,
+          "line": 278,
           "tag": "param"
         },
         {
           "content": "`BoxData` itself for convenience\n",
-          "line": 272,
+          "line": 279,
           "tag": "return"
         }
       ],
@@ -267,17 +267,17 @@
     {
       "comments": "Compiler defined C `char` type.\n\nThe signedness may differ depending on the compiler and platform.\n\nYou can get signedness by `signedness` field.",
       "kind": "prop",
-      "line": 1026,
-      "name": "char NumCType",
+      "line": 1043,
+      "name": "char CTypeInfo",
       "tags": [
         {
-          "content": "char NumCType\n",
-          "line": 1026,
+          "content": "char CTypeInfo\n",
+          "line": 1043,
           "tag": "prop"
         },
         {
           "content": "C\n",
-          "line": 1027,
+          "line": 1044,
           "tag": "within"
         }
       ],
@@ -286,17 +286,17 @@
     {
       "comments": "Compiler defined C `unsigned char` type.\n\nMostly equivalent to `u8`.",
       "kind": "prop",
-      "line": 1038,
-      "name": "uchar NumCType",
+      "line": 1055,
+      "name": "uchar CTypeInfo",
       "tags": [
         {
-          "content": "uchar NumCType\n",
-          "line": 1038,
+          "content": "uchar CTypeInfo\n",
+          "line": 1055,
           "tag": "prop"
         },
         {
           "content": "C\n",
-          "line": 1039,
+          "line": 1056,
           "tag": "within"
         }
       ],
@@ -305,17 +305,17 @@
     {
       "comments": "Compiler defined C `signed char` type.",
       "kind": "prop",
-      "line": 1048,
-      "name": "schar NumCType",
+      "line": 1065,
+      "name": "schar CTypeInfo",
       "tags": [
         {
-          "content": "schar NumCType\n",
-          "line": 1048,
+          "content": "schar CTypeInfo\n",
+          "line": 1065,
           "tag": "prop"
         },
         {
           "content": "C\n",
-          "line": 1049,
+          "line": 1066,
           "tag": "within"
         }
       ],
@@ -324,17 +324,17 @@
     {
       "comments": "Compiler defined C `short` type.",
       "kind": "prop",
-      "line": 1056,
-      "name": "short NumCType",
+      "line": 1073,
+      "name": "short CTypeInfo",
       "tags": [
         {
-          "content": "short NumCType\n",
-          "line": 1056,
+          "content": "short CTypeInfo\n",
+          "line": 1073,
           "tag": "prop"
         },
         {
           "content": "C\n",
-          "line": 1057,
+          "line": 1074,
           "tag": "within"
         }
       ],
@@ -343,17 +343,17 @@
     {
       "comments": "Compiler defined C `unsigned short` type.",
       "kind": "prop",
-      "line": 1064,
-      "name": "ushort NumCType",
+      "line": 1081,
+      "name": "ushort CTypeInfo",
       "tags": [
         {
-          "content": "ushort NumCType\n",
-          "line": 1064,
+          "content": "ushort CTypeInfo\n",
+          "line": 1081,
           "tag": "prop"
         },
         {
           "content": "C\n",
-          "line": 1065,
+          "line": 1082,
           "tag": "within"
         }
       ],
@@ -362,17 +362,17 @@
     {
       "comments": "Compiler defined C `int` type.\n\nThe side may differ depending on the compiler and platform.",
       "kind": "prop",
-      "line": 1072,
-      "name": "int NumCType",
+      "line": 1089,
+      "name": "int CTypeInfo",
       "tags": [
         {
-          "content": "int NumCType\n",
-          "line": 1072,
+          "content": "int CTypeInfo\n",
+          "line": 1089,
           "tag": "prop"
         },
         {
           "content": "C\n",
-          "line": 1073,
+          "line": 1090,
           "tag": "within"
         }
       ],
@@ -381,17 +381,17 @@
     {
       "comments": "Compiler defined C `unsigned int` type.\n\nThe side may differ depending on the compiler and platform.",
       "kind": "prop",
-      "line": 1082,
-      "name": "uint NumCType",
+      "line": 1099,
+      "name": "uint CTypeInfo",
       "tags": [
         {
-          "content": "uint NumCType\n",
-          "line": 1082,
+          "content": "uint CTypeInfo\n",
+          "line": 1099,
           "tag": "prop"
         },
         {
           "content": "C\n",
-          "line": 1083,
+          "line": 1100,
           "tag": "within"
         }
       ],
@@ -400,17 +400,17 @@
     {
       "comments": "Compiler defined C `long` type.\n\nThe side may differ depending on the compiler and platform.",
       "kind": "prop",
-      "line": 1092,
-      "name": "long NumCType",
+      "line": 1109,
+      "name": "long CTypeInfo",
       "tags": [
         {
-          "content": "long NumCType\n",
-          "line": 1092,
+          "content": "long CTypeInfo\n",
+          "line": 1109,
           "tag": "prop"
         },
         {
           "content": "C\n",
-          "line": 1093,
+          "line": 1110,
           "tag": "within"
         }
       ],
@@ -419,55 +419,55 @@
     {
       "comments": "Compiler defined C `unsigned long` type.\n\nThe side may differ depending on the compiler and platform.",
       "kind": "prop",
-      "line": 1102,
-      "name": "ulong NumCType",
+      "line": 1119,
+      "name": "ulong CTypeInfo",
       "tags": [
         {
-          "content": "ulong NumCType\n",
-          "line": 1102,
+          "content": "ulong CTypeInfo\n",
+          "line": 1119,
           "tag": "prop"
         },
         {
           "content": "C\n",
-          "line": 1103,
-          "tag": "within"
-        }
-      ],
-      "within": "C"
-    },
-    {
-      "comments": "Compiler defined C `unsigned longlong` type.",
-      "kind": "prop",
-      "line": 1112,
-      "name": "longlong NumCType",
-      "tags": [
-        {
-          "content": "longlong NumCType\n",
-          "line": 1112,
-          "tag": "prop"
-        },
-        {
-          "content": "C\n",
-          "line": 1113,
-          "tag": "within"
-        }
-      ],
-      "within": "C"
-    },
-    {
-      "comments": "Compiler defined C `unsigned longlong` type.",
-      "kind": "prop",
-      "line": 1120,
-      "name": "longlong NumCType",
-      "tags": [
-        {
-          "content": "longlong NumCType\n",
           "line": 1120,
+          "tag": "within"
+        }
+      ],
+      "within": "C"
+    },
+    {
+      "comments": "Compiler defined C `unsigned longlong` type.",
+      "kind": "prop",
+      "line": 1129,
+      "name": "longlong CTypeInfo",
+      "tags": [
+        {
+          "content": "longlong CTypeInfo\n",
+          "line": 1129,
           "tag": "prop"
         },
         {
           "content": "C\n",
-          "line": 1121,
+          "line": 1130,
+          "tag": "within"
+        }
+      ],
+      "within": "C"
+    },
+    {
+      "comments": "Compiler defined C `unsigned longlong` type.",
+      "kind": "prop",
+      "line": 1137,
+      "name": "longlong CTypeInfo",
+      "tags": [
+        {
+          "content": "longlong CTypeInfo\n",
+          "line": 1137,
+          "tag": "prop"
+        },
+        {
+          "content": "C\n",
+          "line": 1138,
           "tag": "within"
         }
       ],
@@ -475,27 +475,33 @@
     },
     {
       "comments": "Create a function signature type information.",
-      "kind": "unknown",
-      "line": 1167,
+      "kind": "function",
+      "line": 1184,
+      "name": "fn",
       "tags": [
         {
           "content": "C\n",
-          "line": 1167,
+          "line": 1184,
           "tag": "within"
         },
         {
+          "content": "fn\n",
+          "line": 1185,
+          "tag": "function"
+        },
+        {
           "content": "args An array of CTypes represents the arguments of the function\n",
-          "line": 1171,
+          "line": 1189,
           "tag": "param"
         },
         {
           "content": "ret The return type of the function\n",
-          "line": 1172,
+          "line": 1190,
           "tag": "param"
         },
         {
           "content": "A function signature type information\n",
-          "line": 1173,
+          "line": 1191,
           "tag": "return"
         }
       ],
@@ -503,22 +509,28 @@
     },
     {
       "comments": "Create a struct type information.",
-      "kind": "unknown",
-      "line": 1180,
+      "kind": "function",
+      "line": 1198,
+      "name": "struct",
       "tags": [
         {
           "content": "C\n",
-          "line": 1180,
+          "line": 1198,
           "tag": "within"
         },
         {
+          "content": "struct\n",
+          "line": 1199,
+          "tag": "function"
+        },
+        {
           "content": "fields An array of CTypes represents the fields of the struct\n",
-          "line": 1184,
+          "line": 1203,
           "tag": "param"
         },
         {
           "content": "A struct type information\n",
-          "line": 1185,
+          "line": 1204,
           "tag": "return"
         }
       ],
@@ -529,26 +541,26 @@
     {
       "comments": "The total size of the array in bytes.",
       "kind": "field",
-      "line": 580,
+      "line": 597,
       "name": "size",
       "tags": [
         {
           "content": "CArrInfo\n",
-          "line": 580,
+          "line": 597,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 581,
+          "line": 598,
           "tag": "tag"
         },
         {
-          "line": 582,
+          "line": 599,
           "tag": "readonly"
         },
         {
           "content": "size\n",
-          "line": 583,
+          "line": 600,
           "tag": "field"
         }
       ],
@@ -557,26 +569,26 @@
     {
       "comments": "The length of the array.",
       "kind": "field",
-      "line": 589,
+      "line": 606,
       "name": "length",
       "tags": [
         {
           "content": "CArrInfo\n",
-          "line": 589,
+          "line": 606,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 590,
+          "line": 607,
           "tag": "tag"
         },
         {
-          "line": 591,
+          "line": 608,
           "tag": "readonly"
         },
         {
           "content": "length\n",
-          "line": 592,
+          "line": 609,
           "tag": "field"
         }
       ],
@@ -585,26 +597,26 @@
     {
       "comments": "The inner element type of the array.",
       "kind": "field",
-      "line": 598,
+      "line": 615,
       "name": "inner",
       "tags": [
         {
           "content": "CArrInfo\n",
-          "line": 598,
+          "line": 615,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 599,
+          "line": 616,
           "tag": "tag"
         },
         {
-          "line": 600,
+          "line": 617,
           "tag": "readonly"
         },
         {
           "content": "inner\n",
-          "line": 601,
+          "line": 618,
           "tag": "field"
         }
       ],
@@ -613,27 +625,27 @@
     {
       "comments": "Create a pointer subtype.",
       "kind": "method",
-      "line": 609,
+      "line": 626,
       "name": "ptr",
       "tags": [
         {
           "content": "CArrInfo\n",
-          "line": 609,
+          "line": 626,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 610,
+          "line": 627,
           "tag": "tag"
         },
         {
           "content": "ptr\n",
-          "line": 611,
+          "line": 628,
           "tag": "method"
         },
         {
           "content": "A pointer subtype\n",
-          "line": 615,
+          "line": 632,
           "tag": "return"
         }
       ],
@@ -642,32 +654,32 @@
     {
       "comments": "Create a box with initial values.",
       "kind": "method",
-      "line": 621,
+      "line": 638,
       "name": "box",
       "tags": [
         {
           "content": "CArrInfo\n",
-          "line": 621,
+          "line": 638,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 622,
+          "line": 639,
           "tag": "tag"
         },
         {
           "content": "box\n",
-          "line": 623,
+          "line": 640,
           "tag": "method"
         },
         {
           "content": "table The array of field values\n",
-          "line": 627,
+          "line": 644,
           "tag": "param"
         },
         {
           "content": "A box\n",
-          "line": 628,
+          "line": 645,
           "tag": "return"
         }
       ],
@@ -676,37 +688,37 @@
     {
       "comments": "Read a lua table from reference or box.",
       "kind": "method",
-      "line": 632,
+      "line": 649,
       "name": "readData",
       "tags": [
         {
           "content": "CArrInfo\n",
-          "line": 632,
+          "line": 649,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 633,
+          "line": 650,
           "tag": "tag"
         },
         {
           "content": "readData\n",
-          "line": 634,
+          "line": 651,
           "tag": "method"
         },
         {
           "content": "target Target to read data from\n",
-          "line": 638,
+          "line": 655,
           "tag": "param"
         },
         {
           "content": "offset Offset to read data from\n",
-          "line": 639,
+          "line": 656,
           "tag": "param"
         },
         {
           "content": "A table\n",
-          "line": 640,
+          "line": 657,
           "tag": "return"
         }
       ],
@@ -715,47 +727,8 @@
     {
       "comments": "Write a lua table into reference or box.",
       "kind": "method",
-      "line": 644,
-      "name": "writeData",
-      "tags": [
-        {
-          "content": "CArrInfo\n",
-          "line": 644,
-          "tag": "within"
-        },
-        {
-          "content": "Method\n",
-          "line": 645,
-          "tag": "tag"
-        },
-        {
-          "content": "writeData\n",
-          "line": 646,
-          "tag": "method"
-        },
-        {
-          "content": "target Target to write data into\n",
-          "line": 650,
-          "tag": "param"
-        },
-        {
-          "content": "table Lua data to write\n",
-          "line": 651,
-          "tag": "param"
-        },
-        {
-          "content": "offset Offset to write data into\n",
-          "line": 652,
-          "tag": "param"
-        }
-      ],
-      "within": "CArrInfo"
-    },
-    {
-      "comments": "Copy values from the source and paste them into the target.",
-      "kind": "method",
       "line": 661,
-      "name": "copyData",
+      "name": "writeData",
       "tags": [
         {
           "content": "CArrInfo\n",
@@ -768,28 +741,67 @@
           "tag": "tag"
         },
         {
-          "content": "copyData\n",
+          "content": "writeData\n",
           "line": 663,
           "tag": "method"
         },
         {
-          "content": "dst Where the content will be pasted\n",
+          "content": "target Target to write data into\n",
           "line": 667,
           "tag": "param"
         },
         {
-          "content": "src The source data\n",
+          "content": "table Lua data to write\n",
           "line": 668,
           "tag": "param"
         },
         {
-          "content": "dstOffset The offset in the dst where the content will be pasted\n",
+          "content": "offset Offset to write data into\n",
           "line": 669,
+          "tag": "param"
+        }
+      ],
+      "within": "CArrInfo"
+    },
+    {
+      "comments": "Copy values from the source and paste them into the target.",
+      "kind": "method",
+      "line": 678,
+      "name": "copyData",
+      "tags": [
+        {
+          "content": "CArrInfo\n",
+          "line": 678,
+          "tag": "within"
+        },
+        {
+          "content": "Method\n",
+          "line": 679,
+          "tag": "tag"
+        },
+        {
+          "content": "copyData\n",
+          "line": 680,
+          "tag": "method"
+        },
+        {
+          "content": "dst Where the content will be pasted\n",
+          "line": 684,
+          "tag": "param"
+        },
+        {
+          "content": "src The source data\n",
+          "line": 685,
+          "tag": "param"
+        },
+        {
+          "content": "dstOffset The offset in the dst where the content will be pasted\n",
+          "line": 686,
           "tag": "param"
         },
         {
           "content": "srcOffset The offset in the source data from where the content will be copied\n",
-          "line": 670,
+          "line": 687,
           "tag": "param"
         }
       ],
@@ -798,32 +810,32 @@
     {
       "comments": "Get the byte offset of the field.",
       "kind": "method",
-      "line": 682,
+      "line": 699,
       "name": "offset",
       "tags": [
         {
           "content": "CArrInfo\n",
-          "line": 682,
+          "line": 699,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 683,
+          "line": 700,
           "tag": "tag"
         },
         {
           "content": "offset\n",
-          "line": 684,
+          "line": 701,
           "tag": "method"
         },
         {
           "content": "index The element index\n",
-          "line": 688,
+          "line": 705,
           "tag": "param"
         },
         {
           "content": "The byte offset\n",
-          "line": 689,
+          "line": 706,
           "tag": "return"
         }
       ],
@@ -834,26 +846,26 @@
     {
       "comments": "The size of a function pointer.\n\nEquivalent to `ffi.c.usize.size`.",
       "kind": "field",
-      "line": 703,
+      "line": 720,
       "name": "size",
       "tags": [
         {
           "content": "CFnInfo\n",
-          "line": 703,
+          "line": 720,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 704,
+          "line": 721,
           "tag": "tag"
         },
         {
-          "line": 705,
+          "line": 722,
           "tag": "readonly"
         },
         {
           "content": "size\n",
-          "line": 706,
+          "line": 723,
           "tag": "field"
         }
       ],
@@ -862,27 +874,27 @@
     {
       "comments": "Create a callable from reference.",
       "kind": "method",
-      "line": 716,
+      "line": 733,
       "name": "callable",
       "tags": [
         {
           "content": "CFnInfo\n",
-          "line": 716,
+          "line": 733,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 717,
+          "line": 734,
           "tag": "tag"
         },
         {
           "content": "callable\n",
-          "line": 718,
+          "line": 735,
           "tag": "method"
         },
         {
           "content": "A callable\n",
-          "line": 722,
+          "line": 739,
           "tag": "return"
         }
       ],
@@ -891,27 +903,27 @@
     {
       "comments": "Create a closure from lua function.\n\nTo return some data, lua function should write value into ret reference.",
       "kind": "method",
-      "line": 726,
+      "line": 743,
       "name": "closure",
       "tags": [
         {
           "content": "CFnInfo\n",
-          "line": 726,
+          "line": 743,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 727,
+          "line": 744,
           "tag": "tag"
         },
         {
           "content": "closure\n",
-          "line": 728,
+          "line": 745,
           "tag": "method"
         },
         {
           "content": "A closure\n",
-          "line": 734,
+          "line": 751,
           "tag": "return"
         }
       ],
@@ -922,26 +934,26 @@
     {
       "comments": "The size of a pointer. should be the same for all pointers.\n\nEquivalent to `ffi.c.usize.size`.",
       "kind": "field",
-      "line": 482,
+      "line": 499,
       "name": "size",
       "tags": [
         {
           "content": "CPtrInfo\n",
-          "line": 482,
+          "line": 499,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 483,
+          "line": 500,
           "tag": "tag"
         },
         {
-          "line": 484,
+          "line": 501,
           "tag": "readonly"
         },
         {
           "content": "size\n",
-          "line": 485,
+          "line": 502,
           "tag": "field"
         }
       ],
@@ -950,26 +962,26 @@
     {
       "comments": "The inner type of the pointer.",
       "kind": "field",
-      "line": 493,
+      "line": 510,
       "name": "inner",
       "tags": [
         {
           "content": "CPtrInfo\n",
-          "line": 493,
+          "line": 510,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 494,
+          "line": 511,
           "tag": "tag"
         },
         {
-          "line": 495,
+          "line": 512,
           "tag": "readonly"
         },
         {
           "content": "inner\n",
-          "line": 496,
+          "line": 513,
           "tag": "field"
         }
       ],
@@ -978,32 +990,32 @@
     {
       "comments": "Create an array subtype with specific length.",
       "kind": "method",
-      "line": 505,
+      "line": 522,
       "name": "arr",
       "tags": [
         {
           "content": "CPtrInfo\n",
-          "line": 505,
+          "line": 522,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 506,
+          "line": 523,
           "tag": "tag"
         },
         {
           "content": "arr\n",
-          "line": 507,
+          "line": 524,
           "tag": "method"
         },
         {
           "content": "length The length of the array\n",
-          "line": 511,
+          "line": 528,
           "tag": "param"
         },
         {
           "content": "An array subtype\n",
-          "line": 512,
+          "line": 529,
           "tag": "return"
         }
       ],
@@ -1012,27 +1024,27 @@
     {
       "comments": "Create a pointer subtype.",
       "kind": "method",
-      "line": 517,
+      "line": 534,
       "name": "ptr",
       "tags": [
         {
           "content": "CPtrInfo\n",
-          "line": 517,
+          "line": 534,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 518,
+          "line": 535,
           "tag": "tag"
         },
         {
           "content": "ptr\n",
-          "line": 519,
+          "line": 536,
           "tag": "method"
         },
         {
           "content": "A pointer subtype\n",
-          "line": 523,
+          "line": 540,
           "tag": "return"
         }
       ],
@@ -1041,42 +1053,42 @@
     {
       "comments": "Read address from data, then return RefData.\n\nUseful when reading pointer fields of structures.\n\nIf the `ref` argument is given, rather than create new RefData, update it.",
       "kind": "method",
-      "line": 529,
+      "line": 546,
       "name": "readRef",
       "tags": [
         {
           "content": "CPtrInfo\n",
-          "line": 529,
+          "line": 546,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 530,
+          "line": 547,
           "tag": "tag"
         },
         {
           "content": "readRef\n",
-          "line": 531,
+          "line": 548,
           "tag": "method"
         },
         {
           "content": "target Target data to read address from\n",
-          "line": 539,
+          "line": 556,
           "tag": "param"
         },
         {
           "content": "offset Offset to read address from\n",
-          "line": 540,
+          "line": 557,
           "tag": "param"
         },
         {
           "content": "ref RefData to update\n",
-          "line": 541,
+          "line": 558,
           "tag": "param"
         },
         {
           "content": "A lua value\n",
-          "line": 542,
+          "line": 559,
           "tag": "return"
         }
       ],
@@ -1085,37 +1097,37 @@
     {
       "comments": "Write address to data.\n\t\nUseful when writing pointer fields of structures.",
       "kind": "method",
-      "line": 551,
+      "line": 568,
       "name": "writeRef",
       "tags": [
         {
           "content": "CPtrInfo\n",
-          "line": 551,
+          "line": 568,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 552,
+          "line": 569,
           "tag": "tag"
         },
         {
           "content": "writeRef\n",
-          "line": 553,
+          "line": 570,
           "tag": "method"
         },
         {
           "content": "target Target data to write address into\n",
-          "line": 559,
+          "line": 576,
           "tag": "param"
         },
         {
           "content": "ref Memory address to write\n",
-          "line": 560,
+          "line": 577,
           "tag": "param"
         },
         {
           "content": "offset Offset to write address into\n",
-          "line": 561,
+          "line": 578,
           "tag": "param"
         }
       ],
@@ -1126,26 +1138,26 @@
     {
       "comments": "The size of a struct, including padding.",
       "kind": "field",
-      "line": 746,
+      "line": 763,
       "name": "size",
       "tags": [
         {
           "content": "CStructInfo\n",
-          "line": 746,
+          "line": 763,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 747,
+          "line": 764,
           "tag": "tag"
         },
         {
-          "line": 748,
+          "line": 765,
           "tag": "readonly"
         },
         {
           "content": "size\n",
-          "line": 749,
+          "line": 766,
           "tag": "field"
         }
       ],
@@ -1156,32 +1168,32 @@
     {
       "comments": "Create a struct array type.",
       "kind": "method",
-      "line": 757,
+      "line": 774,
       "name": "arr",
       "tags": [
         {
           "content": "CSturctInfo\n",
-          "line": 757,
+          "line": 774,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 758,
+          "line": 775,
           "tag": "tag"
         },
         {
           "content": "arr\n",
-          "line": 759,
+          "line": 776,
           "tag": "method"
         },
         {
           "content": "length The length of the array\n",
-          "line": 763,
+          "line": 780,
           "tag": "param"
         },
         {
           "content": "A struct array type\n",
-          "line": 764,
+          "line": 781,
           "tag": "return"
         }
       ],
@@ -1190,27 +1202,27 @@
     {
       "comments": "Create a struct pointer type.",
       "kind": "method",
-      "line": 768,
+      "line": 785,
       "name": "ptr",
       "tags": [
         {
           "content": "CSturctInfo\n",
-          "line": 768,
+          "line": 785,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 769,
+          "line": 786,
           "tag": "tag"
         },
         {
           "content": "ptr\n",
-          "line": 770,
+          "line": 787,
           "tag": "method"
         },
         {
           "content": "A struct pointer type\n",
-          "line": 774,
+          "line": 791,
           "tag": "return"
         }
       ],
@@ -1219,32 +1231,32 @@
     {
       "comments": "Create a box with initial value.",
       "kind": "method",
-      "line": 780,
+      "line": 797,
       "name": "box",
       "tags": [
         {
           "content": "CSturctInfo\n",
-          "line": 780,
+          "line": 797,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 781,
+          "line": 798,
           "tag": "tag"
         },
         {
           "content": "box\n",
-          "line": 782,
+          "line": 799,
           "tag": "method"
         },
         {
           "content": "table The array of field values\n",
-          "line": 786,
+          "line": 803,
           "tag": "param"
         },
         {
           "content": "A box\n",
-          "line": 787,
+          "line": 804,
           "tag": "return"
         }
       ],
@@ -1253,37 +1265,37 @@
     {
       "comments": "Read a lua table from reference or box.",
       "kind": "method",
-      "line": 791,
+      "line": 808,
       "name": "readData",
       "tags": [
         {
           "content": "CSturctInfo\n",
-          "line": 791,
+          "line": 808,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 792,
+          "line": 809,
           "tag": "tag"
         },
         {
           "content": "readData\n",
-          "line": 793,
+          "line": 810,
           "tag": "method"
         },
         {
           "content": "target Target to read data from\n",
-          "line": 797,
+          "line": 814,
           "tag": "param"
         },
         {
           "content": "offset Offset to read data from\n",
-          "line": 798,
+          "line": 815,
           "tag": "param"
         },
         {
           "content": "A table\n",
-          "line": 799,
+          "line": 816,
           "tag": "return"
         }
       ],
@@ -1292,47 +1304,8 @@
     {
       "comments": "Write a lua table into reference or box.",
       "kind": "method",
-      "line": 803,
-      "name": "writeData",
-      "tags": [
-        {
-          "content": "CSturctInfo\n",
-          "line": 803,
-          "tag": "within"
-        },
-        {
-          "content": "Method\n",
-          "line": 804,
-          "tag": "tag"
-        },
-        {
-          "content": "writeData\n",
-          "line": 805,
-          "tag": "method"
-        },
-        {
-          "content": "target Target to write data into\n",
-          "line": 809,
-          "tag": "param"
-        },
-        {
-          "content": "table Lua data to write\n",
-          "line": 810,
-          "tag": "param"
-        },
-        {
-          "content": "offset Offset to write data into\n",
-          "line": 811,
-          "tag": "param"
-        }
-      ],
-      "within": "CSturctInfo"
-    },
-    {
-      "comments": "Copy values from the source and paste them into the target.",
-      "kind": "method",
       "line": 820,
-      "name": "copyData",
+      "name": "writeData",
       "tags": [
         {
           "content": "CSturctInfo\n",
@@ -1345,28 +1318,67 @@
           "tag": "tag"
         },
         {
-          "content": "copyData\n",
+          "content": "writeData\n",
           "line": 822,
           "tag": "method"
         },
         {
-          "content": "dst Where the content will be pasted\n",
+          "content": "target Target to write data into\n",
           "line": 826,
           "tag": "param"
         },
         {
-          "content": "src The source data\n",
+          "content": "table Lua data to write\n",
           "line": 827,
           "tag": "param"
         },
         {
-          "content": "dstOffset The offset in the destination where the content will be pasted\n",
+          "content": "offset Offset to write data into\n",
           "line": 828,
+          "tag": "param"
+        }
+      ],
+      "within": "CSturctInfo"
+    },
+    {
+      "comments": "Copy values from the source and paste them into the target.",
+      "kind": "method",
+      "line": 837,
+      "name": "copyData",
+      "tags": [
+        {
+          "content": "CSturctInfo\n",
+          "line": 837,
+          "tag": "within"
+        },
+        {
+          "content": "Method\n",
+          "line": 838,
+          "tag": "tag"
+        },
+        {
+          "content": "copyData\n",
+          "line": 839,
+          "tag": "method"
+        },
+        {
+          "content": "dst Where the content will be pasted\n",
+          "line": 843,
+          "tag": "param"
+        },
+        {
+          "content": "src The source data\n",
+          "line": 844,
+          "tag": "param"
+        },
+        {
+          "content": "dstOffset The offset in the destination where the content will be pasted\n",
+          "line": 845,
           "tag": "param"
         },
         {
           "content": "srcOffset The offset in the source data from where the content will be copied\n",
-          "line": 829,
+          "line": 846,
           "tag": "param"
         }
       ],
@@ -1375,32 +1387,32 @@
     {
       "comments": "Get the field offset.",
       "kind": "method",
-      "line": 841,
+      "line": 858,
       "name": "offset",
       "tags": [
         {
           "content": "CSturctInfo\n",
-          "line": 841,
+          "line": 858,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 842,
+          "line": 859,
           "tag": "tag"
         },
         {
           "content": "offset\n",
-          "line": 843,
+          "line": 860,
           "tag": "method"
         },
         {
           "content": "index The field index\n",
-          "line": 847,
+          "line": 864,
           "tag": "param"
         },
         {
           "content": "The byte offset\n",
-          "line": 848,
+          "line": 865,
           "tag": "return"
         }
       ],
@@ -1409,32 +1421,32 @@
     {
       "comments": "Get the field type.",
       "kind": "method",
-      "line": 852,
+      "line": 869,
       "name": "field",
       "tags": [
         {
           "content": "CSturctInfo\n",
-          "line": 852,
+          "line": 869,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 853,
+          "line": 870,
           "tag": "tag"
         },
         {
           "content": "field\n",
-          "line": 854,
+          "line": 871,
           "tag": "method"
         },
         {
           "content": "index The field index\n",
-          "line": 858,
+          "line": 875,
           "tag": "param"
         },
         {
           "content": "The field type\n",
-          "line": 859,
+          "line": 876,
           "tag": "return"
         }
       ],
@@ -1445,26 +1457,26 @@
     {
       "comments": "The size of the type in bytes.",
       "kind": "field",
-      "line": 344,
+      "line": 356,
       "name": "size",
       "tags": [
         {
           "content": "CTypeInfo\n",
-          "line": 344,
+          "line": 356,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 345,
+          "line": 357,
           "tag": "tag"
         },
         {
-          "line": 346,
+          "line": 358,
           "tag": "readonly"
         },
         {
           "content": "size\n",
-          "line": 347,
+          "line": 359,
           "tag": "field"
         }
       ],
@@ -1473,26 +1485,26 @@
     {
       "comments": "The signedness of the type.",
       "kind": "field",
-      "line": 353,
+      "line": 365,
       "name": "signedness",
       "tags": [
         {
           "content": "CTypeInfo\n",
-          "line": 353,
+          "line": 365,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 354,
+          "line": 366,
           "tag": "tag"
         },
         {
-          "line": 355,
+          "line": 367,
           "tag": "readonly"
         },
         {
           "content": "signedness\n",
-          "line": 356,
+          "line": 368,
           "tag": "field"
         }
       ],
@@ -1501,27 +1513,27 @@
     {
       "comments": "Create a pointer subtype.",
       "kind": "method",
-      "line": 364,
+      "line": 376,
       "name": "ptr",
       "tags": [
         {
           "content": "CTypeInfo\n",
-          "line": 364,
+          "line": 376,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 365,
+          "line": 377,
           "tag": "tag"
         },
         {
           "content": "ptr\n",
-          "line": 366,
+          "line": 378,
           "tag": "method"
         },
         {
           "content": "A pointer subtype\n",
-          "line": 370,
+          "line": 382,
           "tag": "return"
         }
       ],
@@ -1530,32 +1542,32 @@
     {
       "comments": "Create an array subtype with specific length.",
       "kind": "method",
-      "line": 374,
+      "line": 386,
       "name": "arr",
       "tags": [
         {
           "content": "CTypeInfo\n",
-          "line": 374,
+          "line": 386,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 375,
+          "line": 387,
           "tag": "tag"
         },
         {
           "content": "arr\n",
-          "line": 376,
+          "line": 388,
           "tag": "method"
         },
         {
           "content": "length The length of the array\n",
-          "line": 380,
+          "line": 392,
           "tag": "param"
         },
         {
           "content": "An array subtype\n",
-          "line": 381,
+          "line": 393,
           "tag": "return"
         }
       ],
@@ -1564,32 +1576,32 @@
     {
       "comments": "Create a box with initial values.",
       "kind": "method",
-      "line": 387,
+      "line": 399,
       "name": "box",
       "tags": [
         {
           "content": "CTypeInfo\n",
-          "line": 387,
+          "line": 399,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 388,
+          "line": 400,
           "tag": "tag"
         },
         {
           "content": "box\n",
-          "line": 389,
+          "line": 401,
           "tag": "method"
         },
         {
           "content": "table The array of element values\n",
-          "line": 393,
+          "line": 405,
           "tag": "param"
         },
         {
           "content": "A box\n",
-          "line": 394,
+          "line": 406,
           "tag": "return"
         }
       ],
@@ -1598,47 +1610,8 @@
     {
       "comments": "Read a lua value from reference or box.",
       "kind": "method",
-      "line": 398,
-      "name": "readData",
-      "tags": [
-        {
-          "content": "CTypeInfo\n",
-          "line": 398,
-          "tag": "within"
-        },
-        {
-          "content": "Method\n",
-          "line": 399,
-          "tag": "tag"
-        },
-        {
-          "content": "readData\n",
-          "line": 400,
-          "tag": "method"
-        },
-        {
-          "content": "target Target to read data from\n",
-          "line": 404,
-          "tag": "param"
-        },
-        {
-          "content": "offset Offset to read data from\n",
-          "line": 405,
-          "tag": "param"
-        },
-        {
-          "content": "A lua value\n",
-          "line": 406,
-          "tag": "return"
-        }
-      ],
-      "within": "CTypeInfo"
-    },
-    {
-      "comments": "Write a lua value into reference or box.",
-      "kind": "method",
       "line": 410,
-      "name": "writeData",
+      "name": "readData",
       "tags": [
         {
           "content": "CTypeInfo\n",
@@ -1651,33 +1624,33 @@
           "tag": "tag"
         },
         {
-          "content": "writeData\n",
+          "content": "readData\n",
           "line": 412,
           "tag": "method"
         },
         {
-          "content": "target Target to write data into\n",
+          "content": "target Target to read data from\n",
           "line": 416,
           "tag": "param"
         },
         {
-          "content": "value Lua data to write\n",
+          "content": "offset Offset to read data from\n",
           "line": 417,
           "tag": "param"
         },
         {
-          "content": "offset Offset to write data into\n",
+          "content": "A lua value\n",
           "line": 418,
-          "tag": "param"
+          "tag": "return"
         }
       ],
       "within": "CTypeInfo"
     },
     {
-      "comments": "Copy values from the source and paste them into the target.",
+      "comments": "Write a lua value into reference or box.",
       "kind": "method",
       "line": 422,
-      "name": "copyData",
+      "name": "writeData",
       "tags": [
         {
           "content": "CTypeInfo\n",
@@ -1690,28 +1663,67 @@
           "tag": "tag"
         },
         {
-          "content": "copyData\n",
+          "content": "writeData\n",
           "line": 424,
           "tag": "method"
         },
         {
-          "content": "dst Where the content will be pasted\n",
+          "content": "target Target to write data into\n",
           "line": 428,
           "tag": "param"
         },
         {
-          "content": "src The source data\n",
+          "content": "value Lua data to write\n",
           "line": 429,
           "tag": "param"
         },
         {
-          "content": "dstOffset The offset in the destination where the content will be pasted\n",
+          "content": "offset Offset to write data into\n",
           "line": 430,
+          "tag": "param"
+        }
+      ],
+      "within": "CTypeInfo"
+    },
+    {
+      "comments": "Copy values from the source and paste them into the target.",
+      "kind": "method",
+      "line": 434,
+      "name": "copyData",
+      "tags": [
+        {
+          "content": "CTypeInfo\n",
+          "line": 434,
+          "tag": "within"
+        },
+        {
+          "content": "Method\n",
+          "line": 435,
+          "tag": "tag"
+        },
+        {
+          "content": "copyData\n",
+          "line": 436,
+          "tag": "method"
+        },
+        {
+          "content": "dst Where the content will be pasted\n",
+          "line": 440,
+          "tag": "param"
+        },
+        {
+          "content": "src The source data\n",
+          "line": 441,
+          "tag": "param"
+        },
+        {
+          "content": "dstOffset The offset in the destination where the content will be pasted\n",
+          "line": 442,
           "tag": "param"
         },
         {
           "content": "srcOffset The offset in the source data from where the content will be copied\n",
-          "line": 431,
+          "line": 443,
           "tag": "param"
         }
       ],
@@ -1720,32 +1732,32 @@
     {
       "comments": "Stringify data. Useful when output numbers, which Luau can't handle.",
       "kind": "method",
-      "line": 441,
+      "line": 453,
       "name": "stringifyData",
       "tags": [
         {
           "content": "CTypeInfo\n",
-          "line": 441,
+          "line": 453,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 442,
+          "line": 454,
           "tag": "tag"
         },
         {
           "content": "stringifyData\n",
-          "line": 443,
+          "line": 455,
           "tag": "method"
         },
         {
           "content": "target The target data\n",
-          "line": 447,
+          "line": 459,
           "tag": "param"
         },
         {
           "content": "offset Offset to stringify data from\n",
-          "line": 448,
+          "line": 460,
           "tag": "param"
         }
       ],
@@ -1754,47 +1766,47 @@
     {
       "comments": "Casting data to different type.\n\nMay result in loss of precision.",
       "kind": "method",
-      "line": 455,
+      "line": 467,
       "name": "cast",
       "tags": [
         {
           "content": "CTypeInfo\n",
-          "line": 455,
+          "line": 467,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 456,
+          "line": 468,
           "tag": "tag"
         },
         {
           "content": "cast\n",
-          "line": 457,
+          "line": 469,
           "tag": "method"
         },
         {
           "content": "intoType The target type to convert to\n",
-          "line": 463,
+          "line": 475,
           "tag": "param"
         },
         {
           "content": "fromData Source data to be converted\n",
-          "line": 464,
+          "line": 476,
           "tag": "param"
         },
         {
           "content": "intoData Target to write converted data into\n",
-          "line": 465,
+          "line": 477,
           "tag": "param"
         },
         {
           "content": "fromOffset The offset in the source data\n",
-          "line": 466,
+          "line": 478,
           "tag": "param"
         },
         {
           "content": "intoOffset The offset in the destination\n",
-          "line": 467,
+          "line": 479,
           "tag": "param"
         }
       ],
@@ -1805,12 +1817,12 @@
     "self": {
       "comments": "All possible C types.",
       "kind": "class",
-      "line": 1130,
+      "line": 1147,
       "name": "CTypes",
       "tags": [
         {
           "content": "CTypes\n",
-          "line": 1130,
+          "line": 1147,
           "tag": "class"
         }
       ],
@@ -1821,26 +1833,26 @@
     {
       "comments": "The size of the void type. It is always 0.",
       "kind": "field",
-      "line": 871,
+      "line": 888,
       "name": "size",
       "tags": [
         {
           "content": "CVoidInfo\n",
-          "line": 871,
+          "line": 888,
           "tag": "within"
         },
         {
           "content": "Field\n",
-          "line": 872,
+          "line": 889,
           "tag": "tag"
         },
         {
-          "line": 873,
+          "line": 890,
           "tag": "readonly"
         },
         {
           "content": "size\n",
-          "line": 874,
+          "line": 891,
           "tag": "field"
         }
       ],
@@ -1849,27 +1861,27 @@
     {
       "comments": "Create a generic pointer type.",
       "kind": "method",
-      "line": 882,
+      "line": 899,
       "name": "ptr",
       "tags": [
         {
           "content": "CVoidInfo\n",
-          "line": 882,
+          "line": 899,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 883,
+          "line": 900,
           "tag": "tag"
         },
         {
           "content": "ptr\n",
-          "line": 884,
+          "line": 901,
           "tag": "method"
         },
         {
           "content": "Generic pointer type, equivalent to `*void` in C.\n",
-          "line": 888,
+          "line": 905,
           "tag": "return"
         }
       ],
@@ -1880,12 +1892,12 @@
     "self": {
       "comments": "A callable external function.\n\nTo call external function, provide memory for save the return value and references for the arguments.\n\nIf return type is `void`, pass `nil`.",
       "kind": "class",
-      "line": 303,
+      "line": 310,
       "name": "CallableData",
       "tags": [
         {
           "content": "CallableData\n",
-          "line": 303,
+          "line": 310,
           "tag": "class"
         }
       ],
@@ -1896,27 +1908,27 @@
     {
       "comments": "Create a reference of the closure. usually can be used for passing function pointer as argument.\n\nThe created reference keeps the closure from being garbage collected until the reference itself is collected.",
       "kind": "method",
-      "line": 326,
+      "line": 333,
       "name": "ref",
       "tags": [
         {
           "content": "ClosureData\n",
-          "line": 326,
+          "line": 333,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 327,
+          "line": 334,
           "tag": "tag"
         },
         {
           "content": "ref\n",
-          "line": 328,
+          "line": 335,
           "tag": "method"
         },
         {
           "content": "A reference of the closure\n",
-          "line": 334,
+          "line": 341,
           "tag": "return"
         }
       ],
@@ -1925,24 +1937,43 @@
   ],
   "FFI": [
     {
-      "comments": "A 8-bit sized unsigned integer, Equivalent to `uint8_t` in `stdint`.",
+      "comments": "Namespace for compile time sized c types.",
       "kind": "prop",
-      "line": 897,
-      "name": "u8 NumCType",
+      "line": 54,
+      "name": "C C",
       "tags": [
         {
-          "content": "u8 NumCType\n",
-          "line": 897,
+          "content": "C C\n",
+          "line": 54,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 898,
+          "line": 55,
+          "tag": "within"
+        }
+      ],
+      "within": "FFI"
+    },
+    {
+      "comments": "A 8-bit sized unsigned integer, Equivalent to `uint8_t` in `stdint`.",
+      "kind": "prop",
+      "line": 914,
+      "name": "u8 CTypeInfo",
+      "tags": [
+        {
+          "content": "u8 CTypeInfo\n",
+          "line": 914,
+          "tag": "prop"
+        },
+        {
+          "content": "FFI\n",
+          "line": 915,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 899,
+          "line": 916,
           "tag": "tag"
         }
       ],
@@ -1951,22 +1982,22 @@
     {
       "comments": "A 16-bit sized unsigned integer, Equivalent to `uint16_t` in `stdint`.",
       "kind": "prop",
-      "line": 906,
-      "name": "u16 NumCType",
+      "line": 923,
+      "name": "u16 CTypeInfo",
       "tags": [
         {
-          "content": "u16 NumCType\n",
-          "line": 906,
+          "content": "u16 CTypeInfo\n",
+          "line": 923,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 907,
+          "line": 924,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 908,
+          "line": 925,
           "tag": "tag"
         }
       ],
@@ -1975,22 +2006,22 @@
     {
       "comments": "A 32-bit sized unsigned integer, Equivalent to `uint32_t` in `stdint`.",
       "kind": "prop",
-      "line": 915,
-      "name": "u32 NumCType",
+      "line": 932,
+      "name": "u32 CTypeInfo",
       "tags": [
         {
-          "content": "u32 NumCType\n",
-          "line": 915,
+          "content": "u32 CTypeInfo\n",
+          "line": 932,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 916,
+          "line": 933,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 917,
+          "line": 934,
           "tag": "tag"
         }
       ],
@@ -1999,22 +2030,22 @@
     {
       "comments": "A 64-bit sized unsigned integer, Equivalent to `uint64_t` in `stdint`.",
       "kind": "prop",
-      "line": 924,
-      "name": "u64 NumCType",
+      "line": 941,
+      "name": "u64 CTypeInfo",
       "tags": [
         {
-          "content": "u64 NumCType\n",
-          "line": 924,
+          "content": "u64 CTypeInfo\n",
+          "line": 941,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 925,
+          "line": 942,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 926,
+          "line": 943,
           "tag": "tag"
         }
       ],
@@ -2023,22 +2054,22 @@
     {
       "comments": "A 128-bit sized unsigned integer, Equivalent to `uint128_t` in `stdint`.",
       "kind": "prop",
-      "line": 933,
-      "name": "u128 NumCType",
+      "line": 950,
+      "name": "u128 CTypeInfo",
       "tags": [
         {
-          "content": "u128 NumCType\n",
-          "line": 933,
+          "content": "u128 CTypeInfo\n",
+          "line": 950,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 934,
+          "line": 951,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 935,
+          "line": 952,
           "tag": "tag"
         }
       ],
@@ -2047,22 +2078,22 @@
     {
       "comments": "A 8-bit sized signed integer, Equivalent to `int8_t` in `stdint`.",
       "kind": "prop",
-      "line": 942,
-      "name": "i8 NumCType",
+      "line": 959,
+      "name": "i8 CTypeInfo",
       "tags": [
         {
-          "content": "i8 NumCType\n",
-          "line": 942,
+          "content": "i8 CTypeInfo\n",
+          "line": 959,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 943,
+          "line": 960,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 944,
+          "line": 961,
           "tag": "tag"
         }
       ],
@@ -2071,22 +2102,22 @@
     {
       "comments": "A 16-bit sized signed integer, Equivalent to `int16_t` in `stdint`.",
       "kind": "prop",
-      "line": 951,
-      "name": "i16 NumCType",
+      "line": 968,
+      "name": "i16 CTypeInfo",
       "tags": [
         {
-          "content": "i16 NumCType\n",
-          "line": 951,
+          "content": "i16 CTypeInfo\n",
+          "line": 968,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 952,
+          "line": 969,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 953,
+          "line": 970,
           "tag": "tag"
         }
       ],
@@ -2095,22 +2126,22 @@
     {
       "comments": "A 32-bit sized signed integer, Equivalent to `int32_t` in `stdint`.",
       "kind": "prop",
-      "line": 960,
-      "name": "i32 NumCType",
+      "line": 977,
+      "name": "i32 CTypeInfo",
       "tags": [
         {
-          "content": "i32 NumCType\n",
-          "line": 960,
+          "content": "i32 CTypeInfo\n",
+          "line": 977,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 961,
+          "line": 978,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 962,
+          "line": 979,
           "tag": "tag"
         }
       ],
@@ -2119,22 +2150,22 @@
     {
       "comments": "A 64-bit sized signed integer, Equivalent to `int64_t` in `stdint`.",
       "kind": "prop",
-      "line": 969,
-      "name": "i64 NumCType",
+      "line": 986,
+      "name": "i64 CTypeInfo",
       "tags": [
         {
-          "content": "i64 NumCType\n",
-          "line": 969,
+          "content": "i64 CTypeInfo\n",
+          "line": 986,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 970,
+          "line": 987,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 971,
+          "line": 988,
           "tag": "tag"
         }
       ],
@@ -2143,22 +2174,22 @@
     {
       "comments": "A 128-bit sized signed integer, Equivalent to `int128_t` in `stdint`.",
       "kind": "prop",
-      "line": 978,
-      "name": "i128 NumCType",
+      "line": 995,
+      "name": "i128 CTypeInfo",
       "tags": [
         {
-          "content": "i128 NumCType\n",
-          "line": 978,
+          "content": "i128 CTypeInfo\n",
+          "line": 995,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 979,
+          "line": 996,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 980,
+          "line": 997,
           "tag": "tag"
         }
       ],
@@ -2167,22 +2198,22 @@
     {
       "comments": "A single-precision 32-bit sized floating-point, Almost always equivalent to `float` in C.",
       "kind": "prop",
-      "line": 987,
-      "name": "f32 NumCType",
+      "line": 1004,
+      "name": "f32 CTypeInfo",
       "tags": [
         {
-          "content": "f32 NumCType\n",
-          "line": 987,
+          "content": "f32 CTypeInfo\n",
+          "line": 1004,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 988,
+          "line": 1005,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 989,
+          "line": 1006,
           "tag": "tag"
         }
       ],
@@ -2191,22 +2222,22 @@
     {
       "comments": "A double-precision 64-bit sized floating-point, Almost always equivalent to `double` in C.",
       "kind": "prop",
-      "line": 996,
-      "name": "f64 NumCType",
+      "line": 1013,
+      "name": "f64 CTypeInfo",
       "tags": [
         {
-          "content": "f64 NumCType\n",
-          "line": 996,
+          "content": "f64 CTypeInfo\n",
+          "line": 1013,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 997,
+          "line": 1014,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 998,
+          "line": 1015,
           "tag": "tag"
         }
       ],
@@ -2215,22 +2246,22 @@
     {
       "comments": "A machine specific pointer sized unsigned integer.",
       "kind": "prop",
-      "line": 1005,
-      "name": "usize NumCType",
+      "line": 1022,
+      "name": "usize CTypeInfo",
       "tags": [
         {
-          "content": "usize NumCType\n",
-          "line": 1005,
+          "content": "usize CTypeInfo\n",
+          "line": 1022,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 1006,
+          "line": 1023,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 1007,
+          "line": 1024,
           "tag": "tag"
         }
       ],
@@ -2239,22 +2270,22 @@
     {
       "comments": "A machine specific pointer sized signed integer.",
       "kind": "prop",
-      "line": 1014,
-      "name": "isize NumCType",
+      "line": 1031,
+      "name": "isize CTypeInfo",
       "tags": [
         {
-          "content": "isize NumCType\n",
-          "line": 1014,
+          "content": "isize CTypeInfo\n",
+          "line": 1031,
           "tag": "prop"
         },
         {
           "content": "FFI\n",
-          "line": 1015,
+          "line": 1032,
           "tag": "within"
         },
         {
           "content": "NumCType\n",
-          "line": 1016,
+          "line": 1033,
           "tag": "tag"
         }
       ],
@@ -2262,17 +2293,23 @@
     },
     {
       "comments": "Create a `Ref` with address 0.\n\nCan be used for receive a pointer from external function or pass it as an argument.",
-      "kind": "unknown",
-      "line": 1192,
+      "kind": "function",
+      "line": 1211,
+      "name": "nullRef",
       "tags": [
         {
           "content": "FFI\n",
-          "line": 1192,
+          "line": 1211,
           "tag": "within"
         },
         {
+          "content": "nullRef\n",
+          "line": 1212,
+          "tag": "function"
+        },
+        {
           "content": "A zero initialized Ref\n",
-          "line": 1198,
+          "line": 1218,
           "tag": "return"
         }
       ],
@@ -2280,22 +2317,28 @@
     },
     {
       "comments": "Create a `Box` with specific size.\nThe created box is not filed with zero.",
-      "kind": "unknown",
-      "line": 1205,
+      "kind": "function",
+      "line": 1225,
+      "name": "box",
       "tags": [
         {
           "content": "FFI\n",
-          "line": 1205,
+          "line": 1225,
           "tag": "within"
         },
         {
+          "content": "box\n",
+          "line": 1226,
+          "tag": "function"
+        },
+        {
           "content": "size The size of the new box\n",
-          "line": 1210,
+          "line": 1231,
           "tag": "param"
         },
         {
           "content": "A allocated box\n",
-          "line": 1211,
+          "line": 1232,
           "tag": "return"
         }
       ],
@@ -2303,22 +2346,28 @@
     },
     {
       "comments": "Open a dynamic library.",
-      "kind": "unknown",
-      "line": 1218,
+      "kind": "function",
+      "line": 1239,
+      "name": "open",
       "tags": [
         {
           "content": "FFI\n",
-          "line": 1218,
+          "line": 1239,
           "tag": "within"
         },
         {
+          "content": "open\n",
+          "line": 1240,
+          "tag": "function"
+        },
+        {
           "content": "name The name of the target library\n",
-          "line": 1222,
+          "line": 1244,
           "tag": "param"
         },
         {
           "content": "A dynamic library handle\n",
-          "line": 1223,
+          "line": 1245,
           "tag": "return"
         }
       ],
@@ -2326,22 +2375,28 @@
     },
     {
       "comments": "Return `true` if the second argument is an integer (i32).",
-      "kind": "unknown",
-      "line": 1230,
+      "kind": "function",
+      "line": 1252,
+      "name": "isInteger",
       "tags": [
         {
           "content": "FFI\n",
-          "line": 1230,
+          "line": 1252,
           "tag": "within"
         },
         {
+          "content": "isInteger\n",
+          "line": 1253,
+          "tag": "function"
+        },
+        {
           "content": "val A lua value to check\n",
-          "line": 1234,
+          "line": 1257,
           "tag": "param"
         },
         {
           "content": "Whether val is an integer or not\n",
-          "line": 1235,
+          "line": 1258,
           "tag": "return"
         }
       ],
@@ -2349,17 +2404,23 @@
     },
     {
       "comments": "Free referenced memory.",
-      "kind": "unknown",
-      "line": 1242,
+      "kind": "function",
+      "line": 1265,
+      "name": "free",
       "tags": [
         {
           "content": "FFI\n",
-          "line": 1242,
+          "line": 1265,
           "tag": "within"
         },
         {
+          "content": "free\n",
+          "line": 1266,
+          "tag": "function"
+        },
+        {
           "content": "data Target memory to free\n",
-          "line": 1246,
+          "line": 1270,
           "tag": "param"
         }
       ],
@@ -2370,32 +2431,32 @@
     {
       "comments": "Find a symbol from the dynamic library.",
       "kind": "method",
-      "line": 290,
+      "line": 297,
       "name": "find",
       "tags": [
         {
           "content": "LibData\n",
-          "line": 290,
+          "line": 297,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 291,
+          "line": 298,
           "tag": "tag"
         },
         {
           "content": "find\n",
-          "line": 292,
+          "line": 299,
           "tag": "method"
         },
         {
           "content": "sym The name of the symbol\n",
-          "line": 296,
+          "line": 303,
           "tag": "param"
         },
         {
           "content": "A `Ref` of the found symbol\n",
-          "line": 297,
+          "line": 304,
           "tag": "return"
         }
       ],
@@ -2406,27 +2467,27 @@
     {
       "comments": "Create a RefData by dereference this reference.\nThe created reference has no boundaries and has no restrictions.\n\nThis method is unsafe.",
       "kind": "method",
-      "line": 64,
+      "line": 71,
       "name": "deref",
       "tags": [
         {
           "content": "RefData\n",
-          "line": 64,
+          "line": 71,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 65,
+          "line": 72,
           "tag": "tag"
         },
         {
           "content": "deref\n",
-          "line": 66,
+          "line": 73,
           "tag": "method"
         },
         {
           "content": "A dereferenced `RefData`\n",
-          "line": 73,
+          "line": 80,
           "tag": "return"
         }
       ],
@@ -2435,32 +2496,32 @@
     {
       "comments": "Create a reference with specific offset from this reference.\n\nThe created reference can be GCed and holds same data.",
       "kind": "method",
-      "line": 77,
+      "line": 84,
       "name": "offset",
       "tags": [
         {
           "content": "RefData\n",
-          "line": 77,
+          "line": 84,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 78,
+          "line": 85,
           "tag": "tag"
         },
         {
           "content": "offset\n",
-          "line": 79,
+          "line": 86,
           "tag": "method"
         },
         {
           "content": "offset Create a reference at the given offset\n",
-          "line": 85,
+          "line": 92,
           "tag": "param"
         },
         {
           "content": "A offseted reference\n",
-          "line": 86,
+          "line": 93,
           "tag": "return"
         }
       ],
@@ -2469,27 +2530,27 @@
     {
       "comments": "Create a reference of this reference.\n\nThe created reference keeps the target reference from being garbage collected until created reference itself is collected.",
       "kind": "method",
-      "line": 90,
+      "line": 97,
       "name": "ref",
       "tags": [
         {
           "content": "RefData\n",
-          "line": 90,
+          "line": 97,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 91,
+          "line": 98,
           "tag": "tag"
         },
         {
           "content": "ref\n",
-          "line": 92,
+          "line": 99,
           "tag": "method"
         },
         {
           "content": "A reference of this reference\n",
-          "line": 98,
+          "line": 105,
           "tag": "return"
         }
       ],
@@ -2498,27 +2559,27 @@
     {
       "comments": "Create a reference of this reference after leaking it.\n\nGC doesn't manage destruction after this action. You must free it later.",
       "kind": "method",
-      "line": 102,
+      "line": 109,
       "name": "leak",
       "tags": [
         {
           "content": "RefData\n",
-          "line": 102,
+          "line": 109,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 103,
+          "line": 110,
           "tag": "tag"
         },
         {
           "content": "leak\n",
-          "line": 104,
+          "line": 111,
           "tag": "method"
         },
         {
           "content": "A reference of this reference\n",
-          "line": 110,
+          "line": 117,
           "tag": "return"
         }
       ],
@@ -2527,27 +2588,27 @@
     {
       "comments": "Check reference is null or not.",
       "kind": "method",
-      "line": 114,
+      "line": 121,
       "name": "isNull",
       "tags": [
         {
           "content": "RefData\n",
-          "line": 114,
+          "line": 121,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 115,
+          "line": 122,
           "tag": "tag"
         },
         {
           "content": "isNull\n",
-          "line": 116,
+          "line": 123,
           "tag": "method"
         },
         {
           "content": "Whether reference is null or not\n",
-          "line": 120,
+          "line": 127,
           "tag": "return"
         }
       ],
@@ -2556,47 +2617,47 @@
     {
       "comments": "Copy content from another data with specific length.",
       "kind": "method",
-      "line": 124,
+      "line": 131,
       "name": "copyFrom",
       "tags": [
         {
           "content": "RefData\n",
-          "line": 124,
+          "line": 131,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 125,
+          "line": 132,
           "tag": "tag"
         },
         {
           "content": "copyFrom\n",
-          "line": 126,
+          "line": 133,
           "tag": "method"
         },
         {
           "content": "src The source data\n",
-          "line": 130,
+          "line": 137,
           "tag": "param"
         },
         {
           "content": "length The amount of data to copy, in bytes\n",
-          "line": 131,
+          "line": 138,
           "tag": "param"
         },
         {
           "content": "dstOffset The offset in the destination where the content will be pasted\n",
-          "line": 132,
+          "line": 139,
           "tag": "param"
         },
         {
           "content": "srcOffset The offset in the source data from where the content will be copied\n",
-          "line": 133,
+          "line": 140,
           "tag": "param"
         },
         {
           "content": "`RefData` itself for convenience\n",
-          "line": 134,
+          "line": 141,
           "tag": "return"
         }
       ],
@@ -2605,37 +2666,37 @@
     {
       "comments": "Read string from data with specific length without null termination.",
       "kind": "method",
-      "line": 144,
+      "line": 151,
       "name": "readString",
       "tags": [
         {
           "content": "RefData\n",
-          "line": 144,
+          "line": 151,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 145,
+          "line": 152,
           "tag": "tag"
         },
         {
           "content": "readString\n",
-          "line": 146,
+          "line": 153,
           "tag": "method"
         },
         {
           "content": "length The amount of data to read, in bytes\n",
-          "line": 150,
+          "line": 157,
           "tag": "param"
         },
         {
           "content": "offset Offset to read string from\n",
-          "line": 151,
+          "line": 158,
           "tag": "param"
         },
         {
           "content": "A string\n",
-          "line": 152,
+          "line": 159,
           "tag": "return"
         }
       ],
@@ -2644,67 +2705,51 @@
     {
       "comments": "Write string into data without null termination.",
       "kind": "method",
-      "line": 156,
+      "line": 163,
       "name": "writeString",
       "tags": [
         {
           "content": "RefData\n",
-          "line": 156,
+          "line": 163,
           "tag": "within"
         },
         {
           "content": "Method\n",
-          "line": 157,
+          "line": 164,
           "tag": "tag"
         },
         {
           "content": "writeString\n",
-          "line": 158,
+          "line": 165,
           "tag": "method"
         },
         {
           "content": "src The source string\n",
-          "line": 162,
+          "line": 169,
           "tag": "param"
         },
         {
           "content": "length The amount of data to write, in bytes\n",
-          "line": 163,
+          "line": 170,
           "tag": "param"
         },
         {
           "content": "dstOffset The offset in the destination where the content will be pasted\n",
-          "line": 164,
+          "line": 171,
           "tag": "param"
         },
         {
           "content": "srcOffset The offset in the source string from where the content will be copied\n",
-          "line": 165,
+          "line": 172,
           "tag": "param"
         },
         {
           "content": "`RefData` itself for convenience\n",
-          "line": 166,
+          "line": 173,
           "tag": "return"
         }
       ],
       "within": "RefData"
     }
-  ],
-  "TEST": {
-    "self": {
-      "comments": "COMMENT\nCOMMENT\nCOMMENT",
-      "kind": "class",
-      "line": 1252,
-      "name": "TEST",
-      "tags": [
-        {
-          "content": "TEST\n",
-          "line": 1252,
-          "tag": "class"
-        }
-      ],
-      "within": "TEST"
-    }
-  }
+  ]
 }

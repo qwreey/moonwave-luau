@@ -3,13 +3,14 @@
 
 -- TODO: external
 -- TODO: moonwave_high_interface
+-- TODO: function and method without kind tag (by read under contents)
 
 local parser = require("./parser-lua")
 
 local function stripWhitespaces(str: string): string
 	return string.gsub(string.gsub(str, "^%s+", ""), "%s+$", "")
 end
-local function get_or_create_table<T>(item: T&{}, key: string): { any }
+local function get_or_create_table<T>(item: T & {}, key: string): { any }
 	local t = item[key]
 	if t then
 		return t
@@ -62,7 +63,7 @@ local moonwave_raw = parser.createParser({
 		for endpos in string.gmatch(content, "()\n") do
 			table.insert(linenums, self.line)
 			self.line += 1
-			last = endpos+1
+			last = endpos + 1
 		end
 		local content_len = #content
 		if content_len > last then
@@ -75,18 +76,14 @@ local moonwave_raw = parser.createParser({
 	end,
 
 	{ "%-%-%-[\t ]*([^\n]+\n)", "%-%-%-[\t ]*([^\n]+)$" },
-	function (self, str, pos, startAt, endAt, comment)
-		table.insert(
-			get_or_create_table(self, "buffer_comments"), comment
-		)
-		table.insert(
-			get_or_create_table(self, "buffer_lines"), self.line
-		)
+	function(self, str, pos, startAt, endAt, comment)
+		table.insert(get_or_create_table(self, "buffer_comments"), comment)
+		table.insert(get_or_create_table(self, "buffer_lines"), self.line)
 		self.line += 1
 	end,
 
 	"[\t ]*\n",
-	function (self)
+	function(self)
 		self.line += 1
 	end,
 
@@ -138,7 +135,7 @@ local moonwave_parser = parser.createParser({
 		"```",
 		parser.eof,
 		"\n",
-		function (self)
+		function(self)
 			table.insert(self.parent.comments, "\n")
 			self.parent.line += 1
 		end,
@@ -147,7 +144,7 @@ local moonwave_parser = parser.createParser({
 		end,
 		stop = function(self)
 			table.insert(self.parent.comments, "```")
-		end
+		end,
 	}),
 	function(self, str, pos, startAt, endAt)
 		table.insert(self.comments, "```")
@@ -162,7 +159,7 @@ local moonwave_parser = parser.createParser({
 			table.insert(self.parent.comments, char)
 		end,
 		"\n",
-		function (self)
+		function(self)
 			table.insert(self.parent.comments, "\n")
 			self.parent.line += 1
 		end,
@@ -183,12 +180,12 @@ local moonwave_parser = parser.createParser({
 
 	-- Tagged annotations
 	-- "[%s\n]*@(%a+) +([^\n]+)[%s\n]*",
-	{"@(%a+) +([^\n]+\n)", "@(%a+) +([^\n]+)$"},
+	{ "@(%a+) +([^\n]+\n)", "@(%a+) +([^\n]+)$" },
 	function(self, str, pos, startAt, endAt, tag, content)
 		table.insert(self.tags, { tag = tag, content = content, line = self.linemaps[self.line] })
 		self.line += 1
 	end,
-	{"@(%a+)([\n \t])", "@(%a+)$"},
+	{ "@(%a+)([\n \t])", "@(%a+)$" },
 	function(self, str, pos, startAt, endAt, tag, tailing)
 		table.insert(self.tags, { tag = tag, line = self.linemaps[self.line] })
 		if tailing == "\n" then
@@ -213,7 +210,7 @@ local moonwave_parser = parser.createParser({
 			comments = stripWhitespaces(table.concat(self.comments)),
 			tags = self.tags,
 			first_line = self.linemaps[1],
-			end_line = self.linemaps[self.line - 1]
+			end_line = self.linemaps[self.line - 1],
 		}
 	end,
 	noEOF = true,
@@ -245,15 +242,7 @@ end
 --#endregion low, block to element
 
 --#region middle, gather elements by within, specific element kind
-export type moonwave_middle_kind =
-	"method"
-	| "class"
-	| "function"
-	| "interface"
-	| "prop"
-	| "field"
-	| "type"
-	| "unknown"
+export type moonwave_middle_kind = "method" | "class" | "function" | "interface" | "prop" | "field" | "type" | "unknown"
 local moonwave_middle_kind_lookup = {
 	"class",
 	"method",
@@ -285,7 +274,9 @@ export type moonwave_middle = {
 local function moonwave_middle_get_kind(tags: moonwave_low_tag_list): (moonwave_middle_kind, string)
 	for _, kind in ipairs(moonwave_middle_kind_lookup) do
 		local tag = moonwave_low_tag_find(tags, kind)
-		if tag then return kind, stripWhitespaces(tag.content) end
+		if tag then
+			return kind, stripWhitespaces(tag.content)
+		end
 	end
 	return "unknown", nil
 end
@@ -312,7 +303,9 @@ local function moonwave_middle(low: moonwave_low): moonwave_middle
 		local within = moonwave_low_tag_find(tags, "within")
 		moonwave_middle_push(middle, {
 			name = name,
-			within = if kind == "class" then name else (if within then stripWhitespaces(within.content) else ":ungrouped"),
+			within = if kind == "class"
+				then name
+				else (if within then stripWhitespaces(within.content) else ":ungrouped"),
 			comments = element.comments,
 			tags = tags,
 			kind = kind,
@@ -366,7 +359,7 @@ export type moonwave_high_unknown = {
 	line: number,
 	within: string,
 	comments: string,
-	raw_tags: moonwave_middle_tag_list
+	raw_tags: moonwave_middle_tag_list,
 }
 export type moonwave_high_function_param = { name: string, type: string?, description: string?, line: number }
 export type moonwave_high_function_return = { type: string, description: string?, line: number }
@@ -404,14 +397,16 @@ export type moonwave_high_class = {
 	types: { [number]: moonwave_high_type }?,
 } & moonwave_high_base & moonwave_high_usage & moonwave_high_realm & moonwave_high_visibility
 export type moonwave_high = { [string]: moonwave_high_class, [":ungrouped"]: moonwave_high_class }
-export type moonwave_high_item = moonwave_high_interface | moonwave_high_function | moonwave_high_field | moonwave_high_unknown
+export type moonwave_high_item =
+	moonwave_high_interface
+	| moonwave_high_function
+	| moonwave_high_field
+	| moonwave_high_unknown
 
 local function errline(line: number): string
 	return `[line: {line}]`
 end
-local function moonwave_high_list_push(
-	moonwave_class_list: moonwave_high, item: moonwave_high_item
-)
+local function moonwave_high_list_push(moonwave_class_list: moonwave_high, item: moonwave_high_item)
 	local kind = (item :: moonwave_high_base).kind
 	local within = (item :: moonwave_high_base).within
 	local class = moonwave_class_list[within]
@@ -428,10 +423,10 @@ local function moonwave_high_list_push(
 		return
 	end
 
-	local list = class[kind.."s"]
+	local list = class[kind .. "s"]
 	if not list then
 		list = {}
-		class[kind.."s"] = list
+		class[kind .. "s"] = list
 	end
 
 	table.insert(list, item)
@@ -444,12 +439,12 @@ local function parse_dashed_content(dashed_comments: string, line: number): (str
 
 	-- with ""
 	local first_char = string.sub(dashed_comments, 1, 1)
-	if first_char == "[" or first_char == "'" or first_char == "\"" then
+	if first_char == "[" or first_char == "'" or first_char == '"' then
 		local passed, err, endAt = pcall(parser.luaStringParser(dashed_comments))
 		if not passed then
 			error(`{errline(line)} lua string parsing failed. {err}`)
 		end
-		return string.sub(dashed_comments, 1, endAt), stripWhitespaces(string.sub(dashed_comments, endAt+1, -1)), true
+		return string.sub(dashed_comments, 1, endAt), stripWhitespaces(string.sub(dashed_comments, endAt + 1, -1)), true
 	end
 
 	head, body = string.match(dashed_comments, "^([^ \t]+) +(.+)$")
@@ -461,10 +456,7 @@ end
 -- handle tag tag
 local function moonwave_high_handle_base(item: moonwave_high_base, tag: moonwave_middle_tag): boolean
 	if tag.tag == "tag" then
-		table.insert(
-			get_or_create_table(item, "tags"),
-			tag.content
-		)
+		table.insert(get_or_create_table(item, "tags"), tag.content)
 		return true
 	end
 
@@ -552,7 +544,7 @@ end
 local function moonwave_high_handle_field(item: moonwave_high_field, tag: moonwave_middle_tag?): boolean
 	if not tag then
 		item.readonly = false
-		local name, type_ = string.match(item.name,"^([^ \t]+)[ \t]+(.+)$")
+		local name, type_ = string.match(item.name, "^([^ \t]+)[ \t]+(.+)$")
 		if name then
 			item.name = name
 			item.type = type_
@@ -596,10 +588,7 @@ local function moonwave_high_handle_function(item: moonwave_high_function, tag: 
 		elseif tailing ~= "" then
 			param.description = tailing
 		end
-		table.insert(
-			get_or_create_table(item, "params"),
-			param
-		)
+		table.insert(get_or_create_table(item, "params"), param)
 		return true
 	end
 
@@ -615,10 +604,7 @@ local function moonwave_high_handle_function(item: moonwave_high_function, tag: 
 			end
 			return_.description = tag.content
 		end
-		table.insert(
-			get_or_create_table(item, "returns"),
-			return_
-		)
+		table.insert(get_or_create_table(item, "returns"), return_)
 		return true
 	end
 
@@ -634,19 +620,19 @@ local function moonwave_high_handle_function(item: moonwave_high_function, tag: 
 			end
 			error_.type = tag.content
 		end
-		table.insert(
-			get_or_create_table(item, "errors"),
-			error_
-		)
+		table.insert(get_or_create_table(item, "errors"), error_)
 		return true
 	end
 
 	return false
 end
 -- handle type tag
-local function moonwave_high_handle_type(item: { 
-	types: { [number]: moonwave_high_type }?
-}, tag: moonwave_middle_tag): boolean
+local function moonwave_high_handle_type(
+	item: {
+		types: { [number]: moonwave_high_type }?,
+	},
+	tag: moonwave_middle_tag
+): boolean
 	if tag.tag == "type" then
 		local name, type_ = string.match(tag.content, "^([^ \t]+)[ \t]+$")
 		if not name then
@@ -694,26 +680,30 @@ local function moonwave_high_handle_element(element: moonwave_middle_element): m
 	end
 
 	local unused_tags = {}
-	for _,tag in ipairs(element.tags) do
-		if kind ~= "unknown" and (
-			moonwave_high_handle_base(base :: moonwave_high_base, tag)
-			or moonwave_high_handle_usage(base :: moonwave_high_usage, tag)
-			or moonwave_high_handle_realm(base :: moonwave_high_realm, tag)
-			or moonwave_high_handle_visibility(base :: moonwave_high_visibility, tag)
-		) then
+	for _, tag in ipairs(element.tags) do
+		if
+			kind ~= "unknown"
+			and (
+				moonwave_high_handle_base(base :: moonwave_high_base, tag)
+				or moonwave_high_handle_usage(base :: moonwave_high_usage, tag)
+				or moonwave_high_handle_realm(base :: moonwave_high_realm, tag)
+				or moonwave_high_handle_visibility(base :: moonwave_high_visibility, tag)
+			)
+		then
 		elseif isField and moonwave_high_handle_field(base :: moonwave_high_field, tag) then
 		elseif isFunction and moonwave_high_handle_function(base :: moonwave_high_function, tag) then
 		elseif hasTypes and moonwave_high_handle_type(base :: any, tag) then
 		elseif
-			tag.tag == "within" or
-			tag.tag == "class" or
-			tag.tag == "method" or
-			tag.tag == "function" or
-			tag.tag == "interface" or
-			tag.tag == "prop" or
-			tag.tag == "field" or
-			tag.tag == "type"
-		then else
+			tag.tag == "within"
+			or tag.tag == "class"
+			or tag.tag == "method"
+			or tag.tag == "function"
+			or tag.tag == "interface"
+			or tag.tag == "prop"
+			or tag.tag == "field"
+			or tag.tag == "type"
+		then
+		else
 			-- unprocessed tag
 			table.insert(unused_tags, tag)
 		end
@@ -732,7 +722,7 @@ local function moonwave_high(middle: moonwave_middle): moonwave_high
 		if items.self then
 			moonwave_high_list_push(high, moonwave_high_handle_element(items.self))
 		end
-		for _,item in ipairs(items) do
+		for _, item in ipairs(items) do
 			moonwave_high_list_push(high, moonwave_high_handle_element(item))
 		end
 	end
@@ -740,6 +730,359 @@ local function moonwave_high(middle: moonwave_middle): moonwave_high
 	return high
 end
 --#endregion high, handle all moonwave metadatas and export classes
+
+--#region docgen
+local docgen = {}
+docgen.__index = docgen
+
+function docgen.new()
+	return setmetatable({ "<!-- markdownlint-disable -->\n\n" }, docgen)
+end
+
+function docgen:push(str: string): docgen
+	table.insert(self, str)
+	return self
+end
+
+function docgen:finalize(): string
+	return string.gsub(table.concat(self), "\n+$", "") .. "\n"
+end
+
+function docgen:pushTitle(str: string, level: number?): docgen
+	self:push(`{string.rep("#", level or 1)} {str}\n\n`)
+	return self
+end
+
+function docgen:pushHr(): docgen
+	self:push("\n---\n\n")
+	return self
+end
+
+function docgen.inline(str: string): string
+	return `\`{string.gsub(str, "`", "\\`")}\``
+end
+
+function docgen.strip(str: string): string
+	return string.gsub(string.gsub(str, "^\n+", ""), "\n+$", "")
+end
+
+function docgen.indent(str: string, indent: string): string
+	return `{indent}{string.gsub(str, "\n", `\n{indent}`)}`
+end
+
+function docgen:pushAttrs(item: moonwave_high_field | moonwave_high_function | moonwave_high_class): docgen
+	local pushed = false
+
+	-- unreleased tag
+	if item.unreleased then
+		self:push("**@unreleased**\n")
+		pushed = true
+	end
+
+	-- readonly tag
+	if (item :: moonwave_high_field).readonly then
+		self:push("**@readonly**\n")
+		pushed = true
+	end
+
+	-- since tag
+	local since = item.since
+	if since then
+		self:push(`**@since** {docgen.strip(since)}\n`)
+		pushed = true
+	end
+
+	-- deprecated
+	local deprecated = item.deprecated
+	if deprecated then
+		self:push(
+			`**@deprecated** {docgen.inline(docgen.strip(deprecated.version))} {docgen.strip(deprecated.description)}\n`
+		)
+		pushed = true
+	end
+
+	if pushed then
+		self:push("\n")
+	end
+
+	return self
+end
+
+-- Push properties
+function docgen:pushProps(props: { moonwave_high_field }, _titleIndent: number?, noTitle: boolean?): docgen
+	if #props == 0 then
+		return
+	end
+	local titleIndent = _titleIndent or 2
+	if not noTitle then
+		self:pushTitle("Properties", titleIndent)
+	end
+	for index, item in props do
+		if item.ignore then
+			continue
+		end
+
+		-- name
+		self:pushTitle(docgen.strip(item.name), titleIndent + 1)
+
+		-- attrs
+		self:pushAttrs(item)
+
+		-- inline type
+		if item.type then
+			self:push(`{docgen.inline(docgen.strip(item.type))}\n\n`)
+		end
+
+		-- comments
+		if item.comments ~= "" then
+			self:push(`{docgen.strip(item.comments)}\n`)
+		end
+
+		-- hr
+		if props[index + 1] then
+			self:pushHr()
+		end
+	end
+	self:push("\n")
+	return self
+end
+
+function docgen:pushFields(fields: { moonwave_high_field }, titleIndent: number?, noTitle: boolean?): docgen
+	if #fields == 0 then
+		return
+	end
+	if not noTitle then
+		self:pushTitle("Fields", titleIndent or 2)
+	end
+	self:pushProps(fields, titleIndent, true)
+	return self
+end
+
+function docgen:pushFunctions(functions: { moonwave_high_function }, _titleIndent: number?, noTitle: boolean?): docgen
+	if #functions == 0 then
+		return
+	end
+	local titleIndent = _titleIndent or 2
+	if not noTitle then
+		self:pushTitle("Functions", titleIndent)
+	end
+	for index, item in functions do
+		if item.ignore then
+			continue
+		end
+
+		-- name
+		self:pushTitle(docgen.strip(item.name), titleIndent + 1)
+
+		-- attrs
+		self:pushAttrs(item)
+
+		-- comments
+		if item.comments ~= "" then
+			self:push(`{docgen.strip(item.comments)}\n\n`)
+		end
+
+		-- params
+		if item.params then
+			self:pushTitle("Parameters", titleIndent + 2)
+			for _, param in item.params do
+				if param.type then
+					self:push(
+						`- **{docgen.strip(param.name)}** {docgen.inline(docgen.strip(param.type))} {docgen.strip(
+							param.description
+						)}\n`
+					)
+				else
+					self:push(`- {docgen.inline(docgen.strip(param.name))} {docgen.strip(param.description)}\n`)
+				end
+			end
+			if item.returns then
+				self:push("\n")
+			end
+		end
+
+		-- returns
+		if item.returns then
+			self:pushTitle("Returns", titleIndent + 2)
+			for _, return_ in item.returns do
+				if return_.type then
+					self:push(`- {docgen.inline(docgen.strip(return_.type))} {docgen.strip(return_.description)}\n`)
+				else
+					self:push(`- {docgen.strip(return_.description)}\n`)
+				end
+			end
+		end
+
+		-- errors
+		if item.errors then
+			self:pushTitle("Errors", titleIndent + 2)
+			for _, error_ in item.errors do
+				if error_.type then
+					self:push(`- {docgen.inline(docgen.strip(error_.type))} {docgen.strip(error_.description)}\n`)
+				else
+					self:push(`- {docgen.strip(error_.description)}\n`)
+				end
+			end
+		end
+
+		-- hr
+		if functions[index + 1] then
+			self:pushHr()
+		end
+	end
+	self:push("\n")
+	return self
+end
+
+function docgen:pushMethods(methods: { moonwave_high_function }, titleIndent: number?, noTitle: boolean?): docgen
+	if #methods == 0 then
+		return
+	end
+	if not noTitle then
+		self:pushTitle("Methods", titleIndent or 2)
+	end
+	self:pushFunctions(methods, titleIndent, true)
+	return self
+end
+
+function docgen.filterConstructor(
+	methods: { moonwave_high_function }
+): ({ moonwave_high_function }, { moonwave_high_function }?)
+	local filtered = {}
+	local constructors = {}
+
+	for _, method in methods do
+		if (method.tags and table.find(method.tags, "Constructor")) or method.name == "new" then
+			table.insert(constructors, method)
+			continue
+		end
+		table.insert(filtered, method)
+	end
+
+	return filtered, if #constructors == 0 then nil else constructors
+end
+
+function docgen:pushClass(class: moonwave_high_class, _titleIndent: number?): docgen
+	local titleIndent = _titleIndent or 1
+	local childrenIndent = titleIndent + 1
+	self:pushTitle(class.name, titleIndent)
+
+	-- attrs
+	self:pushAttrs(class)
+
+	-- Filter constructors
+	local functions: { moonwave_high_function }?
+	local functionConstructors: { moonwave_high_function }?
+	local methods: { moonwave_high_function }?
+	local methodConstructors: { moonwave_high_function }?
+	if class.functions then
+		functions, functionConstructors = docgen.filterConstructor(class.functions)
+	end
+	if class.methods then
+		methods, methodConstructors = docgen.filterConstructor(class.methods)
+	end
+
+	-- Push comments
+	if class.comments ~= "" then
+		self:pushComments(class.comments)
+	end
+
+	-- Push constructors
+	if functionConstructors or methodConstructors then
+		self:pushTitle("Constructors", childrenIndent)
+		if functionConstructors then
+			self:pushFunctions(functionConstructors, childrenIndent, false)
+		end
+		if methodConstructors then
+			self:pushFunctions(methodConstructors, childrenIndent, false)
+		end
+	end
+
+	-- Children
+	if class.fields then
+		self:pushFields(class.fields, childrenIndent)
+	end
+	if class.props then
+		self:pushProps(class.props, childrenIndent)
+	end
+	if functions then
+		self:pushFunctions(functions, childrenIndent)
+	end
+	if methods then
+		self:pushMethods(methods, childrenIndent)
+	end
+	-- TODO: type
+
+	return self
+end
+
+function docgen:pushComments(comments: string): docgen
+	self:push(`{docgen.strip(comments)}\n\n`)
+	return self
+end
+
+export type docgenSimpleFieldOptions = { withoutType: boolean?, withoutCommentLinebreak: boolean? }
+function docgen:pushSimpleField(fields: { moonwave_high_field }, options: docgenSimpleFieldOptions?): docgen
+	local withType = options and options.withType
+	local withoutCommentLinebreak = options and options.withoutCommentLinebreak
+	for _, field in fields do
+		local comments = if field.comments == ""
+			then ""
+			else `{if withoutCommentLinebreak then " " else "\n\n"}{docgen.indent(
+				docgen.strip(field.comments),
+				"  "
+			)}{if withoutCommentLinebreak then "" else "\n"}`
+		if withType then
+			self:push(`- **{docgen.strip(field.name)}** {docgen.inline(docgen.strip(field.type))}{comments}\n`)
+		else
+			self:push(`- {docgen.inline(docgen.strip(field.name))}{comments}\n`)
+		end
+	end
+	return self
+end
+
+export type docgen = {
+	new: () -> docgen,
+	push: (self: docgen, str: string) -> docgen,
+	finalize: (self: docgen) -> string,
+	pushTitle: (self: docgen, str: string, level: number?) -> docgen,
+	inline: (str: string) -> string,
+	strip: (str: string) -> string,
+	indent: (str: string, indent: string) -> string,
+	pushHr: (self: docgen) -> docgen,
+	pushSimpleField: (fields: { moonwave_high_field }, options: docgenSimpleFieldOptions?) -> docgen,
+	pushProps: (
+		self: docgen,
+		props: { moonwave_high_field },
+		titleIndent: number?,
+		noTitle: boolean?
+	) -> docgen,
+	pushFields: (
+		self: docgen,
+		fields: { moonwave_high_field },
+		titleIndent: number?,
+		noTitle: boolean?
+	) -> docgen,
+	pushFunctions: (
+		self: docgen,
+		functions: { moonwave_high_function },
+		titleIndent: number?,
+		noTitle: boolean?
+	) -> docgen,
+	pushMethods: (
+		self: docgen,
+		methods: { moonwave_high_function },
+		titleIndent: number?,
+		noTitle: boolean?
+	) -> docgen,
+	pushAttrs: (self: docgen, item: moonwave_high_field | moonwave_high_function | moonwave_high_class) -> docgen,
+	pushClass: (self: docgen, class: moonwave_high_class, titleIndent: number?) -> docgen,
+	filterConstructor: (
+		methods: { moonwave_high_function }
+	) -> ({ moonwave_high_function }, { moonwave_high_function }?),
+	pushComments: (self: docgen, comments: string) -> docgen,
+}
+--#endregion docgen
 
 local function parseString(content: string): moonwave_high
 	local raw = moonwave_raw(content)
@@ -750,9 +1093,17 @@ local function parseString(content: string): moonwave_high
 end
 
 return {
+	docgen = docgen,
 	parseString = parseString,
 	moonwave_high = moonwave_high,
 	moonwave_middle = moonwave_middle,
 	moonwave_low = moonwave_low,
-	moonwave_raw = moonwave_raw,
+	moonwave_raw = moonwave_raw :: any,
+} :: {
+	parseString: (content: string) -> moonwave_high,
+	docgen: docgen,
+	moonwave_raw: (content: string, startAt: number?) -> { [number]: { comments: string, linenums: { number } } },
+	moonwave_low: (raw: moonwave_raw) -> moonwave_low,
+	moonwave_middle: (low: moonwave_low) -> moonwave_middle,
+	moonwave_high: (middle: moonwave_middle) -> moonwave_high,
 }

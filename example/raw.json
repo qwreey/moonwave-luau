@@ -54,319 +54,324 @@
     ]
   },
   {
+    "comments": "@prop C C\n@within FFI\n\nNamespace for compile time sized c types.\n",
+    "linenums": [
+      54,
+      55,
+      56,
+      57
+    ]
+  },
+  {
     "comments": "@class RefData\n\nA user manageable memory reference.\n\nIt can be GCed, But it doesn't free the referenced memory.\n",
     "linenums": [
-      56,
-      57,
-      58,
-      59,
-      60
+      63,
+      64,
+      65,
+      66,
+      67
     ]
   },
   {
     "comments": "@within RefData\n@tag Method\n@method deref\n\nCreate a RefData by dereference this reference.\nThe created reference has no boundaries and has no restrictions.\n\nThis method is unsafe.\n\n@return A dereferenced `RefData`\n\t",
     "linenums": [
-      64,
-      65,
-      66,
-      67,
-      68,
-      69,
-      70,
       71,
       72,
-      73
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80
     ]
   },
   {
     "comments": "@within RefData\n@tag Method\n@method offset\n\nCreate a reference with specific offset from this reference.\n\nThe created reference can be GCed and holds same data.\n\n@param offset Create a reference at the given offset\n@return A offseted reference\n\t",
     "linenums": [
-      77,
-      78,
-      79,
-      80,
-      81,
-      82,
-      83,
       84,
       85,
-      86
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93
     ]
   },
   {
     "comments": "@within RefData\n@tag Method\n@method ref\n\nCreate a reference of this reference.\n\nThe created reference keeps the target reference from being garbage collected until created reference itself is collected.\n\n@return A reference of this reference\n\t",
     "linenums": [
-      90,
-      91,
-      92,
-      93,
-      94,
-      95,
-      96,
       97,
-      98
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105
     ]
   },
   {
     "comments": "@within RefData\n@tag Method\n@method leak\n\nCreate a reference of this reference after leaking it.\n\nGC doesn't manage destruction after this action. You must free it later.\n\n@return A reference of this reference\n\t",
     "linenums": [
-      102,
-      103,
-      104,
-      105,
-      106,
-      107,
-      108,
       109,
-      110
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117
     ]
   },
   {
     "comments": "@within RefData\n@tag Method\n@method isNull\n\nCheck reference is null or not.\n\n@return Whether reference is null or not\n\t",
     "linenums": [
-      114,
-      115,
-      116,
-      117,
-      118,
-      119,
-      120
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127
     ]
   },
   {
     "comments": "@within RefData\n@tag Method\n@method copyFrom\n\nCopy content from another data with specific length.\n\n@param src The source data\n@param length The amount of data to copy, in bytes\n@param dstOffset The offset in the destination where the content will be pasted\n@param srcOffset The offset in the source data from where the content will be copied\n@return `RefData` itself for convenience\n\t",
     "linenums": [
-      124,
-      125,
-      126,
-      127,
-      128,
-      129,
-      130,
       131,
       132,
       133,
-      134
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141
     ]
   },
   {
     "comments": "@within RefData\n@tag Method\n@method readString\n\nRead string from data with specific length without null termination.\n\n@param length The amount of data to read, in bytes\n@param offset Offset to read string from\n@return A string\n\t",
     "linenums": [
-      144,
-      145,
-      146,
-      147,
-      148,
-      149,
-      150,
       151,
-      152
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159
     ]
   },
   {
     "comments": "@within RefData\n@tag Method\n@method writeString\n\nWrite string into data without null termination.\n\n@param src The source string\n@param length The amount of data to write, in bytes\n@param dstOffset The offset in the destination where the content will be pasted\n@param srcOffset The offset in the source string from where the content will be copied\n@return `RefData` itself for convenience\n\t",
     "linenums": [
-      156,
-      157,
-      158,
-      159,
-      160,
-      161,
-      162,
       163,
       164,
       165,
-      166
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173
     ]
   },
   {
     "comments": "@class BoxData\n\nA user manageable heap memory.\n",
     "linenums": [
-      178,
-      179,
-      180
+      185,
+      186,
+      187
     ]
   },
   {
     "comments": "@within BoxData\n@tag Field\n@readonly\n@field size\n\nThe size of the box.\n\t",
     "linenums": [
-      184,
-      185,
-      186,
-      187,
-      188,
-      189
+      191,
+      192,
+      193,
+      194,
+      195,
+      196
     ]
   },
   {
     "comments": "@within BoxData\n@tag Method\n@method zero\n\nFill the box with zero.\n\n@return `BoxData` itself for convenience\n\t",
     "linenums": [
-      194,
-      195,
-      196,
-      197,
-      198,
-      199,
-      200
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207
     ]
   },
   {
     "comments": "@within BoxData\n@tag Method\n@method leak\n\nCreate a reference of the box after leaking it.\n\nGC doesn't manage destruction after this action. You must free it later.\n\n@param offset Create a reference at the given offset\n@return A reference of the box\n\t",
     "linenums": [
-      204,
-      205,
-      206,
-      207,
-      208,
-      209,
-      210,
       211,
       212,
-      213
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220
     ]
   },
   {
     "comments": "@within BoxData\n@tag Method\n@method ref\n\nCreate a reference of the box.\n\nThe created reference keeps the box from being garbage collected until the reference itself is collected.\n\n@param offset Create a reference at the given offset\n@return A reference of the box\n\t",
     "linenums": [
-      217,
-      218,
-      219,
-      220,
-      221,
-      222,
-      223,
       224,
       225,
-      226
+      226,
+      227,
+      228,
+      229,
+      230,
+      231,
+      232,
+      233
     ]
   },
   {
     "comments": "@within BoxData\n@tag Method\n@method copyFrom\n\nCopy content from another data with specific length.\n\n@param src The source data\n@param length The amount of data to copy, in bytes\n@param dstOffset The offset in the destination where the content will be pasted\n@param srcOffset The offset in the source data from where the content will be copied\n@return `BoxData` itself for convenience\n\t",
     "linenums": [
-      230,
-      231,
-      232,
-      233,
-      234,
-      235,
-      236,
       237,
       238,
       239,
-      240
+      240,
+      241,
+      242,
+      243,
+      244,
+      245,
+      246,
+      247
     ]
   },
   {
     "comments": "@within BoxData\n@tag Method\n@method readString\n\nRead string from data with specific length without null termination.\n\n@param length The amount of data to read, in bytes\n@param offset Offset to read string from\n@return A string\n\t",
     "linenums": [
-      250,
-      251,
-      252,
-      253,
-      254,
-      255,
-      256,
       257,
-      258
+      258,
+      259,
+      260,
+      261,
+      262,
+      263,
+      264,
+      265
     ]
   },
   {
     "comments": "@within BoxData\n@tag Method\n@method writeString\n\nWrite string into data without null termination.\n\n@param src The source string\n@param length The amount of data to write, in bytes\n@param dstOffset The offset in the destination where the content will be pasted\n@param srcOffset The offset in the source string from where the content will be copied\n@return `BoxData` itself for convenience\n\t",
     "linenums": [
-      262,
-      263,
-      264,
-      265,
-      266,
-      267,
-      268,
       269,
       270,
       271,
-      272
+      272,
+      273,
+      274,
+      275,
+      276,
+      277,
+      278,
+      279
     ]
   },
   {
     "comments": "@class LibData\n\nA dynamic opened library handle.\n",
     "linenums": [
-      284,
-      285,
-      286
+      291,
+      292,
+      293
     ]
   },
   {
     "comments": "@within LibData\n@tag Method\n@method find\n\nFind a symbol from the dynamic library.\n\n@param sym The name of the symbol\n@return A `Ref` of the found symbol\n\t",
     "linenums": [
-      290,
-      291,
-      292,
-      293,
-      294,
-      295,
-      296,
-      297
+      297,
+      298,
+      299,
+      300,
+      301,
+      302,
+      303,
+      304
     ]
   },
   {
     "comments": "@class CallableData\n\nA callable external function.\n\nTo call external function, provide memory for save the return value and references for the arguments.\n\nIf return type is `void`, pass `nil`.\n",
     "linenums": [
-      303,
-      304,
-      305,
-      306,
-      307,
-      308,
-      309
+      310,
+      311,
+      312,
+      313,
+      314,
+      315,
+      316
     ]
   },
   {
     "comments": "@class ClosureData\n\nA reference that holds lua function.\n",
     "linenums": [
-      320,
-      321,
-      322
+      327,
+      328,
+      329
     ]
   },
   {
     "comments": "@within ClosureData\n@tag Method\n@method ref\n\nCreate a reference of the closure. usually can be used for passing function pointer as argument.\n\nThe created reference keeps the closure from being garbage collected until the reference itself is collected.\n\n@return A reference of the closure\n\t",
     "linenums": [
-      326,
-      327,
-      328,
-      329,
-      330,
-      331,
-      332,
       333,
-      334
+      334,
+      335,
+      336,
+      337,
+      338,
+      339,
+      340,
+      341
+    ]
+  },
+  {
+    "comments": "@class CTypeInfo\n\nA c numbric type information.\n",
+    "linenums": [
+      350,
+      351,
+      352
     ]
   },
   {
     "comments": "@within CTypeInfo\n@tag Field\n@readonly\n@field size\n\nThe size of the type in bytes.\n\t",
     "linenums": [
-      344,
-      345,
-      346,
-      347,
-      348,
-      349
+      356,
+      357,
+      358,
+      359,
+      360,
+      361
     ]
   },
   {
     "comments": "@within CTypeInfo\n@tag Field\n@readonly\n@field signedness\n\nThe signedness of the type.\n\t",
     "linenums": [
-      353,
-      354,
-      355,
-      356,
-      357,
-      358
-    ]
-  },
-  {
-    "comments": "@within CTypeInfo\n@tag Method\n@method ptr\n\nCreate a pointer subtype.\n\n@return A pointer subtype\n\t",
-    "linenums": [
-      364,
       365,
       366,
       367,
@@ -376,35 +381,33 @@
     ]
   },
   {
-    "comments": "@within CTypeInfo\n@tag Method\n@method arr\n\nCreate an array subtype with specific length.\n\n@param length The length of the array\n@return An array subtype\n\t",
+    "comments": "@within CTypeInfo\n@tag Method\n@method ptr\n\nCreate a pointer subtype.\n\n@return A pointer subtype\n\t",
     "linenums": [
-      374,
-      375,
       376,
       377,
       378,
       379,
       380,
-      381
+      381,
+      382
     ]
   },
   {
-    "comments": "@within CTypeInfo\n@tag Method\n@method box\n\nCreate a box with initial values.\n\n@param table The array of element values\n@return A box\n\t",
+    "comments": "@within CTypeInfo\n@tag Method\n@method arr\n\nCreate an array subtype with specific length.\n\n@param length The length of the array\n@return An array subtype\n\t",
     "linenums": [
+      386,
       387,
       388,
       389,
       390,
       391,
       392,
-      393,
-      394
+      393
     ]
   },
   {
-    "comments": "@within CTypeInfo\n@tag Method\n@method readData\n\nRead a lua value from reference or box.\n\n@param target Target to read data from\n@param offset Offset to read data from\n@return A lua value\n\t",
+    "comments": "@within CTypeInfo\n@tag Method\n@method box\n\nCreate a box with initial values.\n\n@param table The array of element values\n@return A box\n\t",
     "linenums": [
-      398,
       399,
       400,
       401,
@@ -416,7 +419,7 @@
     ]
   },
   {
-    "comments": "@within CTypeInfo\n@tag Method\n@method writeData\n\nWrite a lua value into reference or box.\n\n@param target Target to write data into\n@param value Lua data to write\n@param offset Offset to write data into\n\t",
+    "comments": "@within CTypeInfo\n@tag Method\n@method readData\n\nRead a lua value from reference or box.\n\n@param target Target to read data from\n@param offset Offset to read data from\n@return A lua value\n\t",
     "linenums": [
       410,
       411,
@@ -430,7 +433,7 @@
     ]
   },
   {
-    "comments": "@within CTypeInfo\n@tag Method\n@method copyData\n\t\nCopy values from the source and paste them into the target.\n\n@param dst Where the content will be pasted\n@param src The source data\n@param dstOffset The offset in the destination where the content will be pasted\n@param srcOffset The offset in the source data from where the content will be copied\n\t",
+    "comments": "@within CTypeInfo\n@tag Method\n@method writeData\n\nWrite a lua value into reference or box.\n\n@param target Target to write data into\n@param value Lua data to write\n@param offset Offset to write data into\n\t",
     "linenums": [
       422,
       423,
@@ -440,112 +443,120 @@
       427,
       428,
       429,
-      430,
-      431
+      430
+    ]
+  },
+  {
+    "comments": "@within CTypeInfo\n@tag Method\n@method copyData\n\t\nCopy values from the source and paste them into the target.\n\n@param dst Where the content will be pasted\n@param src The source data\n@param dstOffset The offset in the destination where the content will be pasted\n@param srcOffset The offset in the source data from where the content will be copied\n\t",
+    "linenums": [
+      434,
+      435,
+      436,
+      437,
+      438,
+      439,
+      440,
+      441,
+      442,
+      443
     ]
   },
   {
     "comments": "@within CTypeInfo\n@tag Method\n@method stringifyData\n\nStringify data. Useful when output numbers, which Luau can't handle.\n\t\n@param target The target data\n@param offset Offset to stringify data from\n\t",
     "linenums": [
-      441,
-      442,
-      443,
-      444,
-      445,
-      446,
-      447,
-      448
-    ]
-  },
-  {
-    "comments": "@within CTypeInfo\n@tag Method\n@method cast\n\t\nCasting data to different type.\n\nMay result in loss of precision.\n\n@param intoType The target type to convert to\n@param fromData Source data to be converted\n@param intoData Target to write converted data into\n@param fromOffset The offset in the source data\n@param intoOffset The offset in the destination\n\t",
-    "linenums": [
+      453,
+      454,
       455,
       456,
       457,
       458,
       459,
-      460,
-      461,
-      462,
-      463,
-      464,
-      465,
-      466,
-      467
+      460
+    ]
+  },
+  {
+    "comments": "@within CTypeInfo\n@tag Method\n@method cast\n\t\nCasting data to different type.\n\nMay result in loss of precision.\n\n@param intoType The target type to convert to\n@param fromData Source data to be converted\n@param intoData Target to write converted data into\n@param fromOffset The offset in the source data\n@param intoOffset The offset in the destination\n\t",
+    "linenums": [
+      467,
+      468,
+      469,
+      470,
+      471,
+      472,
+      473,
+      474,
+      475,
+      476,
+      477,
+      478,
+      479
+    ]
+  },
+  {
+    "comments": "@class CPtrInfo\n\nA c pointer type information.\n",
+    "linenums": [
+      493,
+      494,
+      495
     ]
   },
   {
     "comments": "@within CPtrInfo\n@tag Field\n@readonly\n@field size\n\nThe size of a pointer. should be the same for all pointers.\n\nEquivalent to `ffi.c.usize.size`.\n\t",
     "linenums": [
-      482,
-      483,
-      484,
-      485,
-      486,
-      487,
-      488,
-      489
+      499,
+      500,
+      501,
+      502,
+      503,
+      504,
+      505,
+      506
     ]
   },
   {
     "comments": "@within CPtrInfo\n@tag Field\n@readonly\n@field inner\n\nThe inner type of the pointer.\n\t",
     "linenums": [
-      493,
-      494,
-      495,
-      496,
-      497,
-      498
+      510,
+      511,
+      512,
+      513,
+      514,
+      515
     ]
   },
   {
     "comments": "@within CPtrInfo\n@tag Method\n@method arr\n\nCreate an array subtype with specific length.\n\n@param length The length of the array\n@return An array subtype\n\t",
     "linenums": [
-      505,
-      506,
-      507,
-      508,
-      509,
-      510,
-      511,
-      512
+      522,
+      523,
+      524,
+      525,
+      526,
+      527,
+      528,
+      529
     ]
   },
   {
     "comments": "@within CPtrInfo\n@tag Method\n@method ptr\n\nCreate a pointer subtype.\n\n@return A pointer subtype\n\t",
     "linenums": [
-      517,
-      518,
-      519,
-      520,
-      521,
-      522,
-      523
-    ]
-  },
-  {
-    "comments": "@within CPtrInfo\n@tag Method\n@method readRef\n\nRead address from data, then return RefData.\n\nUseful when reading pointer fields of structures.\n\nIf the `ref` argument is given, rather than create new RefData, update it.\n\n@param target Target data to read address from\n@param offset Offset to read address from\n@param ref RefData to update\n@return A lua value\n\t",
-    "linenums": [
-      529,
-      530,
-      531,
-      532,
-      533,
       534,
       535,
       536,
       537,
       538,
       539,
-      540,
-      541,
-      542
+      540
     ]
   },
   {
-    "comments": "@within CPtrInfo\n@tag Method\n@method writeRef\n\nWrite address to data.\n\t\nUseful when writing pointer fields of structures.\n\n@param target Target data to write address into\n@param ref Memory address to write\n@param offset Offset to write address into\n\t",
+    "comments": "@within CPtrInfo\n@tag Method\n@method readRef\n\nRead address from data, then return RefData.\n\nUseful when reading pointer fields of structures.\n\nIf the `ref` argument is given, rather than create new RefData, update it.\n\n@param target Target data to read address from\n@param offset Offset to read address from\n@param ref RefData to update\n@return A lua value\n\t",
     "linenums": [
+      546,
+      547,
+      548,
+      549,
+      550,
       551,
       552,
       553,
@@ -554,109 +565,109 @@
       556,
       557,
       558,
-      559,
-      560,
-      561
+      559
+    ]
+  },
+  {
+    "comments": "@within CPtrInfo\n@tag Method\n@method writeRef\n\nWrite address to data.\n\t\nUseful when writing pointer fields of structures.\n\n@param target Target data to write address into\n@param ref Memory address to write\n@param offset Offset to write address into\n\t",
+    "linenums": [
+      568,
+      569,
+      570,
+      571,
+      572,
+      573,
+      574,
+      575,
+      576,
+      577,
+      578
     ]
   },
   {
     "comments": "@class CArrInfo\n\nA c sized array type information. It can be used for sturct field.\n\nFor function arguments, use CPtr instead.\n",
     "linenums": [
-      572,
-      573,
-      574,
-      575,
-      576
+      589,
+      590,
+      591,
+      592,
+      593
     ]
   },
   {
     "comments": "@within CArrInfo\n@tag Field\n@readonly\n@field size\n\nThe total size of the array in bytes.\n\t",
     "linenums": [
-      580,
-      581,
-      582,
-      583,
-      584,
-      585
+      597,
+      598,
+      599,
+      600,
+      601,
+      602
     ]
   },
   {
     "comments": "@within CArrInfo\n@tag Field\n@readonly\n@field length\n\nThe length of the array.\n\t",
     "linenums": [
-      589,
-      590,
-      591,
-      592,
-      593,
-      594
+      606,
+      607,
+      608,
+      609,
+      610,
+      611
     ]
   },
   {
     "comments": "@within CArrInfo\n@tag Field\n@readonly\n@field inner\n\nThe inner element type of the array.\n\t",
     "linenums": [
-      598,
-      599,
-      600,
-      601,
-      602,
-      603
+      615,
+      616,
+      617,
+      618,
+      619,
+      620
     ]
   },
   {
     "comments": "@within CArrInfo\n@tag Method\n@method ptr\n\nCreate a pointer subtype.\n\n@return A pointer subtype\n\t",
     "linenums": [
-      609,
-      610,
-      611,
-      612,
-      613,
-      614,
-      615
+      626,
+      627,
+      628,
+      629,
+      630,
+      631,
+      632
     ]
   },
   {
     "comments": "@within CArrInfo\n@tag Method\n@method box\n\nCreate a box with initial values.\n\n@param table The array of field values\n@return A box\n\t",
     "linenums": [
-      621,
-      622,
-      623,
-      624,
-      625,
-      626,
-      627,
-      628
+      638,
+      639,
+      640,
+      641,
+      642,
+      643,
+      644,
+      645
     ]
   },
   {
     "comments": "@within CArrInfo\n@tag Method\n@method readData\n\nRead a lua table from reference or box.\n\n@param target Target to read data from\n@param offset Offset to read data from\n@return A table\n\t",
     "linenums": [
-      632,
-      633,
-      634,
-      635,
-      636,
-      637,
-      638,
-      639,
-      640
+      649,
+      650,
+      651,
+      652,
+      653,
+      654,
+      655,
+      656,
+      657
     ]
   },
   {
     "comments": "@within CArrInfo\n@tag Method\n@method writeData\n\nWrite a lua table into reference or box.\n\n@param target Target to write data into\n@param table Lua data to write\n@param offset Offset to write data into\n\t",
-    "linenums": [
-      644,
-      645,
-      646,
-      647,
-      648,
-      649,
-      650,
-      651,
-      652
-    ]
-  },
-  {
-    "comments": "@within CArrInfo\n@tag Method\n@method copyData\n\t\nCopy values from the source and paste them into the target.\n\t\n@param dst Where the content will be pasted\n@param src The source data\n@param dstOffset The offset in the dst where the content will be pasted\n@param srcOffset The offset in the source data from where the content will be copied\n\t",
     "linenums": [
       661,
       662,
@@ -666,83 +677,78 @@
       666,
       667,
       668,
-      669,
-      670
+      669
     ]
   },
   {
-    "comments": "@within CArrInfo\n@tag Method\n@method offset\n\nGet the byte offset of the field.\n\t\t\n@param index The element index\n@return The byte offset\n\t",
+    "comments": "@within CArrInfo\n@tag Method\n@method copyData\n\t\nCopy values from the source and paste them into the target.\n\t\n@param dst Where the content will be pasted\n@param src The source data\n@param dstOffset The offset in the dst where the content will be pasted\n@param srcOffset The offset in the source data from where the content will be copied\n\t",
     "linenums": [
+      678,
+      679,
+      680,
+      681,
       682,
       683,
       684,
       685,
       686,
-      687,
-      688,
-      689
+      687
+    ]
+  },
+  {
+    "comments": "@within CArrInfo\n@tag Method\n@method offset\n\nGet the byte offset of the field.\n\t\t\n@param index The element index\n@return The byte offset\n\t",
+    "linenums": [
+      699,
+      700,
+      701,
+      702,
+      703,
+      704,
+      705,
+      706
     ]
   },
   {
     "comments": "@class CFnInfo\n\nA C function pointer type information, with function signature.\n\nFor struct field, array element, or function arguments, use `void:ptr()` instead.\n",
     "linenums": [
-      695,
-      696,
-      697,
-      698,
-      699
+      712,
+      713,
+      714,
+      715,
+      716
     ]
   },
   {
     "comments": "@within CFnInfo\n@tag Field\n@readonly\n@field size\n\nThe size of a function pointer.\n\nEquivalent to `ffi.c.usize.size`.\n\t",
     "linenums": [
-      703,
-      704,
-      705,
-      706,
-      707,
-      708,
-      709,
-      710
+      720,
+      721,
+      722,
+      723,
+      724,
+      725,
+      726,
+      727
     ]
   },
   {
     "comments": "@within CFnInfo\n@tag Method\n@method callable\n\nCreate a callable from reference.\n\n@return A callable\n\t",
     "linenums": [
-      716,
-      717,
-      718,
-      719,
-      720,
-      721,
-      722
+      733,
+      734,
+      735,
+      736,
+      737,
+      738,
+      739
     ]
   },
   {
     "comments": "@within CFnInfo\n@tag Method\n@method closure\n\nCreate a closure from lua function.\n\nTo return some data, lua function should write value into ret reference.\n\n@return A closure\n\t",
     "linenums": [
-      726,
-      727,
-      728,
-      729,
-      730,
-      731,
-      732,
-      733,
-      734
-    ]
-  },
-  {
-    "comments": "@class CStructInfo\n\nA c struct type information.\n",
-    "linenums": [
-      740,
-      741,
-      742
-    ]
-  },
-  {
-    "comments": "@within CStructInfo\n@tag Field\n@readonly\n@field size\n\nThe size of a struct, including padding.\n\t",
-    "linenums": [
+      743,
+      744,
+      745,
       746,
       747,
       748,
@@ -752,73 +758,78 @@
     ]
   },
   {
-    "comments": "@within CSturctInfo\n@tag Method\n@method arr\n\nCreate a struct array type.\n\n@param length The length of the array\n@return A struct array type\n\t",
+    "comments": "@class CStructInfo\n\nA c struct type information.\n",
     "linenums": [
       757,
       758,
-      759,
-      760,
-      761,
-      762,
+      759
+    ]
+  },
+  {
+    "comments": "@within CStructInfo\n@tag Field\n@readonly\n@field size\n\nThe size of a struct, including padding.\n\t",
+    "linenums": [
       763,
-      764
+      764,
+      765,
+      766,
+      767,
+      768
+    ]
+  },
+  {
+    "comments": "@within CSturctInfo\n@tag Method\n@method arr\n\nCreate a struct array type.\n\n@param length The length of the array\n@return A struct array type\n\t",
+    "linenums": [
+      774,
+      775,
+      776,
+      777,
+      778,
+      779,
+      780,
+      781
     ]
   },
   {
     "comments": "@within CSturctInfo\n@tag Method\n@method ptr\n\nCreate a struct pointer type.\n\n@return A struct pointer type\n\t",
     "linenums": [
-      768,
-      769,
-      770,
-      771,
-      772,
-      773,
-      774
+      785,
+      786,
+      787,
+      788,
+      789,
+      790,
+      791
     ]
   },
   {
     "comments": "@within CSturctInfo\n@tag Method\n@method box\n\nCreate a box with initial value.\n\n@param table The array of field values\n@return A box\n\t",
     "linenums": [
-      780,
-      781,
-      782,
-      783,
-      784,
-      785,
-      786,
-      787
+      797,
+      798,
+      799,
+      800,
+      801,
+      802,
+      803,
+      804
     ]
   },
   {
     "comments": "@within CSturctInfo\n@tag Method\n@method readData\n\nRead a lua table from reference or box.\n\n@param target Target to read data from\n@param offset Offset to read data from\n@return A table\n\t",
     "linenums": [
-      791,
-      792,
-      793,
-      794,
-      795,
-      796,
-      797,
-      798,
-      799
+      808,
+      809,
+      810,
+      811,
+      812,
+      813,
+      814,
+      815,
+      816
     ]
   },
   {
     "comments": "@within CSturctInfo\n@tag Method\n@method writeData\n\nWrite a lua table into reference or box.\n\n@param target Target to write data into\n@param table Lua data to write\n@param offset Offset to write data into\n\t",
-    "linenums": [
-      803,
-      804,
-      805,
-      806,
-      807,
-      808,
-      809,
-      810,
-      811
-    ]
-  },
-  {
-    "comments": "@within CSturctInfo\n@tag Method\n@method copyData\n\nCopy values from the source and paste them into the target.\n\n@param dst Where the content will be pasted\n@param src The source data\n@param dstOffset The offset in the destination where the content will be pasted\n@param srcOffset The offset in the source data from where the content will be copied\n\t",
     "linenums": [
       820,
       821,
@@ -828,47 +839,42 @@
       825,
       826,
       827,
-      828,
-      829
+      828
     ]
   },
   {
-    "comments": "@within CSturctInfo\n@tag Method\n@method offset\n\nGet the field offset.\n\n@param index The field index\n@return The byte offset\n\t",
+    "comments": "@within CSturctInfo\n@tag Method\n@method copyData\n\nCopy values from the source and paste them into the target.\n\n@param dst Where the content will be pasted\n@param src The source data\n@param dstOffset The offset in the destination where the content will be pasted\n@param srcOffset The offset in the source data from where the content will be copied\n\t",
     "linenums": [
+      837,
+      838,
+      839,
+      840,
       841,
       842,
       843,
       844,
       845,
-      846,
-      847,
-      848
+      846
+    ]
+  },
+  {
+    "comments": "@within CSturctInfo\n@tag Method\n@method offset\n\nGet the field offset.\n\n@param index The field index\n@return The byte offset\n\t",
+    "linenums": [
+      858,
+      859,
+      860,
+      861,
+      862,
+      863,
+      864,
+      865
     ]
   },
   {
     "comments": "@within CSturctInfo\n@tag Method\n@method field\n\nGet the field type.\n\t\t\n@param index The field index\n@return The field type\n\t",
     "linenums": [
-      852,
-      853,
-      854,
-      855,
-      856,
-      857,
-      858,
-      859
-    ]
-  },
-  {
-    "comments": "@class CVoidInfo\n\nA type that represents c void. can only be used for the function return type.\n",
-    "linenums": [
-      865,
-      866,
-      867
-    ]
-  },
-  {
-    "comments": "@within CVoidInfo\n@tag Field\n@readonly\n@field size\n\nThe size of the void type. It is always 0.\n\t",
-    "linenums": [
+      869,
+      870,
       871,
       872,
       873,
@@ -878,364 +884,381 @@
     ]
   },
   {
-    "comments": "@within CVoidInfo\n@tag Method\n@method ptr\n\nCreate a generic pointer type.\n\n@return Generic pointer type, equivalent to `*void` in C.\n\t",
+    "comments": "@class CVoidInfo\n\nA type that represents c void. can only be used for the function return type.\n",
     "linenums": [
       882,
       883,
-      884,
-      885,
-      886,
-      887,
-      888
+      884
     ]
   },
   {
-    "comments": "@prop u8 NumCType\n@within FFI\n@tag NumCType\n\nA 8-bit sized unsigned integer, Equivalent to `uint8_t` in `stdint`.\n",
+    "comments": "@within CVoidInfo\n@tag Field\n@readonly\n@field size\n\nThe size of the void type. It is always 0.\n\t",
     "linenums": [
-      897,
-      898,
+      888,
+      889,
+      890,
+      891,
+      892,
+      893
+    ]
+  },
+  {
+    "comments": "@within CVoidInfo\n@tag Method\n@method ptr\n\nCreate a generic pointer type.\n\n@return Generic pointer type, equivalent to `*void` in C.\n\t",
+    "linenums": [
       899,
       900,
-      901
+      901,
+      902,
+      903,
+      904,
+      905
     ]
   },
   {
-    "comments": "@prop u16 NumCType\n@within FFI\n@tag NumCType\n\nA 16-bit sized unsigned integer, Equivalent to `uint16_t` in `stdint`.\n",
+    "comments": "@prop u8 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 8-bit sized unsigned integer, Equivalent to `uint8_t` in `stdint`.\n",
     "linenums": [
-      906,
-      907,
-      908,
-      909,
-      910
-    ]
-  },
-  {
-    "comments": "@prop u32 NumCType\n@within FFI\n@tag NumCType\n\nA 32-bit sized unsigned integer, Equivalent to `uint32_t` in `stdint`.\n",
-    "linenums": [
+      914,
       915,
       916,
       917,
-      918,
-      919
+      918
     ]
   },
   {
-    "comments": "@prop u64 NumCType\n@within FFI\n@tag NumCType\n\nA 64-bit sized unsigned integer, Equivalent to `uint64_t` in `stdint`.\n",
+    "comments": "@prop u16 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 16-bit sized unsigned integer, Equivalent to `uint16_t` in `stdint`.\n",
     "linenums": [
+      923,
       924,
       925,
       926,
-      927,
-      928
+      927
     ]
   },
   {
-    "comments": "@prop u128 NumCType\n@within FFI\n@tag NumCType\n\nA 128-bit sized unsigned integer, Equivalent to `uint128_t` in `stdint`.\n",
+    "comments": "@prop u32 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 32-bit sized unsigned integer, Equivalent to `uint32_t` in `stdint`.\n",
     "linenums": [
+      932,
       933,
       934,
       935,
-      936,
-      937
+      936
     ]
   },
   {
-    "comments": "@prop i8 NumCType\n@within FFI\n@tag NumCType\n\nA 8-bit sized signed integer, Equivalent to `int8_t` in `stdint`.\n",
+    "comments": "@prop u64 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 64-bit sized unsigned integer, Equivalent to `uint64_t` in `stdint`.\n",
     "linenums": [
+      941,
       942,
       943,
       944,
-      945,
-      946
+      945
     ]
   },
   {
-    "comments": "@prop i16 NumCType\n@within FFI\n@tag NumCType\n\nA 16-bit sized signed integer, Equivalent to `int16_t` in `stdint`.\n",
+    "comments": "@prop u128 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 128-bit sized unsigned integer, Equivalent to `uint128_t` in `stdint`.\n",
     "linenums": [
+      950,
       951,
       952,
       953,
-      954,
-      955
+      954
     ]
   },
   {
-    "comments": "@prop i32 NumCType\n@within FFI\n@tag NumCType\n\nA 32-bit sized signed integer, Equivalent to `int32_t` in `stdint`.\n",
+    "comments": "@prop i8 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 8-bit sized signed integer, Equivalent to `int8_t` in `stdint`.\n",
     "linenums": [
+      959,
       960,
       961,
       962,
-      963,
-      964
+      963
     ]
   },
   {
-    "comments": "@prop i64 NumCType\n@within FFI\n@tag NumCType\n\nA 64-bit sized signed integer, Equivalent to `int64_t` in `stdint`.\n",
+    "comments": "@prop i16 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 16-bit sized signed integer, Equivalent to `int16_t` in `stdint`.\n",
     "linenums": [
+      968,
       969,
       970,
       971,
-      972,
-      973
+      972
     ]
   },
   {
-    "comments": "@prop i128 NumCType\n@within FFI\n@tag NumCType\n\nA 128-bit sized signed integer, Equivalent to `int128_t` in `stdint`.\n",
+    "comments": "@prop i32 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 32-bit sized signed integer, Equivalent to `int32_t` in `stdint`.\n",
     "linenums": [
+      977,
       978,
       979,
       980,
-      981,
-      982
+      981
     ]
   },
   {
-    "comments": "@prop f32 NumCType\n@within FFI\n@tag NumCType\n\nA single-precision 32-bit sized floating-point, Almost always equivalent to `float` in C.\n",
+    "comments": "@prop i64 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 64-bit sized signed integer, Equivalent to `int64_t` in `stdint`.\n",
     "linenums": [
+      986,
       987,
       988,
       989,
-      990,
-      991
+      990
     ]
   },
   {
-    "comments": "@prop f64 NumCType\n@within FFI\n@tag NumCType\n\nA double-precision 64-bit sized floating-point, Almost always equivalent to `double` in C.\n",
+    "comments": "@prop i128 CTypeInfo\n@within FFI\n@tag NumCType\n\nA 128-bit sized signed integer, Equivalent to `int128_t` in `stdint`.\n",
     "linenums": [
+      995,
       996,
       997,
       998,
-      999,
-      1000
+      999
     ]
   },
   {
-    "comments": "@prop usize NumCType\n@within FFI\n@tag NumCType\n\nA machine specific pointer sized unsigned integer.\n",
+    "comments": "@prop f32 CTypeInfo\n@within FFI\n@tag NumCType\n\nA single-precision 32-bit sized floating-point, Almost always equivalent to `float` in C.\n",
     "linenums": [
+      1004,
       1005,
       1006,
       1007,
-      1008,
-      1009
+      1008
     ]
   },
   {
-    "comments": "@prop isize NumCType\n@within FFI\n@tag NumCType\n\nA machine specific pointer sized signed integer.\n",
+    "comments": "@prop f64 CTypeInfo\n@within FFI\n@tag NumCType\n\nA double-precision 64-bit sized floating-point, Almost always equivalent to `double` in C.\n",
     "linenums": [
+      1013,
       1014,
       1015,
       1016,
-      1017,
-      1018
+      1017
     ]
   },
   {
-    "comments": "@prop char NumCType\n@within C\n\nCompiler defined C `char` type.\n\nThe signedness may differ depending on the compiler and platform.\n\nYou can get signedness by `signedness` field.\n",
+    "comments": "@prop usize CTypeInfo\n@within FFI\n@tag NumCType\n\nA machine specific pointer sized unsigned integer.\n",
     "linenums": [
-      1026,
-      1027,
-      1028,
-      1029,
-      1030,
+      1022,
+      1023,
+      1024,
+      1025,
+      1026
+    ]
+  },
+  {
+    "comments": "@prop isize CTypeInfo\n@within FFI\n@tag NumCType\n\nA machine specific pointer sized signed integer.\n",
+    "linenums": [
       1031,
       1032,
-      1033
+      1033,
+      1034,
+      1035
     ]
   },
   {
-    "comments": "@prop uchar NumCType\n@within C\n\nCompiler defined C `unsigned char` type.\n\nMostly equivalent to `u8`.\n",
+    "comments": "@prop char CTypeInfo\n@within C\n\nCompiler defined C `char` type.\n\nThe signedness may differ depending on the compiler and platform.\n\nYou can get signedness by `signedness` field.\n",
     "linenums": [
-      1038,
-      1039,
-      1040,
-      1041,
-      1042,
-      1043
-    ]
-  },
-  {
-    "comments": "@prop schar NumCType\n@within C\n\nCompiler defined C `signed char` type.\n",
-    "linenums": [
+      1043,
+      1044,
+      1045,
+      1046,
+      1047,
       1048,
       1049,
-      1050,
-      1051
+      1050
     ]
   },
   {
-    "comments": "@prop short NumCType\n@within C\n\nCompiler defined C `short` type.\n",
+    "comments": "@prop uchar CTypeInfo\n@within C\n\nCompiler defined C `unsigned char` type.\n\nMostly equivalent to `u8`.\n",
     "linenums": [
+      1055,
       1056,
       1057,
       1058,
-      1059
+      1059,
+      1060
     ]
   },
   {
-    "comments": "@prop ushort NumCType\n@within C\n\nCompiler defined C `unsigned short` type.\n",
+    "comments": "@prop schar CTypeInfo\n@within C\n\nCompiler defined C `signed char` type.\n",
     "linenums": [
-      1064,
       1065,
       1066,
-      1067
+      1067,
+      1068
     ]
   },
   {
-    "comments": "@prop int NumCType\n@within C\n\nCompiler defined C `int` type.\n\nThe side may differ depending on the compiler and platform.\n",
+    "comments": "@prop short CTypeInfo\n@within C\n\nCompiler defined C `short` type.\n",
     "linenums": [
-      1072,
       1073,
       1074,
       1075,
-      1076,
-      1077
+      1076
     ]
   },
   {
-    "comments": "@prop uint NumCType\n@within C\n\nCompiler defined C `unsigned int` type.\n\nThe side may differ depending on the compiler and platform.\n",
+    "comments": "@prop ushort CTypeInfo\n@within C\n\nCompiler defined C `unsigned short` type.\n",
     "linenums": [
+      1081,
       1082,
       1083,
-      1084,
-      1085,
-      1086,
-      1087
+      1084
     ]
   },
   {
-    "comments": "@prop long NumCType\n@within C\n\nCompiler defined C `long` type.\n\nThe side may differ depending on the compiler and platform.\n",
+    "comments": "@prop int CTypeInfo\n@within C\n\nCompiler defined C `int` type.\n\nThe side may differ depending on the compiler and platform.\n",
     "linenums": [
+      1089,
+      1090,
+      1091,
       1092,
       1093,
-      1094,
-      1095,
-      1096,
-      1097
+      1094
     ]
   },
   {
-    "comments": "@prop ulong NumCType\n@within C\n\nCompiler defined C `unsigned long` type.\n\nThe side may differ depending on the compiler and platform.\n",
+    "comments": "@prop uint CTypeInfo\n@within C\n\nCompiler defined C `unsigned int` type.\n\nThe side may differ depending on the compiler and platform.\n",
     "linenums": [
+      1099,
+      1100,
+      1101,
       1102,
       1103,
-      1104,
-      1105,
-      1106,
-      1107
+      1104
     ]
   },
   {
-    "comments": "@prop longlong NumCType\n@within C\n\nCompiler defined C `unsigned longlong` type.\n",
+    "comments": "@prop long CTypeInfo\n@within C\n\nCompiler defined C `long` type.\n\nThe side may differ depending on the compiler and platform.\n",
     "linenums": [
+      1109,
+      1110,
+      1111,
       1112,
       1113,
-      1114,
-      1115
+      1114
     ]
   },
   {
-    "comments": "@prop longlong NumCType\n@within C\n\nCompiler defined C `unsigned longlong` type.\n",
+    "comments": "@prop ulong CTypeInfo\n@within C\n\nCompiler defined C `unsigned long` type.\n\nThe side may differ depending on the compiler and platform.\n",
     "linenums": [
+      1119,
       1120,
       1121,
       1122,
-      1123
+      1123,
+      1124
     ]
   },
   {
-    "comments": "@class CTypes\n\nAll possible C types.\n",
+    "comments": "@prop longlong CTypeInfo\n@within C\n\nCompiler defined C `unsigned longlong` type.\n",
     "linenums": [
+      1129,
       1130,
       1131,
       1132
     ]
   },
   {
-    "comments": "@within C\n\nCreate a function signature type information.\n\n@param args An array of CTypes represents the arguments of the function\n@param ret The return type of the function\n@return A function signature type information\n",
+    "comments": "@prop longlong CTypeInfo\n@within C\n\nCompiler defined C `unsigned longlong` type.\n",
     "linenums": [
-      1167,
-      1168,
-      1169,
-      1170,
-      1171,
-      1172,
-      1173
+      1137,
+      1138,
+      1139,
+      1140
     ]
   },
   {
-    "comments": "@within C\n\nCreate a struct type information.\n\n@param fields An array of CTypes represents the fields of the struct\n@return A struct type information\n",
+    "comments": "@class CTypes\n\nAll possible C types.\n",
     "linenums": [
-      1180,
-      1181,
-      1182,
-      1183,
+      1147,
+      1148,
+      1149
+    ]
+  },
+  {
+    "comments": "@within C\n@function fn\n\nCreate a function signature type information.\n\n@param args An array of CTypes represents the arguments of the function\n@param ret The return type of the function\n@return A function signature type information\n",
+    "linenums": [
       1184,
-      1185
+      1185,
+      1186,
+      1187,
+      1188,
+      1189,
+      1190,
+      1191
     ]
   },
   {
-    "comments": "@within FFI\n\nCreate a `Ref` with address 0.\n\nCan be used for receive a pointer from external function or pass it as an argument.\n\n@return A zero initialized Ref\n",
+    "comments": "@within C\n@function struct\n\nCreate a struct type information.\n\n@param fields An array of CTypes represents the fields of the struct\n@return A struct type information\n",
     "linenums": [
-      1192,
-      1193,
-      1194,
-      1195,
-      1196,
-      1197,
-      1198
+      1198,
+      1199,
+      1200,
+      1201,
+      1202,
+      1203,
+      1204
     ]
   },
   {
-    "comments": "@within FFI\n\nCreate a `Box` with specific size.\nThe created box is not filed with zero.\n\n@param size The size of the new box\n@return A allocated box\n",
+    "comments": "@within FFI\n@function nullRef\n\nCreate a `Ref` with address 0.\n\nCan be used for receive a pointer from external function or pass it as an argument.\n\n@return A zero initialized Ref\n",
     "linenums": [
-      1205,
-      1206,
-      1207,
-      1208,
-      1209,
-      1210,
-      1211
+      1211,
+      1212,
+      1213,
+      1214,
+      1215,
+      1216,
+      1217,
+      1218
     ]
   },
   {
-    "comments": "@within FFI\n\nOpen a dynamic library.\n\n@param name The name of the target library\n@return A dynamic library handle\n",
+    "comments": "@within FFI\n@function box\n\nCreate a `Box` with specific size.\nThe created box is not filed with zero.\n\n@param size The size of the new box\n@return A allocated box\n",
     "linenums": [
-      1218,
-      1219,
-      1220,
-      1221,
-      1222,
-      1223
-    ]
-  },
-  {
-    "comments": "@within FFI\n\nReturn `true` if the second argument is an integer (i32).\n\n@param val A lua value to check\n@return Whether val is an integer or not\n",
-    "linenums": [
+      1225,
+      1226,
+      1227,
+      1228,
+      1229,
       1230,
       1231,
-      1232,
-      1233,
-      1234,
-      1235
+      1232
     ]
   },
   {
-    "comments": "@within FFI\n\nFree referenced memory.\n\n@param data Target memory to free\n",
+    "comments": "@within FFI\n@function open\n\nOpen a dynamic library.\n\n@param name The name of the target library\n@return A dynamic library handle\n",
     "linenums": [
+      1239,
+      1240,
+      1241,
       1242,
       1243,
       1244,
-      1245,
-      1246
+      1245
     ]
   },
   {
-    "comments": "@class TEST\nCOMMENT\nCOMMENT\nCOMMENT\n",
+    "comments": "@within FFI\n@function isInteger\n\nReturn `true` if the second argument is an integer (i32).\n\n@param val A lua value to check\n@return Whether val is an integer or not\n",
     "linenums": [
       1252,
+      1253,
       1254,
+      1255,
       1256,
-      1257
+      1257,
+      1258
+    ]
+  },
+  {
+    "comments": "@within FFI\n@function free\n\nFree referenced memory.\n\n@param data Target memory to free\n",
+    "linenums": [
+      1265,
+      1266,
+      1267,
+      1268,
+      1269,
+      1270
     ]
   }
 ]
