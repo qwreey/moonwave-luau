@@ -401,7 +401,7 @@ export type moonwave_high_class = {
 	unknowns: { [number]: moonwave_high_unknown }?,
 	types: { [number]: moonwave_high_type }?,
 } & moonwave_high_base & moonwave_high_usage & moonwave_high_realm & moonwave_high_visibility
-export type moonwave_high = { [string]: moonwave_class, [":ungrouped"]: moonwave_high_class }
+export type moonwave_high = { [string]: moonwave_high_class, [":ungrouped"]: moonwave_high_class }
 export type moonwave_high_item = moonwave_high_interface | moonwave_high_function | moonwave_high_field | moonwave_high_unknown
 
 local function errline(line: number): string
