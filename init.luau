@@ -1,6 +1,10 @@
 --!nocheck
 --!native
 
+-- TODO: external
+-- TODO: source map (line info)
+-- TODO: moonwave_high_interface
+
 local parser = require("./parser-lua")
 
 local function stripWhitespaces(str: string): string
@@ -142,21 +146,6 @@ local function moonwave_low_tag_find(tags: moonwave_low_tag_list, tag_name: stri
 	end
 	return nil
 end
--- local function moonwave_low_tag_iter(tags: moonwave_low_tag_list, tag_name: string): moonwave_low_tag?
--- 	local index = 0
--- 	return function ()
--- 		while true do
--- 			index += 1
--- 			local tag = tags[index]
--- 			if not tag then
--- 				return
--- 			end
--- 			if tag.tag == tag_name then
--- 				return tag
--- 			end
--- 		end
--- 	end
--- end
 --#endregion low, block to element
 
 --#region middle, gather elements by within, specific element kind
@@ -178,12 +167,14 @@ local moonwave_middle_kind_lookup = {
 	"field",
 	"type",
 }
+export type moonwave_middle_tag = { tag: string, comments: string }
+export type moonwave_middle_tag_list = { [number]: moonwave_middle_tag }
 export type moonwave_middle_element = {
 	kind: moonwave_middle_kind,
 	within: string | ":ungrouped",
 	comments: string,
-	name: string,
-	tags: { [number]: { tag: string, comments: string } },
+	name: string?,
+	tags: moonwave_middle_tag_list,
 }
 export type moonwave_middle = {
 	-- group with within
@@ -192,13 +183,14 @@ export type moonwave_middle = {
 		self: moonwave_middle_element,
 		[number]: moonwave_middle_element,
 	},
+	[":ungrouped"]: { [number]: moonwave_middle_element },
 }
-local function moonwave_get_kind(tags: moonwave_low_tag_list): (moonwave_middle_kind, string)
+local function moonwave_middle_get_kind(tags: moonwave_low_tag_list): (moonwave_middle_kind, string)
 	for _, kind in ipairs(moonwave_middle_kind_lookup) do
 		local tag = moonwave_low_tag_find(tags, kind)
 		if tag then return kind, stripWhitespaces(tag.content) end
 	end
-	return "unknown"
+	return "unknown", nil
 end
 local function moonwave_middle_push(middle: moonwave_middle, element: moonwave_middle_element)
 	local within = middle[element.within]
@@ -219,7 +211,7 @@ local function moonwave_middle(low: moonwave_low): moonwave_middle
 	local middle = {} :: moonwave_middle
 	for _, element in ipairs(low) do
 		local tags = element.tags
-		local kind, name = moonwave_get_kind(tags)
+		local kind, name = moonwave_middle_get_kind(tags)
 		local within = moonwave_low_tag_find(tags, "within")
 		moonwave_middle_push(middle, {
 			name = name,
@@ -237,23 +229,45 @@ end
 export type moonwave_high_kind = moonwave_middle_kind
 export type moonwave_high_base = {
 	kind: moonwave_high_kind,
+	within: string,
 	name: string,
 	comments: string,
-	tag: { [number]: string },
-	unused: { [number]: { tag: string, content: string } },
+	tags: { [number]: string }?,
+	unused_tags: moonwave_middle_tag_list?,
+	raw_tags: moonwave_middle_tag_list,
 }
 export type moonwave_high_usage = {
 	unreleased: boolean,
 	since: string?,
 	deprecated: { version: string, description: string }?,
 }
+export type moonwave_high_realm = {
+	server: boolean,
+	client: boolean,
+	plugin: boolean,
+}
+export type moonwave_high_visibility = {
+	private: boolean,
+	ignore: boolean,
+}
 export type moonwave_high_field = {
 	readonly: boolean,
-} | moonwave_high_base | moonwave_high_usage
+
+	types: { [number]: moonwave_high_type }?,
+} & moonwave_high_base & moonwave_high_usage & moonwave_high_realm & moonwave_high_visibility
 export type moonwave_high_type = {
 	type: string,
-} | moonwave_high_base | moonwave_high_usage
-export type moonwave_high_unknown = moonwave_high_base | moonwave_high_usage
+	name: string,
+}
+export type moonwave_high_unknown = {
+	kind: "unknown",
+	within: string,
+	comments: string,
+	raw_tags: moonwave_middle_tag_list
+}
+export type moonwave_high_function_param = { name: string, type: string?, description: string? }
+export type moonwave_high_function_return = { type: string, description: string? }
+export type moonwave_high_function_error = { type: string, description: string? }
 export type moonwave_high_function = {
 	yields: boolean,
 
@@ -261,42 +275,371 @@ export type moonwave_high_function = {
 	-- <name> [desc]
 	-- `<name>` [desc]
 	-- `<name>` -- [desc]
-	params: { [number]: { name: string, description: string } },
+	params: { [number]: moonwave_high_function_param }?,
 
 	-- <type> -- [desc]
 	-- <type> [desc]
 	-- `<type>` [desc]
 	-- `<type>` -- [desc]
-	returns: { [number]: { type: string, description: string } },
+	returns: { [number]: moonwave_high_function_return }?,
 
 	-- <type> -- [desc]
 	-- <type> [desc]
 	-- `<type>` [desc]
 	-- `<type>` -- [desc]
-	errors: { [number]: { type: string, description: string } },
+	errors: { [number]: moonwave_high_function_error }?,
 
-	types: { [number]: moonwave_high_type },
-} | moonwave_high_base | moonwave_high_usage
+	types: { [number]: moonwave_high_type }?,
+} & moonwave_high_base & moonwave_high_usage & moonwave_high_realm & moonwave_high_visibility
 export type moonwave_high_class = {
-	interfaces: { [number]: moonwave_high_interface },
-	methods: { [number]: moonwave_high_function },
-	functions: { [number]: moonwave_high_function },
-	fields: { [number]: moonwave_high_field },
-	props: { [number]: moonwave_high_field },
-	unknowns: { [number]: moonwave_high_unknown },
-} | moonwave_high_base | moonwave_high_usage
+	interfaces: { [number]: moonwave_high_interface }?,
+	methods: { [number]: moonwave_high_function }?,
+	functions: { [number]: moonwave_high_function }?,
+	fields: { [number]: moonwave_high_field }?,
+	props: { [number]: moonwave_high_field }?,
+	unknowns: { [number]: moonwave_high_unknown }?,
+	types: { [number]: moonwave_high_type }?,
+} & moonwave_high_base & moonwave_high_usage & moonwave_high_realm & moonwave_high_visibility
 export type moonwave_high = { [string]: moonwave_class, [":ungrouped"]: moonwave_high_class }
+export type moonwave_high_item = moonwave_high_interface | moonwave_high_function | moonwave_high_field | moonwave_high_unknown
 
-local function moonwave_high() end
+local function moonwave_high_list_push(
+	moonwave_class_list: moonwave_high, item: moonwave_high_item
+)
+	local kind = (item :: moonwave_high_base).kind
+	local within = (item :: moonwave_high_base).within
+	local class = moonwave_class_list[within]
+
+	if not class then
+		class = {}
+		moonwave_class_list[within] = class
+	end
+
+	if kind == "class" then
+		for key, value in pairs(item :: moonwave_high_class) do
+			class[key] = value
+		end
+		return
+	end
+
+	local list = class[kind.."s"]
+	if not list then
+		list = {}
+		class[kind.."s"] = list
+	end
+
+	table.insert(list, item)
+end
+local function get_or_create_table<T>(item: T&{}, key: string): { any }
+	local t = item[key]
+	if t then
+		return t
+	end
+	t = {}
+	item[key] = t
+	return t
+end
+local function set_or_concat_string(item: { any }, key: string, content: string)
+	local str = item[key]
+	if str then
+		item[key] = `{str}\n{content}`
+	else
+		item[key] = content
+	end
+end
+local function parse_dashed_content(dashed_comments: string): (string?, string?)
+	local head, body = string.match(dashed_comments, "^(.-)[\t ]+%-%-[\t ]+(.+)$")
+	if head then
+		return  head, body
+	end
+
+	-- with ""
+	local first_char = string.sub(dashed_comments, 1, 1)
+	if first_char == "[" or first_char == "'" or first_char == "\"" then
+		local passed, err, endAt = pcall(parser.luaStringParser(dashed_comments))
+		if not passed then
+			error("lua string parsing failed. "..err)
+		end
+		return string.sub(dashed_comments, 1, endAt), stripWhitespaces(string.sub(dashed_comments, endAt+1, -1))
+	end
+
+	head, body = string.match(dashed_comments, "^([^ \t]+) +(.+)$")
+	if head then
+		return head, body
+	end
+	return nil, nil
+end
+-- handle tag tag
+local function moonwave_high_handle_base(item: moonwave_high_base, tag: moonwave_middle_tag): boolean
+	if tag.tag == "tag" then
+		table.insert(
+			get_or_create_table(item, "tags"),
+			tag.comments
+		)
+		return true
+	end
+
+	return false
+end
+-- handle unreleased, deprecated, since tag
+local function moonwave_high_handle_usage(item: moonwave_high_usage, tag: moonwave_middle_tag?): boolean
+	-- default value
+	if not tag then
+		item.unreleased = false
+		return false
+	end
+
+	-- unreleased
+	if tag.tag == "unreleased" then
+		item.unreleased = true
+		return true
+	end
+
+	-- deprecated
+	if tag.tag == "deprecated" then
+		if item.deprecated then
+			item.deprecated.body = `{item.deprecated.body}\n{tag.comments}`
+		else
+			local head, body = parse_dashed_content(tag.comments)
+			item.deprecated = {
+				head = head or "",
+				body = body or tag.comments,
+			}
+		end
+		return true
+	end
+
+	-- since
+	if tag.tag == "since" then
+		set_or_concat_string(item, "since", tag.comments)
+		return true
+	end
+
+	return false
+end
+-- handle client, server, plugin tag
+local function moonwave_high_handle_realm(item: moonwave_high_realm, tag: moonwave_middle_tag?): boolean
+	-- default value
+	if not tag then
+		item.client = false
+		item.server = false
+		item.plugin = false
+		return false
+	end
+
+	if tag.tag == "server" then
+		item.server = true
+		return true
+	elseif tag.tag == "client" then
+		item.client = true
+		return true
+	elseif tag.tag == "plugin" then
+		item.plugin = true
+		return true
+	end
+
+	return false
+end
+-- handle ignore, private tag
+local function moonwave_high_handle_visibility(item: moonwave_high_visibility, tag: moonwave_middle_tag?): boolean
+	-- default
+	if not tag then
+		item.ignore = false
+		item.private = false
+		return false
+	end
+
+	if tag.tag == "private" then
+		item.private = true
+		return true
+	elseif tag.tag == "ignore" then
+		item.ignore = true
+		return true
+	end
+
+	return false
+end
+-- handle readonly tag
+local function moonwave_high_handle_field(item: moonwave_high_field, tag: moonwave_middle_tag?): boolean
+	if not tag then
+		item.readonly = false
+		return false
+	end
+
+	if tag.tag == "readonly" then
+		item.readonly = true
+		return true
+	end
+
+	return false
+end
+-- handle param, return, error tag
+local function moonwave_high_handle_function(item: moonwave_high_function, tag: moonwave_middle_tag?): boolean
+	-- default
+	if not tag then
+		item.yields = false
+		return false
+	end
+
+	if tag.tag == "yields" then
+		item.yields = true
+		return true
+	end
+
+	if tag.tag == "param" then
+		local name, tailing = string.match(tag.contents, "^([^ \t]+)[\t ]+(.+)$")
+		if not name then
+			error("unexpect line: " .. tag.contents)
+		end
+		local head, body = parse_dashed_content(tailing)
+		local param = {
+			name = name,
+		} :: moonwave_high_function_param
+		if head then
+			param.type = head
+			param.description = body
+		elseif tailing ~= "" then
+			param.description = tailing
+		end
+		table.insert(
+			get_or_create_table(item, "params"),
+			param
+		)
+		return true
+	end
+
+	if tag.tag == "return" then
+		local return_ = {} :: moonwave_high_function_return
+		local head, body = parse_dashed_content(tag.contents)
+		if head then
+			return_.type = head
+			return_.description = body
+		else
+			if tag.comments == "" then
+				error("missing content on reutrn")
+			end
+			return_.type = tag.comments
+		end
+		table.insert(
+			get_or_create_table(item, "returns"),
+			return_
+		)
+		return true
+	end
+
+	if tag.tag == "error" then
+		local head, body = parse_dashed_content(tag.contents)
+		local error_ = {} :: moonwave_high_function_error
+		if head then
+			error_.type = head
+			error_.description = body
+		else
+			if tag.comments == "" then
+				error("missing content on error")
+			end
+			error_.type = tag.comments
+		end
+		table.insert(
+			get_or_create_table(item, "errors"),
+			error_
+		)
+		return true
+	end
+
+	return false
+end
+-- handle type tag
+local function moonwave_high_handle_type(item: { 
+	types: { [number]: moonwave_high_type }?
+}, tag: moonwave_middle_tag): boolean
+	if tag.tag == "type" then
+		local name, type_ = string.match(tag.comments, "^([^ \t]+)[ \t]+$")
+		if not name then
+			error("missing content on type")
+		end
+		table.insert(
+			get_or_create_table(item, "types"),
+			{ name = name, type = type_ } :: moonwave_high_type
+		)
+		return true
+	end
+
+	return false
+end
+-- handle middle element (to high item)
+local function moonwave_high_handle_element(element: moonwave_middle_element): moonwave_high_item
+	local base = {
+		comments = element.comments,
+		within = element.within,
+		name = element.name,
+		kind = element.kind,
+		raw_tags = element.tags,
+	} :: moonwave_high_base | moonwave_high_unknown
+
+	local kind = element.kind :: moonwave_middle_kind
+	if kind == "unknown" then
+		return base
+	end
+
+	local isField = kind == "prop" or kind == "field"
+	local isFunction = (kind == "function" or kind == "method")
+	local isInterface = kind == "interface"
+	local isClass = kind == "class"
+	local hasTypes = isField or isFunction or isInterface or isClass
+
+	moonwave_high_handle_usage(base :: moonwave_high_usage)
+	moonwave_high_handle_realm(base :: moonwave_high_realm)
+	moonwave_high_handle_visibility(base :: moonwave_high_visibility)
+	if isField then
+		moonwave_high_handle_field(base :: moonwave_high_field)
+	end
+	if isFunction then
+		moonwave_high_handle_function(base :: moonwave_high_field)
+	end
+
+	local unused_tags = {}
+	for _,tag in ipairs(element.tags) do
+		if kind ~= "unknown" and (
+			moonwave_high_handle_base(base :: moonwave_high_base, tag)
+			or moonwave_high_handle_usage(base :: moonwave_high_usage, tag)
+			or moonwave_high_handle_realm(base :: moonwave_high_realm, tag)
+			or moonwave_high_handle_visibility(base :: moonwave_high_visibility, tag)
+		) then
+		elseif isField and moonwave_high_handle_field(base :: moonwave_high_field) then
+		elseif isFunction and moonwave_high_handle_function(base :: moonwave_high_function) then
+		elseif hasTypes and moonwave_high_handle_type(base :: any, tag) then
+		else
+			-- unprocessed tag
+			table.insert(unused_tags, tag)
+		end
+	end
+
+	if #unused_tags ~= 0 then
+		base.unused_tags = unused_tags
+	end
+
+	return base
+end
+local function moonwave_high(middle: moonwave_middle): moonwave_high
+	local high = { [":ungrouped"] = {} } :: moonwave_high
+
+	for within, items in pairs(middle) do
+		if items.self then
+			moonwave_high_list_push(high, moonwave_high_handle_element(items.self))
+		end
+		for _,item in ipairs(items) do
+			moonwave_high_list_push(high, moonwave_high_handle_element(item))
+		end
+	end
+
+	return high
+end
 --#endregion high, handle all moonwave metadatas and export classes
 
 local function parseString(content: string): moonwave_high
 	local raw = moonwave_raw(content)
-	require("@lune/fs").writeFile("./raw-ignoreme", require("@lune/serde").encode("json", raw, true))
 	local low = moonwave_low(raw)
-	require("@lune/fs").writeFile("./low-ignoreme", require("@lune/serde").encode("json", low, true))
 	local middle = moonwave_middle(low)
-	require("@lune/fs").writeFile("./middle-ignoreme", require("@lune/serde").encode("json", middle, true))
 	local high = moonwave_high(middle)
 	return high
 end
