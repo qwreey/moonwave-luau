@@ -144,8 +144,10 @@ local moonwave_parser = parser.createParser({
 		end,
 		orphans = function(self, str)
 			table.insert(self.parent.comments, str)
-			table.insert(self.parent.comments, "```")
 		end,
+		stop = function(self)
+			table.insert(self.parent.comments, "```")
+		end
 	}),
 	function(self, str, pos, startAt, endAt)
 		table.insert(self.comments, "```")
