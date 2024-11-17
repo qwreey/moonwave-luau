@@ -809,7 +809,62 @@ local function moonwave_high(middle: moonwave_middle): moonwave_high
 end
 --#endregion high, handle all moonwave metadatas and export classes
 
---#region docgen
+--#region compat
+-- export type Source = {
+-- 	path: string,
+-- 	line: number,
+-- }
+
+-- export type FunctionParam = {
+-- 	name: string,
+-- 	desc: string,
+-- 	lua_type: string,
+-- }
+
+-- export type FunctionReturn = {
+-- 	desc: string,
+-- 	lua_type: string,
+-- }
+
+-- export type Function = {
+-- 	name: string,
+-- 	desc: string,
+-- 	params: { FunctionParam },
+-- 	returns: { FunctionReturn },
+-- 	function_type: string,
+-- 	tags: { string }?,
+-- 	source: Source,
+-- }
+
+-- export type Property = {
+-- 	name: string,
+-- 	desc: string,
+-- 	lua_type: string,
+-- 	tags: { string }?,
+-- 	source: Source,
+-- }
+
+-- export type Type = {
+-- 	name: string,
+-- 	desc: string,
+-- 	source: Source,
+-- }
+
+-- export type Item = {
+-- 	name: string,
+-- 	desc: string,
+-- 	functions: { Function },
+-- 	properties: { Property },
+-- 	types: { Type },
+-- 	source: Source,
+-- }
+
+-- local function highToCompat(): { Item }
+
+-- end
+--#endregion
+
+--#region docgen, compat with lune docgen
 local docgen = {}
 docgen.__index = docgen
 
@@ -877,6 +932,15 @@ function docgen:pushAttrs(item: moonwave_high_field | moonwave_high_function | m
 			`**@deprecated** {docgen.inline(docgen.strip(deprecated.version))} {docgen.strip(deprecated.description)}\n`
 		)
 		pushed = true
+	end
+
+	if item.tags then
+		for _, tag in item.tags do
+			if tag == "must_use\n" then
+				self:push("**@must_use**\n")
+				pushed = true
+			end
+		end
 	end
 
 	if pushed then
@@ -1160,7 +1224,7 @@ export type docgen = {
 	) -> ({ moonwave_high_function }, { moonwave_high_function }?),
 	pushComments: (self: docgen, comments: string) -> docgen,
 }
---#endregion docgen
+--#endregion docgen, compat with lune docgen
 
 local function parseString(content: string): moonwave_high
 	local raw = moonwave_raw(content)

@@ -36,3 +36,4 @@ It does not always produce the same results as the official moonwave extractor.
 - source map (line info)
 - external tag
 - docgen types, static? etc (compat with lune-doc)
+- type extract (!!)
