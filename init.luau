@@ -2,7 +2,6 @@
 --!native
 
 -- TODO: external
--- TODO: source map (line info)
 -- TODO: moonwave_high_interface
 
 local parser = require("./parser-lua")
