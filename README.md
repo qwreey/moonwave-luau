@@ -5,6 +5,8 @@ Pure luau implementation for moonwave
 
 # Uses
 
+> **Note: You need to clone submodule too, try `git clone --recursive https://github.com/qwreey/moonwave-luau`**
+
 This project has 4 stage. raw, low, middle, and high.
 
 You can use
