@@ -71,6 +71,7 @@ export type RefData = {
 		@within RefData
 		@tag Method
 		@method deref
+		@tag must_use
 
 		Create a RefData by dereference this reference.
 		The created reference has no boundaries and has no restrictions.
@@ -84,6 +85,7 @@ export type RefData = {
 		@within RefData
 		@tag Method
 		@method offset
+		@tag must_use
 
 		Create a reference with specific offset from this reference.
 
@@ -97,6 +99,7 @@ export type RefData = {
 		@within RefData
 		@tag Method
 		@method ref
+		@tag must_use
 
 		Create a reference of this reference.
 
@@ -121,6 +124,7 @@ export type RefData = {
 		@within RefData
 		@tag Method
 		@method isNull
+		@tag must_use
 
 		Check reference is null or not.
 
@@ -151,6 +155,7 @@ export type RefData = {
 		@within RefData
 		@tag Method
 		@method readString
+		@tag must_use
 
 		Read string from data with specific length without null termination.
 
@@ -224,6 +229,7 @@ export type BoxData = {
 		@within BoxData
 		@tag Method
 		@method ref
+		@tag must_use
 
 		Create a reference of the box.
 
@@ -257,6 +263,7 @@ export type BoxData = {
 		@within BoxData
 		@tag Method
 		@method readString
+		@tag must_use
 
 		Read string from data with specific length without null termination.
 
@@ -297,6 +304,7 @@ export type LibData = {
 		@within LibData
 		@tag Method
 		@method find
+		@tag must_use
 
 		Find a symbol from the dynamic library.
 
@@ -333,6 +341,7 @@ export type ClosureData = {
 		@within ClosureData
 		@tag Method
 		@method ref
+		@tag must_use
 
 		Create a reference of the closure. usually can be used for passing function pointer as argument.
 
@@ -376,6 +385,7 @@ export type CTypeInfo<T, R> = {
 		@within CTypeInfo
 		@tag Method
 		@method ptr
+		@tag must_use
 
 		Create a pointer subtype.
 
@@ -386,6 +396,7 @@ export type CTypeInfo<T, R> = {
 		@within CTypeInfo
 		@tag Method
 		@method arr
+		@tag must_use
 
 		Create an array subtype with specific length.
 
@@ -399,6 +410,7 @@ export type CTypeInfo<T, R> = {
 		@within CTypeInfo
 		@tag Method
 		@method box
+		@tag must_use
 
 		Create a box with initial values.
 
@@ -410,6 +422,7 @@ export type CTypeInfo<T, R> = {
 		@within CTypeInfo
 		@tag Method
 		@method readData
+		@tag must_use
 
 		Read a lua value from reference or box.
 
@@ -453,11 +466,13 @@ export type CTypeInfo<T, R> = {
 		@within CTypeInfo
 		@tag Method
 		@method stringifyData
+		@tag must_use
 
 		Stringify data. Useful when output numbers, which Luau can't handle.
 	
 		@param target The target data
 		@param offset Offset to stringify data from
+		@return A stringified data
 	]=]
 	stringifyData: (self: CTypeInfo<T, R>, target: RefData | BoxData, offset: number?) -> string,
 
@@ -522,6 +537,7 @@ export type CPtrInfo<T> = {
 		@within CPtrInfo
 		@tag Method
 		@method arr
+		@tag must_use
 
 		Create an array subtype with specific length.
 
@@ -534,6 +550,7 @@ export type CPtrInfo<T> = {
 		@within CPtrInfo
 		@tag Method
 		@method ptr
+		@tag must_use
 
 		Create a pointer subtype.
 
@@ -546,6 +563,7 @@ export type CPtrInfo<T> = {
 		@within CPtrInfo
 		@tag Method
 		@method readRef
+		@tag must_use
 
 		Read address from data, then return RefData.
 
@@ -568,6 +586,7 @@ export type CPtrInfo<T> = {
 		@within CPtrInfo
 		@tag Method
 		@method writeRef
+		@tag must_use
 
 		Write address to data.
 	
@@ -626,6 +645,7 @@ export type CArrInfo<T, R> = {
 		@within CArrInfo
 		@tag Method
 		@method ptr
+		@tag must_use
 
 		Create a pointer subtype.
 
@@ -638,6 +658,7 @@ export type CArrInfo<T, R> = {
 		@within CArrInfo
 		@tag Method
 		@method box
+		@tag must_use
 
 		Create a box with initial values.
 
@@ -649,6 +670,7 @@ export type CArrInfo<T, R> = {
 		@within CArrInfo
 		@tag Method
 		@method readData
+		@tag must_use
 
 		Read a lua table from reference or box.
 
@@ -661,6 +683,7 @@ export type CArrInfo<T, R> = {
 		@within CArrInfo
 		@tag Method
 		@method writeData
+		@tag must_use
 
 		Write a lua table into reference or box.
 
@@ -699,6 +722,7 @@ export type CArrInfo<T, R> = {
 		@within CArrInfo
 		@tag Method
 		@method offset
+		@tag must_use
 
 		Get the byte offset of the field.
 		
@@ -733,6 +757,7 @@ export type CFnInfo = {
 		@within CFnInfo
 		@tag Method
 		@method callable
+		@tag must_use
 
 		Create a callable from reference.
 
@@ -743,6 +768,7 @@ export type CFnInfo = {
 		@within CFnInfo
 		@tag Method
 		@method closure
+		@tag must_use
 
 		Create a closure from lua function.
 
@@ -774,6 +800,7 @@ export type CStructInfo = {
 		@within CSturctInfo
 		@tag Method
 		@method arr
+		@tag must_use
 
 		Create a struct array type.
 
@@ -785,6 +812,7 @@ export type CStructInfo = {
 		@within CSturctInfo
 		@tag Method
 		@method ptr
+		@tag must_use
 
 		Create a struct pointer type.
 
@@ -797,6 +825,7 @@ export type CStructInfo = {
 		@within CSturctInfo
 		@tag Method
 		@method box
+		@tag must_use
 
 		Create a box with initial value.
 
@@ -808,6 +837,7 @@ export type CStructInfo = {
 		@within CSturctInfo
 		@tag Method
 		@method readData
+		@tag must_use
 
 		Read a lua table from reference or box.
 
@@ -858,6 +888,7 @@ export type CStructInfo = {
 		@within CSturctInfo
 		@tag Method
 		@method offset
+		@tag must_use
 
 		Get the field offset.
 
@@ -869,6 +900,7 @@ export type CStructInfo = {
 		@within CSturctInfo
 		@tag Method
 		@method field
+		@tag must_use
 
 		Get the field type.
 		
@@ -899,6 +931,7 @@ export type CVoidInfo = {
 		@within CVoidInfo
 		@tag Method
 		@method ptr
+		@tag must_use
 
 		Create a generic pointer type.
 
@@ -1168,6 +1201,7 @@ export type CTypes =
 
 --[=[
 	@within C
+	@tag must_use
 
 	Create a function signature type information.
 
@@ -1181,6 +1215,7 @@ end
 
 --[=[
 	@within C
+	@tag must_use
 
 	Create a struct type information.
 
@@ -1193,6 +1228,7 @@ end
 
 --[=[
 	@within FFI
+	@tag must_use
 
 	Create a `Ref` with address 0.
 
@@ -1206,6 +1242,7 @@ end
 
 --[=[
 	@within FFI
+	@tag must_use
 
 	Create a `Box` with specific size.
 	The created box is not filed with zero.
@@ -1219,6 +1256,7 @@ end
 
 --[=[
 	@within FFI
+	@tag must_use
 
 	Open a dynamic library.
 
@@ -1231,6 +1269,7 @@ end
 
 --[=[
 	@within FFI
+	@tag must_use
 
 	Return `true` if the second argument is an integer (i32).
 

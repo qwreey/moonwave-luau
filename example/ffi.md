@@ -45,6 +45,8 @@ print(ffi.c.int:readData(result))
 
 ### nullRef
 
+**@must_use**
+
 Create a `Ref` with address 0.
 
 Can be used for receive a pointer from external function or pass it as an argument.
@@ -56,6 +58,8 @@ Can be used for receive a pointer from external function or pass it as an argume
 ---
 
 ### box
+
+**@must_use**
 
 Create a `Box` with specific size.
 The created box is not filed with zero.
@@ -72,6 +76,8 @@ The created box is not filed with zero.
 
 ### open
 
+**@must_use**
+
 Open a dynamic library.
 
 #### Parameters
@@ -85,6 +91,8 @@ Open a dynamic library.
 ---
 
 ### isInteger
+
+**@must_use**
 
 Return `true` if the second argument is an integer (i32).
 
@@ -182,6 +190,8 @@ Namespace for compile time sized c types.
 
 ### fn
 
+**@must_use**
+
 Create a function signature type information.
 
 #### Parameters
@@ -196,6 +206,8 @@ Create a function signature type information.
 ---
 
 ### struct
+
+**@must_use**
 
 Create a struct type information.
 
@@ -315,6 +327,8 @@ GC doesn't manage destruction after this action. You must free it later.
 
 #### ref
 
+**@must_use**
+
 Create a reference of the box.
 
 The created reference keeps the box from being garbage collected until the reference itself is collected.
@@ -347,6 +361,8 @@ Copy content from another data with specific length.
 ---
 
 #### readString
+
+**@must_use**
 
 Read string from data with specific length without null termination.
 
@@ -386,6 +402,8 @@ It can be GCed, But it doesn't free the referenced memory.
 
 #### deref
 
+**@must_use**
+
 Create a RefData by dereference this reference.
 The created reference has no boundaries and has no restrictions.
 
@@ -398,6 +416,8 @@ This method is unsafe.
 ---
 
 #### offset
+
+**@must_use**
 
 Create a reference with specific offset from this reference.
 
@@ -414,6 +434,8 @@ The created reference can be GCed and holds same data.
 ---
 
 #### ref
+
+**@must_use**
 
 Create a reference of this reference.
 
@@ -438,6 +460,8 @@ GC doesn't manage destruction after this action. You must free it later.
 ---
 
 #### isNull
+
+**@must_use**
 
 Check reference is null or not.
 
@@ -465,6 +489,8 @@ Copy content from another data with specific length.
 ---
 
 #### readString
+
+**@must_use**
 
 Read string from data with specific length without null termination.
 
@@ -502,6 +528,8 @@ A dynamic opened library handle.
 
 #### find
 
+**@must_use**
+
 Find a symbol from the dynamic library.
 
 ##### Parameters
@@ -527,6 +555,8 @@ A reference that holds lua function.
 ### Methods
 
 #### ref
+
+**@must_use**
 
 Create a reference of the closure. usually can be used for passing function pointer as argument.
 
@@ -564,6 +594,8 @@ The signedness of the type.
 
 #### ptr
 
+**@must_use**
+
 Create a pointer subtype.
 
 ##### Returns
@@ -573,6 +605,8 @@ Create a pointer subtype.
 ---
 
 #### arr
+
+**@must_use**
 
 Create an array subtype with specific length.
 
@@ -588,6 +622,8 @@ Create an array subtype with specific length.
 
 #### box
 
+**@must_use**
+
 Create a box with initial values.
 
 ##### Parameters
@@ -601,6 +637,8 @@ Create a box with initial values.
 ---
 
 #### readData
+
+**@must_use**
 
 Read a lua value from reference or box.
 
@@ -642,12 +680,18 @@ Copy values from the source and paste them into the target.
 
 #### stringifyData
 
+**@must_use**
+
 Stringify data. Useful when output numbers, which Luau can't handle.
 
 ##### Parameters
 
 - `target` The target data
 - `offset` Offset to stringify data from
+
+##### Returns
+
+- A stringified data
 
 ---
 
@@ -691,6 +735,8 @@ The inner type of the pointer.
 
 #### arr
 
+**@must_use**
+
 Create an array subtype with specific length.
 
 ##### Parameters
@@ -705,6 +751,8 @@ Create an array subtype with specific length.
 
 #### ptr
 
+**@must_use**
+
 Create a pointer subtype.
 
 ##### Returns
@@ -714,6 +762,8 @@ Create a pointer subtype.
 ---
 
 #### readRef
+
+**@must_use**
 
 Read address from data, then return RefData.
 
@@ -734,6 +784,8 @@ If the `ref` argument is given, rather than create new RefData, update it.
 ---
 
 #### writeRef
+
+**@must_use**
 
 Write address to data.
 	
@@ -779,6 +831,8 @@ The inner element type of the array.
 
 #### ptr
 
+**@must_use**
+
 Create a pointer subtype.
 
 ##### Returns
@@ -788,6 +842,8 @@ Create a pointer subtype.
 ---
 
 #### box
+
+**@must_use**
 
 Create a box with initial values.
 
@@ -803,6 +859,8 @@ Create a box with initial values.
 
 #### readData
 
+**@must_use**
+
 Read a lua table from reference or box.
 
 ##### Parameters
@@ -817,6 +875,8 @@ Read a lua table from reference or box.
 ---
 
 #### writeData
+
+**@must_use**
 
 Write a lua table into reference or box.
 
@@ -842,6 +902,8 @@ Copy values from the source and paste them into the target.
 ---
 
 #### offset
+
+**@must_use**
 
 Get the byte offset of the field.
 
@@ -873,6 +935,8 @@ Equivalent to `ffi.c.usize.size`.
 
 #### callable
 
+**@must_use**
+
 Create a callable from reference.
 
 ##### Returns
@@ -882,6 +946,8 @@ Create a callable from reference.
 ---
 
 #### closure
+
+**@must_use**
 
 Create a closure from lua function.
 
@@ -918,6 +984,8 @@ The size of the void type. It is always 0.
 ### Methods
 
 #### ptr
+
+**@must_use**
 
 Create a generic pointer type.
 
