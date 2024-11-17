@@ -10,6 +10,23 @@ local parser = require("./parser-lua")
 local function stripWhitespaces(str: string): string
 	return string.gsub(string.gsub(str, "^%s+", ""), "%s+$", "")
 end
+local function get_or_create_table<T>(item: T&{}, key: string): { any }
+	local t = item[key]
+	if t then
+		return t
+	end
+	t = {}
+	item[key] = t
+	return t
+end
+local function set_or_concat_string(item: { any }, key: string, content: string)
+	local str = item[key]
+	if str then
+		item[key] = `{str}\n{content}`
+	else
+		item[key] = content
+	end
+end
 
 --#region raw, read from file string
 -- Parse --[=[(.*)]=] segment
@@ -19,7 +36,7 @@ local moonwave_raw = parser.createParser({
 		return
 	end),
 	-- Declare start
-	"%-%-%[=%[[\n%s]-\n(%s*)",
+	"%-%-%[=%[([\n%s]-\n)(%s*)",
 	declare = parser.createParser({
 		"%]=%]",
 		parser.eof,
@@ -27,31 +44,90 @@ local moonwave_raw = parser.createParser({
 			self.content = str
 		end,
 	}),
-	function(self, str, pos, startAt, endAt, indent)
+	function(self, str, pos, startAt, endAt, newlines, indent)
+		self:process_comment_buffer()
 		local parsed, declareEndAt = self:declare(str, endAt + 1)
+
+		-- count newlines
+		for _ in string.gmatch(newlines, "\n") do
+			self.line += 1
+		end
+
 		-- Remove indent
-		local content = string.gsub(parsed.content, `\n{indent}([^\n]+)`, function(content)
-			return "\n" .. content
+		local content = string.gsub(parsed.content, `\n{indent}([^\n]+)`, function(line)
+			return "\n" .. line
 		end)
-		table.insert(self.comments, content)
+
+		local linenums = {}
+		local last = 1
+		for endpos in string.gmatch(content, "()\n") do
+			table.insert(linenums, self.line)
+			self.line += 1
+			last = endpos+1
+		end
+		local content_len = #content
+		if content_len > last then
+			-- need test (  adsf]=]  ) like this no linebreak in ending
+			table.insert(linenums, self.line)
+		end
+
+		table.insert(self.comments, { linenums = linenums, comments = content })
 		return declareEndAt + 1
 	end,
 
-	orphans = function() end,
+	{ "%-%-%-[\t ]*([^\n]+\n)", "%-%-%-[\t ]*([^\n]+)$" },
+	function (self, str, pos, startAt, endAt, comment)
+		table.insert(
+			get_or_create_table(self, "buffer_comments"), comment
+		)
+		table.insert(
+			get_or_create_table(self, "buffer_lines"), self.line
+		)
+		self.line += 1
+	end,
+
+	"[\t ]*\n",
+	function (self)
+		self.line += 1
+	end,
+
+	process_comment_buffer = function(self)
+		local buffer_comments = self.buffer_comments
+		if not buffer_comments then
+			return
+		end
+		table.insert(self.comments, {
+			linenums = self.buffer_lines,
+			comments = table.concat(buffer_comments),
+		})
+		self.buffer_lines = nil
+		self.buffer_comments = nil
+	end,
+	orphans = function(self)
+		self:process_comment_buffer()
+	end,
 	init = function(self)
+		self.line = 1
 		self.comments = {}
 	end,
 	stop = function(self)
+		self:process_comment_buffer()
 		return self.comments
 	end,
 	noEOF = true,
 })
-export type moonwave_raw = { string }
+export type moonwave_raw = { [number]: { comments: string, linenums: { number } } }
 --#endregion raw, read from file string
 
 --#region low, block to element
 -- Parse @tag and comments. one --[=[]=] => one element
 local moonwave_parser = parser.createParser({
+	"\n",
+	function(self)
+		self.line += 1
+		table.insert(self.comments, "\n")
+	end,
+
 	-- Process escape
 	"(\\.)",
 	function(self, str, pos, startAt, endAt, char)
@@ -62,6 +138,11 @@ local moonwave_parser = parser.createParser({
 	codeInner = parser.createParser({
 		"```",
 		parser.eof,
+		"\n",
+		function (self)
+			table.insert(self.parent.comments, "\n")
+			self.parent.line += 1
+		end,
 		orphans = function(self, str)
 			table.insert(self.parent.comments, str)
 			table.insert(self.parent.comments, "```")
@@ -78,6 +159,11 @@ local moonwave_parser = parser.createParser({
 		"(\\.)",
 		function(self, str, pos, startAt, endAt, char)
 			table.insert(self.parent.comments, char)
+		end,
+		"\n",
+		function (self)
+			table.insert(self.parent.comments, "\n")
+			self.parent.line += 1
 		end,
 		"`",
 		parser.eof,
@@ -96,13 +182,17 @@ local moonwave_parser = parser.createParser({
 
 	-- Tagged annotations
 	-- "[%s\n]*@(%a+) +([^\n]+)[%s\n]*",
-	{"@(%a+) +([^\n]+)[\n \t]", "@(%a+) +([^\n]+)[\n \t]$"},
+	{"@(%a+) +([^\n]+\n)", "@(%a+) +([^\n]+)$"},
 	function(self, str, pos, startAt, endAt, tag, content)
-		table.insert(self.tags, { tag = tag, content = content })
+		table.insert(self.tags, { tag = tag, content = content, line = self.linemaps[self.line] })
+		self.line += 1
 	end,
-	{"@(%a+)[\n \t]", "@(%a+)$"},
-	function(self, str, pos, startAt, endAt, tag, content)
-		table.insert(self.tags, { tag = tag, content = content })
+	{"@(%a+)([\n \t])", "@(%a+)$"},
+	function(self, str, pos, startAt, endAt, tag, tailing)
+		table.insert(self.tags, { tag = tag, line = self.linemaps[self.line] })
+		if tailing == "\n" then
+			self.line += 1
+		end
 	end,
 
 	orphans = function(self, str)
@@ -111,22 +201,27 @@ local moonwave_parser = parser.createParser({
 	tailing = function(self, str)
 		table.insert(self.comments, str)
 	end,
-	init = function(self)
+	init = function(self, _str, _pos, linemaps)
 		self.comments = {}
 		self.tags = {}
+		self.line = 1
+		self.linemaps = linemaps
 	end,
 	stop = function(self)
 		return {
 			comments = stripWhitespaces(table.concat(self.comments)),
 			tags = self.tags,
+			first_line = self.linemaps[1],
+			end_line = self.linemaps[self.line - 1]
 		}
 	end,
 	noEOF = true,
 })
-export type moonwave_low_tag = { tag: string, content: string }
+export type moonwave_low_tag = { line: number, tag: string, content: string }
 export type moonwave_low_tag_list = { [number]: moonwave_low_tag }
 export type moonwave_low = {
 	[number]: {
+		first_line: number,
 		comments: string,
 		tags: moonwave_low_tag_list,
 	},
@@ -134,7 +229,7 @@ export type moonwave_low = {
 local function moonwave_low(segments: moonwave_raw): moonwave_low
 	local low = table.create(#segments) :: moonwave_low
 	for index, raw in ipairs(segments) do
-		low[index] = moonwave_parser(raw)
+		low[index] = moonwave_parser(raw.comments, 1, raw.linenums)
 	end
 	return low
 end
@@ -167,7 +262,7 @@ local moonwave_middle_kind_lookup = {
 	"field",
 	"type",
 }
-export type moonwave_middle_tag = { tag: string, comments: string }
+export type moonwave_middle_tag = { tag: string, comments: string, line: number }
 export type moonwave_middle_tag_list = { [number]: moonwave_middle_tag }
 export type moonwave_middle_element = {
 	kind: moonwave_middle_kind,
@@ -175,6 +270,7 @@ export type moonwave_middle_element = {
 	comments: string,
 	name: string?,
 	tags: moonwave_middle_tag_list,
+	line: number,
 }
 export type moonwave_middle = {
 	-- group with within
@@ -219,6 +315,7 @@ local function moonwave_middle(low: moonwave_low): moonwave_middle
 			comments = element.comments,
 			tags = tags,
 			kind = kind,
+			line = element.first_line,
 		})
 	end
 	return middle
@@ -229,6 +326,7 @@ end
 export type moonwave_high_kind = moonwave_middle_kind
 export type moonwave_high_base = {
 	kind: moonwave_high_kind,
+	line: number,
 	within: string,
 	name: string,
 	comments: string,
@@ -253,21 +351,25 @@ export type moonwave_high_visibility = {
 export type moonwave_high_field = {
 	readonly: boolean,
 
+	type: string?,
+
 	types: { [number]: moonwave_high_type }?,
 } & moonwave_high_base & moonwave_high_usage & moonwave_high_realm & moonwave_high_visibility
 export type moonwave_high_type = {
 	type: string,
 	name: string,
+	line: number,
 }
 export type moonwave_high_unknown = {
 	kind: "unknown",
+	line: number,
 	within: string,
 	comments: string,
 	raw_tags: moonwave_middle_tag_list
 }
-export type moonwave_high_function_param = { name: string, type: string?, description: string? }
-export type moonwave_high_function_return = { type: string, description: string? }
-export type moonwave_high_function_error = { type: string, description: string? }
+export type moonwave_high_function_param = { name: string, type: string?, description: string?, line: number }
+export type moonwave_high_function_return = { type: string, description: string?, line: number }
+export type moonwave_high_function_error = { type: string, description: string?, line: number }
 export type moonwave_high_function = {
 	yields: boolean,
 
@@ -303,6 +405,9 @@ export type moonwave_high_class = {
 export type moonwave_high = { [string]: moonwave_class, [":ungrouped"]: moonwave_high_class }
 export type moonwave_high_item = moonwave_high_interface | moonwave_high_function | moonwave_high_field | moonwave_high_unknown
 
+local function errline(line: number): string
+	return `[line: {line}]`
+end
 local function moonwave_high_list_push(
 	moonwave_class_list: moonwave_high, item: moonwave_high_item
 )
@@ -330,27 +435,10 @@ local function moonwave_high_list_push(
 
 	table.insert(list, item)
 end
-local function get_or_create_table<T>(item: T&{}, key: string): { any }
-	local t = item[key]
-	if t then
-		return t
-	end
-	t = {}
-	item[key] = t
-	return t
-end
-local function set_or_concat_string(item: { any }, key: string, content: string)
-	local str = item[key]
-	if str then
-		item[key] = `{str}\n{content}`
-	else
-		item[key] = content
-	end
-end
-local function parse_dashed_content(dashed_comments: string): (string?, string?)
+local function parse_dashed_content(dashed_comments: string, line: number): (string?, string?, boolean?)
 	local head, body = string.match(dashed_comments, "^(.-)[\t ]+%-%-[\t ]+(.+)$")
 	if head then
-		return  head, body
+		return head, body, true
 	end
 
 	-- with ""
@@ -358,23 +446,23 @@ local function parse_dashed_content(dashed_comments: string): (string?, string?)
 	if first_char == "[" or first_char == "'" or first_char == "\"" then
 		local passed, err, endAt = pcall(parser.luaStringParser(dashed_comments))
 		if not passed then
-			error("lua string parsing failed. "..err)
+			error(`{errline(line)} lua string parsing failed. {err}`)
 		end
-		return string.sub(dashed_comments, 1, endAt), stripWhitespaces(string.sub(dashed_comments, endAt+1, -1))
+		return string.sub(dashed_comments, 1, endAt), stripWhitespaces(string.sub(dashed_comments, endAt+1, -1)), true
 	end
 
 	head, body = string.match(dashed_comments, "^([^ \t]+) +(.+)$")
 	if head then
-		return head, body
+		return head, body, false
 	end
-	return nil, nil
+	return nil, nil, nil
 end
 -- handle tag tag
 local function moonwave_high_handle_base(item: moonwave_high_base, tag: moonwave_middle_tag): boolean
 	if tag.tag == "tag" then
 		table.insert(
 			get_or_create_table(item, "tags"),
-			tag.comments
+			tag.content
 		)
 		return true
 	end
@@ -398,12 +486,12 @@ local function moonwave_high_handle_usage(item: moonwave_high_usage, tag: moonwa
 	-- deprecated
 	if tag.tag == "deprecated" then
 		if item.deprecated then
-			item.deprecated.body = `{item.deprecated.body}\n{tag.comments}`
+			item.deprecated.body = `{item.deprecated.body}\n{tag.content}`
 		else
-			local head, body = parse_dashed_content(tag.comments)
+			local head, body = parse_dashed_content(tag.content, tag.line)
 			item.deprecated = {
 				head = head or "",
-				body = body or tag.comments,
+				body = body or tag.content,
 			}
 		end
 		return true
@@ -411,7 +499,7 @@ local function moonwave_high_handle_usage(item: moonwave_high_usage, tag: moonwa
 
 	-- since
 	if tag.tag == "since" then
-		set_or_concat_string(item, "since", tag.comments)
+		set_or_concat_string(item, "since", tag.content)
 		return true
 	end
 
@@ -463,6 +551,11 @@ end
 local function moonwave_high_handle_field(item: moonwave_high_field, tag: moonwave_middle_tag?): boolean
 	if not tag then
 		item.readonly = false
+		local name, type_ = string.match(item.name,"^([^ \t]+)[ \t]+(.+)$")
+		if name then
+			item.name = name
+			item.type = type_
+		end
 		return false
 	end
 
@@ -487,15 +580,16 @@ local function moonwave_high_handle_function(item: moonwave_high_function, tag: 
 	end
 
 	if tag.tag == "param" then
-		local name, tailing = string.match(tag.contents, "^([^ \t]+)[\t ]+(.+)$")
+		local name, tailing = string.match(tag.content, "^([^ \t]+)[\t ]+(.+)$")
 		if not name then
-			error("unexpect line: " .. tag.contents)
+			error(`{errline(tag.line)} unexpect param content: {tag.content}`)
 		end
-		local head, body = parse_dashed_content(tailing)
+		local head, body, dashed = parse_dashed_content(tailing, tag.line)
 		local param = {
 			name = name,
+			line = tag.line,
 		} :: moonwave_high_function_param
-		if head then
+		if head and dashed then
 			param.type = head
 			param.description = body
 		elseif tailing ~= "" then
@@ -509,16 +603,16 @@ local function moonwave_high_handle_function(item: moonwave_high_function, tag: 
 	end
 
 	if tag.tag == "return" then
-		local return_ = {} :: moonwave_high_function_return
-		local head, body = parse_dashed_content(tag.contents)
-		if head then
+		local return_ = { line = tag.line } :: moonwave_high_function_return
+		local head, body, dashed = parse_dashed_content(tag.content, tag.line)
+		if head and dashed then
 			return_.type = head
 			return_.description = body
 		else
-			if tag.comments == "" then
-				error("missing content on reutrn")
+			if tag.content == "" then
+				error(`{errline(tag.line)} missing content on reutrn`)
 			end
-			return_.type = tag.comments
+			return_.description = tag.content
 		end
 		table.insert(
 			get_or_create_table(item, "returns"),
@@ -528,16 +622,16 @@ local function moonwave_high_handle_function(item: moonwave_high_function, tag: 
 	end
 
 	if tag.tag == "error" then
-		local head, body = parse_dashed_content(tag.contents)
-		local error_ = {} :: moonwave_high_function_error
+		local head, body = parse_dashed_content(tag.content, tag.line)
+		local error_ = { line = tag.line } :: moonwave_high_function_error
 		if head then
 			error_.type = head
 			error_.description = body
 		else
-			if tag.comments == "" then
-				error("missing content on error")
+			if tag.content == "" then
+				error(`{errline(tag.line)} missing content on error`)
 			end
-			error_.type = tag.comments
+			error_.type = tag.content
 		end
 		table.insert(
 			get_or_create_table(item, "errors"),
@@ -553,13 +647,13 @@ local function moonwave_high_handle_type(item: {
 	types: { [number]: moonwave_high_type }?
 }, tag: moonwave_middle_tag): boolean
 	if tag.tag == "type" then
-		local name, type_ = string.match(tag.comments, "^([^ \t]+)[ \t]+$")
+		local name, type_ = string.match(tag.content, "^([^ \t]+)[ \t]+$")
 		if not name then
-			error("missing content on type")
+			error(`{errline(tag.line)} missing content on type`)
 		end
 		table.insert(
 			get_or_create_table(item, "types"),
-			{ name = name, type = type_ } :: moonwave_high_type
+			{ name = name, type = type_, line = tag.line } :: moonwave_high_type
 		)
 		return true
 	end
@@ -574,6 +668,7 @@ local function moonwave_high_handle_element(element: moonwave_middle_element): m
 		name = element.name,
 		kind = element.kind,
 		raw_tags = element.tags,
+		line = element.line,
 	} :: moonwave_high_base | moonwave_high_unknown
 
 	local kind = element.kind :: moonwave_middle_kind
@@ -605,10 +700,19 @@ local function moonwave_high_handle_element(element: moonwave_middle_element): m
 			or moonwave_high_handle_realm(base :: moonwave_high_realm, tag)
 			or moonwave_high_handle_visibility(base :: moonwave_high_visibility, tag)
 		) then
-		elseif isField and moonwave_high_handle_field(base :: moonwave_high_field) then
-		elseif isFunction and moonwave_high_handle_function(base :: moonwave_high_function) then
+		elseif isField and moonwave_high_handle_field(base :: moonwave_high_field, tag) then
+		elseif isFunction and moonwave_high_handle_function(base :: moonwave_high_function, tag) then
 		elseif hasTypes and moonwave_high_handle_type(base :: any, tag) then
-		else
+		elseif
+			tag.tag == "within" or
+			tag.tag == "class" or
+			tag.tag == "method" or
+			tag.tag == "function" or
+			tag.tag == "interface" or
+			tag.tag == "prop" or
+			tag.tag == "field" or
+			tag.tag == "type"
+		then else
 			-- unprocessed tag
 			table.insert(unused_tags, tag)
 		end
@@ -623,7 +727,7 @@ end
 local function moonwave_high(middle: moonwave_middle): moonwave_high
 	local high = { [":ungrouped"] = {} } :: moonwave_high
 
-	for within, items in pairs(middle) do
+	for _, items in pairs(middle) do
 		if items.self then
 			moonwave_high_list_push(high, moonwave_high_handle_element(items.self))
 		end
