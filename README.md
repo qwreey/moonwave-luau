@@ -20,6 +20,8 @@ Function to perform each stage, or use parseString for get final result.
 
 Please check type defines in init.luau for get result formats.
 
+You can create document with `docgen`. See `example/init.luau`
+
 # Example
 
 To run example file, run `lune run example`.
@@ -35,3 +37,4 @@ It does not always produce the same results as the official moonwave extractor.
 - interface tag
 - source map (line info)
 - external tag
+- docgen types, static? etc (compat with lune-doc)
